@@ -356,7 +356,7 @@ def main() -> None:
 
     import gemini
     from ankiweb_sync import download_collection
-    from nieuws import fetch_items, readable_sources
+    from nieuws import fetch_items, usable_items
 
     print("Nieuws ophalen ...", flush=True)
     items = fetch_items()
@@ -365,8 +365,7 @@ def main() -> None:
     by_id = {it.id: it for it in items}
     model = gemini.pick_model()
     print(f"Gemini-model: {model}", flush=True)
-    readable = readable_sources(items)
-    pool = [it for it in items if it.content or it.source in readable]
+    pool = usable_items(items)
     if len(pool) < 15:
         pool = items
     candidates = select_items(model, pool)

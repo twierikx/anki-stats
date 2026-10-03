@@ -98,23 +98,23 @@ def fetch_items() -> list[Item]:
     return items
 
 
-def readable_sources(items: list[Item]) -> set[str]:
-    """Try one article per source; return the sources whose pages we can actually read."""
-    ok: set[str] = set()
+def usable_items(items: list[Item]) -> list[Item]:
+    """Items we can get full text for: text in the feed, or a site that lets us read pages."""
+    fetchable: set[str] = set()
+    blocked: set[str] = set()
     tried: dict[str, int] = {}
     for it in items:
-        if it.source in ok:
-            continue
-        if it.content:
-            ok.add(it.source)
-            continue
-        if tried.get(it.source, 0) >= 2:
+        if it.content or it.source in fetchable or it.source in blocked:
             continue
         tried[it.source] = tried.get(it.source, 0) + 1
         if len(fetch_article(it.link)) >= MIN_TEXT:
-            ok.add(it.source)
-    print(f"  Leesbare bronnen: {', '.join(sorted(ok)) or 'geen'}")
-    return ok
+            fetchable.add(it.source)
+        elif tried[it.source] >= 2:
+            blocked.add(it.source)
+    usable = [it for it in items if it.content or it.source in fetchable]
+    print(f"  Pagina's leesbaar: {', '.join(sorted(fetchable)) or 'geen'}; "
+          f"{len(usable)} van {len(items)} berichten bruikbaar")
+    return usable
 
 
 # ------------------------------------------------------- full article text --

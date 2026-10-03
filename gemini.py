@@ -101,7 +101,8 @@ importantes para la vida en España.
 - Evita sucesos, crímenes, accidentes, violencia gráfica, cotilleo, resultados deportivos, \
 directos ("en directo", "última hora" con muchos temas), columnas de opinión y peleas \
 partidistas sin contenido.
-- Busca variedad de temas y de fuentes. Prefiere noticias sobre España.
+- Busca variedad de temas y de fuentes: como máximo una noticia sobre el mismo asunto \
+(por ejemplo, no dos sobre vivienda). Prefiere noticias sobre España.
 - Elige solo noticias cuya entradilla tenga suficiente información para resumirlas."""
 
 SELECT_SCHEMA = {
