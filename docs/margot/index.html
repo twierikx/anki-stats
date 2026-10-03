@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 04-10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article p{margin:0 0 10px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">domingo, 4 de octubre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>9</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>3</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>28</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article><span class="rubric positivo">Ciencia</span><h2>La expansión del universo sorprende a los científicos</h2><p>El <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">astrofísico</span> Brian Schmidt, premio Nobel de Física en 2011, ha participado en un encuentro científico en San Sebastián. Durante las charlas, el experto recordó cómo su equipo descubrió a finales de los años noventa que el universo se expande cada vez más rápido. Al principio, los investigadores creyeron que su <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">cálculo</span> estaba <span class="w w-nieuw" role="button" tabindex="0" data-i="1">equivocado</span>, porque esperaban observar exactamente lo contrario.</p><p>Para realizar sus mediciones cósmicas, los científicos utilizaron la luz de unas estrellas <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">enanas</span> llamadas supernovas. Estos estudios permitieron medir distancias enormes con gran exactitud gracias a telescopios y cámaras digitales modernas. Los datos mostraron que la <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">gravedad</span> no frena el cosmos, sino que una fuerza misteriosa llamada energía oscura impulsa su separación.</p><p>Este <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">hallazgo</span> cambió la <span class="w w-nieuw" role="button" tabindex="0" data-i="7">visión</span> que la ciencia tenía del cosmos e impulsó nuevas preguntas sobre el origen del espacio. Schmidt explicó que los científicos <span class="w w-fout" role="button" tabindex="0" data-i="2">procuraron</span> comprobar cada número muchas veces antes de aceptar una realidad tan sorprendente. El astrofísico destacó que en la <span class="w w-nieuw" role="button" tabindex="0" data-i="3">historia</span> de la ciencia es necesario aceptar las sorpresas que nos da el universo.</p><div class="src">Bron: <a href="https://www.eldiario.es/sociedad/brian-schmidt-premio-nobel-fisica-principio-universo-loco-imaginamos_128_13534483.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Sociedad</span><h2>Gran marcha en Madrid por una vivienda asequible</h2><p>Miles de personas salieron este sábado a las calles de Madrid para exigir soluciones al problema del acceso a la vivienda. Cuatro marchas diferentes avanzaron por la capital hasta unirse frente al Palacio de Cibeles. Las cifras de asistencia <span class="w w-nieuw" role="button" tabindex="0" data-i="12">oscilan</span> entre las 70.000 personas confirmadas por las autoridades y el medio millón estimado por los convocantes.</p><p>Los manifestantes protestaron después de que el Congreso rechazara medidas urgentes para frenar <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">desahucios</span> y renovar contratos de <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">alquiler</span>. Ante esta situación, las organizaciones sociales piden preparar una <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">huelga</span> general que marque un cambio en la <span class="w w-nieuw" role="button" tabindex="0" data-i="3">historia</span> reciente del país. Vecinos y activistas explicaron que la dificultad para pagar un techo digno afecta a familias muy diversas.</p><p>El movimiento por la vivienda no solo se manifestó en Madrid, ya que convocatorias similares se repitieron en 54 ciudades españolas. Mucha gente decidió <span class="w w-nieuw" role="button" tabindex="0" data-i="13">acudir</span> a estas marchas para expresar su malestar colectivo. Aunque organizar un <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">paro</span> total será un <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">reto</span> difícil, los <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">portavoces</span> aseguran que mantendrán las protestas activas en diferentes frentes.</p><div class="src">Bron: <a href="https://www.eldiario.es/madrid/somos/miles-personas-inundan-calles-madrid-vivienda-ahora-toca-huelga-general_1_13557572.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric positivo">Tecnología</span><h2>La inteligencia artificial descifra un mensaje secreto de Napoleón</h2><p>Una carta secreta escrita por el <span class="w w-moeilijk" role="button" tabindex="0" data-i="20">emperador</span> Napoleón Bonaparte en 1809 ha sido <span class="w w-moeilijk" role="button" tabindex="0" data-i="19">descifrada</span> por primera vez gracias a la tecnología moderna. El documento, enviado originalmente a un general francés en territorio de la actual Croacia, contenía números y símbolos que nadie había logrado leer durante más de dos siglos.</p><p>Un especialista en <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">ciberseguridad</span> se <span class="w w-nieuw" role="button" tabindex="0" data-i="21">aventuró</span> a resolver este misterio histórico utilizando un sistema avanzado de inteligencia artificial. La máquina logró entender la clave y <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">transcribir</span> el texto en apenas seis horas de trabajo informático. En el mensaje descifrado <span class="w w-fout" role="button" tabindex="0" data-i="22">figuran</span> las posiciones secretas de las <span class="w w-moeilijk" role="button" tabindex="0" data-i="23">tropas</span> francesas y diversas instrucciones militares estratégicas.</p><p>El responsable del proyecto destacó que este tipo de tecnologías permite resolver dudas antiguas del pasado. Según el analista, ahora personas con un perfil <span class="w w-fout" role="button" tabindex="0" data-i="24">ajeno</span> a la criptografía profesional pueden aportar soluciones nuevas con simple curiosidad. Este éxito demuestra el gran apoyo que la informática moderna ofrece para recuperar datos valiosos de la <span class="w w-nieuw" role="button" tabindex="0" data-i="3">historia</span> humana.</p><div class="src">Bron: <a href="https://www.20minutos.es/ciencia/inteligencia-artificial-logra-descifrar-carta-napoleon-escribio-codigo-anos_7044430_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Clima</span><h2>Alerta en Cataluña ante un fenómeno meteorológico mediterráneo</h2><p>Las autoridades de Cataluña han activado alertas meteorológicas por la posible llegada de un minihuracán mediterráneo a su <span class="w w-moeilijk" role="button" tabindex="0" data-i="30">litoral</span> costero. Este tipo de <span class="w w-moeilijk" role="button" tabindex="0" data-i="29">temporal</span> poco frecuente puede provocar lluvias <span class="w w-moeilijk" role="button" tabindex="0" data-i="26">torrenciales</span> de hasta 200 litros por metro cuadrado en pocas horas. Ante este peligro, Protección Civil envió mensajes de aviso a los teléfonos móviles de los ciudadanos.</p><p>El fenómeno se produce cuando el aire frío se combina con las aguas cálidas del mar durante los meses del otoño. Esta mezcla crea grandes tormentas con vientos muy intensos y un cambio <span class="w w-nieuw" role="button" tabindex="0" data-i="31">brusco</span> en las condiciones de la costa. Aunque no son huracanes tropicales completos, estos eventos meteorológicos pueden generar graves <span class="w w-moeilijk" role="button" tabindex="0" data-i="28">destrozos</span> debido a su potencia concentrada.</p><p><span class="w w-nieuw" role="button" tabindex="0" data-i="32">Dado</span> el riesgo de <span class="w w-moeilijk" role="button" tabindex="0" data-i="27">inundaciones</span>, las instituciones recomendaron evitar <span class="w w-moeilijk" role="button" tabindex="0" data-i="25">desplazamientos</span> innecesarios desde la noche del sábado hasta el domingo. Los servicios de emergencias <span class="w w-fout" role="button" tabindex="0" data-i="2">procuran</span> mantener todas las precauciones activas para reducir cualquier daño material. Además, varios eventos públicos y actividades al aire libre tuvieron que ser cancelados en la zona afectada.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/que-es-un-medicane-potencialmente-destructor-mini-huracan-mediterraneo-que-amenaza-litoral-catalan_7044490_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric positivo">Cultura</span><h2>Dua Lipa sorprende en el concierto de Shakira</h2><p>La cantante británica Dua Lipa apareció por sorpresa en el <span class="w w-moeilijk" role="button" tabindex="0" data-i="35">escenario</span> durante el concierto que la colombiana Shakira ofreció en Madrid. El público madrileño no esperaba esta colaboración artística, ya que muchos rumores apuntaban a otros músicos latinos como posibles acompañantes. Sin embargo, la estrella londinense se presentó ante los espectadores con gran entusiasmo.</p><p>Shakira recibió a la joven cantante con los <span class="w w-nieuw" role="button" tabindex="0" data-i="38">brazos</span> abiertos y dedicó palabras de admiración a su <span class="w w-moeilijk" role="button" tabindex="0" data-i="36">humildad</span> personal y profesional. Juntas <span class="w w-moeilijk" role="button" tabindex="0" data-i="33">interpretaron</span> la clásica canción &#x27;Antología&#x27;, un tema muy querido por los <span class="w w-moeilijk" role="button" tabindex="0" data-i="34">seguidores</span> desde los años noventa. Dua Lipa demostró su cariño por el evento hablando en español con total naturalidad para agradecer la invitación.</p><p>Este espectáculo forma parte de una residencia musical en la capital española que culmina la <span class="w w-moeilijk" role="button" tabindex="0" data-i="39">gira</span> actual de la artista colombiana. La serie de conciertos ha roto marcas récord y se presenta como la gira latina más exitosa de la <span class="w w-nieuw" role="button" tabindex="0" data-i="3">historia</span> reciente. Tras este momento tan especial, la cantante continuará con sus próximas fechas programadas en el <span class="w w-moeilijk" role="button" tabindex="0" data-i="37">recinto</span>.</p><div class="src">Bron: <a href="https://www.20minutos.es/musica/dua-lipa-inesperada-estrella-invitada-residencia-shakira-duo-inedito_7044534_0.html" rel="noopener" target="_blank">20minutos</a></div></article>
+<section class="review"><h3>Herhaal deze woorden</h3><p>Deze had je de afgelopen twee weken fout in Anki. Tik voor de betekenis.</p><div class="chips"><button class="chip" data-i="22">figurar</button><button class="chip" data-i="2">procurar</button><button class="chip" data-i="24">ajeno</button></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español fácil
+(B1) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 00:26</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "astrofísico", "nl": "astrofysicus", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "equivocado", "nl": "fout, verkeerd", "t": "bijv. nw.", "k": "nieuw"}, {"w": "procurar", "nl": "probeerden", "t": "werkwoord", "k": "fout"}, {"w": "historia", "nl": "geschiedenis", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "gravedad", "nl": "zwaartekracht", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "hallazgo", "nl": "ontdekking, vondst", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "cálculo", "nl": "berekening", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "visión", "nl": "visie, kijk", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "enano", "nl": "dwerg-", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "desahucio", "nl": "huisuitzettingen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "portavoz", "nl": "woordvoerders", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "alquiler", "nl": "huur", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "oscilar", "nl": "schommelen", "t": "werkwoord", "k": "nieuw"}, {"w": "acudir", "nl": "gaan naar, opdagen", "t": "werkwoord", "k": "nieuw"}, {"w": "huelga", "nl": "staking", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "paro", "nl": "staking, werkonderbreking", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "reto", "nl": "uitdaging", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "ciberseguridad", "nl": "cyberveiligheid", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "transcribir", "nl": "overschrijven, transcriberen", "t": "werkwoord", "k": "moeilijk"}, {"w": "descifrar", "nl": "ontcijferd", "t": "werkwoord", "k": "moeilijk"}, {"w": "emperador", "nl": "keizer", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "aventurar", "nl": "waagde", "t": "werkwoord", "k": "nieuw"}, {"w": "figurar", "nl": "staan vermeld", "t": "werkwoord", "k": "fout"}, {"w": "tropa", "nl": "troepen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "ajeno", "nl": "vreemd aan, niet behorend tot", "t": "bijv. nw.", "k": "fout"}, {"w": "desplazamiento", "nl": "verplaatsingen, reizen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "torrencial", "nl": "stort- (regen)", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "inundación", "nl": "overstromingen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "destrozo", "nl": "vernielingen, schade", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "temporal", "nl": "storm", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "litoral", "nl": "kustlijn, kuststreek", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "brusco", "nl": "plotseling, abrupt", "t": "bijv. nw.", "k": "nieuw"}, {"w": "dado", "nl": "gezien, gelet op", "t": "voorzetsel", "k": "nieuw"}, {"w": "interpretar", "nl": "vertolkten, zongen", "t": "werkwoord", "k": "moeilijk"}, {"w": "seguidor", "nl": "volgers, fans", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "escenario", "nl": "podium", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "humildad", "nl": "bescheidenheid", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "recinto", "nl": "terrein, zaal", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "brazo", "nl": "armen", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "gira", "nl": "tournee", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki (moeilijk/goed)', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
