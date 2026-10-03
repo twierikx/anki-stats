@@ -29,6 +29,8 @@ from anki_words import Word, norm
 TZ = ZoneInfo("Europe/Madrid")
 MAX_RECENT = 70
 MAX_WRONG = 40
+MAX_REVIEWED = 60
+MIN_ARTICLE_CHARS = 800
 EARLIEST_HOUR = 6
 
 
@@ -75,9 +77,15 @@ def find_span(text: str, form: str, taken: list[tuple[int, int]]) -> tuple[int, 
     return None
 
 
+def paragraphs(text: str) -> str:
+    parts = [re.sub(r"\s+", " ", p).strip() for p in re.split(r"\n\s*\n|\n", text.strip())]
+    return "\n\n".join(p for p in parts if p)
+
+
 def build_article(art: dict, recent: dict[str, Word], wrong: dict[str, Word],
-                  words: list[dict], index: dict[tuple[str, str], int]) -> str:
-    text = art["texto"].strip()
+                  reviewed: dict[str, Word], words: list[dict],
+                  index: dict[tuple[str, str], int]) -> str:
+    text = paragraphs(art["texto"])
     spans: list[tuple[int, int, int]] = []  # start, end, word index
     taken: list[tuple[int, int]] = []
     seen_lemmas: set[str] = set()
@@ -89,6 +97,8 @@ def build_article(art: dict, recent: dict[str, Word], wrong: dict[str, Word],
             kind, card = "fout", wrong.get(lemma_key) or wrong.get(form_key)
         elif lemma_key in recent or form_key in recent:
             kind, card = "nieuw", recent.get(lemma_key) or recent.get(form_key)
+        elif lemma_key in reviewed or form_key in reviewed:
+            kind, card = "herhaald", reviewed.get(lemma_key) or reviewed.get(form_key)
         else:
             kind, card = "moeilijk", None
         span = find_span(text, p.get("forma", ""), taken)
@@ -118,7 +128,7 @@ def build_article(art: dict, recent: dict[str, Word], wrong: dict[str, Word],
         )
         pos = end
     out.append(escape(text[pos:]))
-    return "".join(out)
+    return "".join(out).replace("\n\n", "</p><p>")
 
 
 # ------------------------------------------------------------------- Gemini --
@@ -142,11 +152,33 @@ def select_items(model: str, items) -> list[dict]:
             seen.add(s["id"])
     if len(chosen) < 3:
         raise SystemExit(f"Gemini koos te weinig berichten: {res}")
-    return chosen[:5]
+    return chosen[:8]
 
 
-def write_articles(model: str, chosen: list[dict], by_id: dict, recent: list[Word],
-                   wrong: list[Word]) -> dict:
+def with_full_text(chosen: list[dict], by_id: dict, want: int = 5) -> tuple[list[dict], dict]:
+    """Fetch the article pages; keep the first `want` candidates that have enough text."""
+    from nieuws import fetch_article
+
+    texts: dict[int, str] = {}
+    keep: list[dict] = []
+    for c in chosen:
+        text = fetch_article(by_id[c["id"]].link)
+        print(f"  {len(text):5d} tekens  {by_id[c['id']].title[:70]}")
+        if len(text) >= MIN_ARTICLE_CHARS:
+            texts[c["id"]] = text
+            keep.append(c)
+        if len(keep) >= want:
+            break
+    if len(keep) < 3:  # sites blocked us: fall back to the RSS summaries
+        for c in chosen:
+            if c not in keep and len(keep) < want:
+                texts[c["id"]] = by_id[c["id"]].summary
+                keep.append(c)
+    return keep, texts
+
+
+def write_articles(model: str, chosen: list[dict], by_id: dict, texts: dict,
+                   recent: list[Word], wrong: list[Word], reviewed: list[Word]) -> dict:
     import gemini
 
     def fmt(ws: list[Word]) -> str:
@@ -154,12 +186,15 @@ def write_articles(model: str, chosen: list[dict], by_id: dict, recent: list[Wor
 
     news = "\n\n".join(
         f"[{c['id']}] rúbrica: {c['rubrica']} · tono: {c['tono']} · fuente: {by_id[c['id']].source}\n"
-        f"Titular: {by_id[c['id']].title}\nEntradilla: {by_id[c['id']].summary}"
+        f"Titular: {by_id[c['id']].title}\nEntradilla: {by_id[c['id']].summary}\n"
+        f"Texto del artículo:\n{texts.get(c['id'], by_id[c['id']].summary)}"
         for c in chosen
     )
     prompt = (
         f"LISTA REPASAR (palabras falladas, máxima prioridad):\n{fmt(wrong[:MAX_WRONG])}\n\n"
         f"LISTA NUEVAS (aprendidas hace poco):\n{fmt(recent[:MAX_RECENT])}\n\n"
+        f"LISTA REPASADAS (contestadas 'difícil' o 'bien'; menos prioridad, úsalas si encajan):\n"
+        f"{fmt(reviewed[:MAX_REVIEWED])}\n\n"
         f"Escribe una noticia para cada una de estas {len(chosen)} noticias, en el mismo orden "
         f"y con el mismo id:\n\n{news}"
     )
@@ -167,8 +202,10 @@ def write_articles(model: str, chosen: list[dict], by_id: dict, recent: list[Wor
 
 
 def make_edition(name: str, date: datetime, chosen: list[dict], by_id: dict,
-                 written: dict, recent: list[Word], wrong: list[Word], model: str) -> Edition:
+                 written: dict, recent: list[Word], wrong: list[Word], reviewed: list[Word],
+                 model: str) -> Edition:
     recent_d = {w.key: w for w in recent}
+    reviewed_d = {w.key: w for w in reviewed}
     wrong_d = {w.key: w for w in wrong}
     words: list[dict] = []
     index: dict[tuple[str, str], int] = {}
@@ -184,7 +221,7 @@ def make_edition(name: str, date: datetime, chosen: list[dict], by_id: dict,
         arts.append(Article(
             rubrica=(art.get("rubrica") or c["rubrica"]).strip(),
             titulo=art["titulo"].strip(),
-            html=build_article(art, recent_d, wrong_d, words, index),
+            html=build_article(art, recent_d, wrong_d, reviewed_d, words, index),
             source=item.source, link=item.link, tono=c.get("tono", ""),
         ))
 
@@ -200,7 +237,7 @@ def make_edition(name: str, date: datetime, chosen: list[dict], by_id: dict,
                           "t": r.get("tipo") or w.pos, "k": "fout"})
         review.append(index[key])
 
-    counts = {"nieuw": 0, "fout": 0, "moeilijk": 0}
+    counts = {"nieuw": 0, "herhaald": 0, "fout": 0, "moeilijk": 0}
     in_text: set[int] = set()
     for a in arts:
         in_text.update(int(i) for i in re.findall(r'data-i="(\d+)"', a.html))
@@ -221,6 +258,8 @@ def demo_edition(name: str, date: datetime) -> Edition:
              Word("alcanzar", "to reach", "werkwoord", "wrong", 0, 1),
              Word("lograr", "to achieve", "werkwoord", "wrong", 0, 1),
              Word("disminuir", "to decrease", "werkwoord", "wrong", 0, 1)]
+    reviewed = [Word("ciudad", "city", "zelfst. nw. (vr.)", "reviewed", 0),
+                Word("precio", "price", "zelfst. nw. (mnl.)", "reviewed", 0)]
 
     class It:  # minimal stand-in for nieuws.Item
         def __init__(self, source, link):
@@ -237,11 +276,16 @@ def demo_edition(name: str, date: datetime) -> Edition:
             {"id": 1, "rubrica": "Clima", "titulo": "Más coches eléctricos en las calles",
              "texto": "Cada año más familias españolas compran un coche eléctrico. Ya son uno de "
                       "cada cuatro coches nuevos. Las ayudas públicas y los precios más bajos "
-                      "ayudan a alcanzar esta cifra, y las emisiones empiezan a disminuir.",
+                      "ayudan a alcanzar esta cifra, y las emisiones empiezan a disminuir.\n\n"
+                      "En las grandes ciudades se nota más el cambio. Hay más puntos de carga y "
+                      "el precio de la electricidad es más estable que el de la gasolina.\n\n"
+                      "Los expertos creen que la tendencia seguirá en los próximos años.",
              "palabras": [P("alcanzar", "alcanzar", "bereiken", "werkwoord"),
                           P("disminuir", "disminuir", "afnemen", "werkwoord"),
                           P("ayudas", "ayuda", "subsidie", "zelfst. nw. (vr.)"),
-                          P("emisiones", "emisión", "uitstoot", "zelfst. nw. (vr.)")]},
+                          P("emisiones", "emisión", "uitstoot", "zelfst. nw. (vr.)"),
+                          P("ciudades", "ciudad", "stad", "zelfst. nw. (vr.)"),
+                          P("precio", "precio", "prijs", "zelfst. nw. (mnl.)")]},
             {"id": 2, "rubrica": "Sociedad", "titulo": "La vivienda, el gran tema del año",
              "texto": "Miles de personas salieron a la calle en Madrid para pedir vivienda "
                       "asequible. Muchos jóvenes no pueden heredar una casa ni pagar un alquiler. "
@@ -265,7 +309,7 @@ def demo_edition(name: str, date: datetime) -> Edition:
                    {"lema": "lograr", "nl": "bereiken, slagen in", "tipo": "werkwoord"},
                    {"lema": "disminuir", "nl": "afnemen, verminderen", "tipo": "werkwoord"}],
     }
-    return make_edition(name, date, chosen, by_id, written, recent, wrong, "demo")
+    return make_edition(name, date, chosen, by_id, written, recent, wrong, reviewed, "demo")
 
 
 # --------------------------------------------------------------------- main --
@@ -321,17 +365,20 @@ def main() -> None:
     by_id = {it.id: it for it in items}
     model = gemini.pick_model()
     print(f"Gemini-model: {model}", flush=True)
-    chosen = select_items(model, items)
+    candidates = select_items(model, items)
+    print("Volledige artikelen ophalen ...", flush=True)
+    chosen, texts = with_full_text(candidates, by_id)
     print("Gekozen: " + " | ".join(f"{c['tono']}: {by_id[c['id']].title[:60]}" for c in chosen))
 
     names = []
     for acc in accounts:
         name = acc["name"]
         print(f"\n{name}: Anki-woorden ophalen ...", flush=True)
-        recent, wrong = anki_words.load_words(download_collection(acc["username"], acc["password"]))
-        print(f"  {len(recent)} recent geleerd, {len(wrong)} fout beantwoord")
-        written = write_articles(model, chosen, by_id, recent, wrong)
-        ed = make_edition(name, now, chosen, by_id, written, recent, wrong, model)
+        recent, wrong, reviewed = anki_words.load_words(
+            download_collection(acc["username"], acc["password"]))
+        print(f"  {len(recent)} nieuw, {len(wrong)} fout, {len(reviewed)} moeilijk/goed herhaald")
+        written = write_articles(model, chosen, by_id, texts, recent, wrong, reviewed)
+        ed = make_edition(name, now, chosen, by_id, written, recent, wrong, reviewed, model)
         print(f"  {len(ed.articles)} berichten, gemarkeerd: {ed.counts}")
         save(ed, root, archive=not args.test)
         names.append(name)

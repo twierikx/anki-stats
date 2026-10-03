@@ -20,12 +20,14 @@ CSS = """
 :root{
   --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
   --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
   --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd;
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
     --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
     --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926;
   }
 }
@@ -55,12 +57,12 @@ h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacin
 article p{margin:0 0 10px}
 .src{font-size:14px;color:var(--muted)}
 .src a{color:inherit;text-underline-offset:3px}
-.w{cursor:pointer;text-underline-offset:4px;text-decoration-thickness:2px;
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
   border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
-.w-nieuw{text-decoration-line:underline;text-decoration-color:var(--new)}
-.w-fout{text-decoration-line:underline;text-decoration-style:wavy;text-decoration-color:var(--wrong);
-  text-decoration-thickness:1.5px}
-.w-moeilijk{text-decoration-line:underline;text-decoration-style:dotted;text-decoration-color:var(--hard)}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
 .w.on,.w:focus-visible{background:var(--chip);outline:none}
 .sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
 .review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
@@ -80,7 +82,7 @@ article p{margin:0 0 10px}
   border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
 .grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
 .kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.kind.nieuw{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
 .sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
 .st{font-size:15px;color:var(--muted)}
 .snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
@@ -93,7 +95,7 @@ article p{margin:0 0 10px}
 JS = """
 const W = JSON.parse(document.getElementById('words').textContent);
 const sheet = document.getElementById('sheet');
-const KIND = {nieuw:'Recent geleerd in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki (moeilijk/goed)', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
 let current = null;
 function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
   if(current) current.classList.remove('on'); current = null; }
@@ -128,7 +130,7 @@ def fecha(d) -> str:
 def _legend(c: dict) -> str:
     return (
         '<div class="legend">'
-        f'<span><span class="w w-nieuw sample">groen</span> <b>{c["nieuw"]}</b> recent geleerd</span>'
+        f'<span><span class="w w-nieuw sample">groen</span> <b>{c["nieuw"] + c.get("herhaald", 0)}</b> uit je Anki</span>'
         f'<span><span class="w w-fout sample">rood</span> <b>{c["fout"]}</b> fout beantwoord</span>'
         f'<span><span class="w w-moeilijk sample">gestippeld</span> <b>{c["moeilijk"]}</b> moeilijk</span>'
         '<span class="hint">Tik op een woord voor de vertaling.</span></div>'

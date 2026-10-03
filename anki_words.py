@@ -2,6 +2,8 @@
 
 - recent: Spanish cards answered for the first time in the last RECENT_DAYS days
 - wrong:  Spanish cards answered "Again" (ease 1) in the last WRONG_DAYS days
+- reviewed: Spanish cards answered "Hard" or "Good" (ease 2/3) in the last REVIEWED_DAYS
+  days that are in neither list above (lower priority, still nice to meet in context)
 """
 
 from __future__ import annotations
@@ -14,6 +16,8 @@ from dataclasses import dataclass
 
 RECENT_DAYS = 30
 WRONG_DAYS = 14
+REVIEWED_DAYS = 14
+MAX_REVIEWED = 80
 MIN_WORDS = 20  # top up with the most recently reviewed cards below this
 
 # (Spanish field, gloss field) candidates, in order of preference
@@ -34,7 +38,7 @@ class Word:
     lemma: str        # "heredar"
     gloss: str        # meaning on the card (often English)
     pos: str          # Dutch word type from the card, may be ""
-    kind: str         # "recent" or "wrong"
+    kind: str         # "recent", "wrong" or "reviewed"
     last_ms: int      # last time answered
     lapses: int = 0   # how often "Again" in the window
 
@@ -65,7 +69,7 @@ def split_lemma(raw: str) -> tuple[str, str]:
     return raw.strip(" ,;"), ""
 
 
-def load_words(path: str, now_ms: int | None = None) -> tuple[list[Word], list[Word]]:
+def load_words(path: str, now_ms: int | None = None) -> tuple[list[Word], list[Word], list[Word]]:
     now_ms = now_ms or int(time.time() * 1000)
     con = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
     try:
@@ -91,6 +95,9 @@ def load_words(path: str, now_ms: int | None = None) -> tuple[list[Word], list[W
 
     recent_cut = now_ms - RECENT_DAYS * 86_400_000
     wrong_cut = now_ms - WRONG_DAYS * 86_400_000
+    reviewed_cut = now_ms - REVIEWED_DAYS * 86_400_000
+    hard: dict[int, int] = {}   # cid -> number of Hard answers in the window
+    good: dict[int, int] = {}   # cid -> last Good answer in the window
     first: dict[int, int] = {}
     last: dict[int, int] = {}
     lapses: dict[int, int] = {}
@@ -112,6 +119,10 @@ def load_words(path: str, now_ms: int | None = None) -> tuple[list[Word], list[W
         last[cid] = rid
         if ease == 1 and rid >= wrong_cut:
             lapses[cid] = lapses.get(cid, 0) + 1
+        elif ease == 2 and rid >= reviewed_cut:
+            hard[cid] = hard.get(cid, 0) + 1
+        elif ease == 3 and rid >= reviewed_cut:
+            good[cid] = rid
 
     wrong: dict[str, Word] = {}
     for cid, n in lapses.items():
@@ -137,6 +148,18 @@ def load_words(path: str, now_ms: int | None = None) -> tuple[list[Word], list[W
             if len(recent) + len(wrong) >= MIN_WORDS:
                 break
 
+    reviewed: dict[str, Word] = {}
+    # Hard answers first (most often), then Good answers (most recent first)
+    order = sorted(hard, key=lambda c: (-hard[c], -last[c])) + sorted(
+        (c for c in good if c not in hard), key=lambda c: -good[c])
+    for cid in order:
+        lemma, gloss, pos = info[cid]
+        w = Word(lemma, gloss, pos, "reviewed", last[cid])
+        if w.key and w.key not in wrong and w.key not in recent and w.key not in reviewed:
+            reviewed[w.key] = w
+        if len(reviewed) >= MAX_REVIEWED:
+            break
+
     wrong_list = sorted(wrong.values(), key=lambda w: (-w.lapses, -w.last_ms))
     recent_list = sorted(recent.values(), key=lambda w: -w.last_ms)
-    return recent_list, wrong_list
+    return recent_list, wrong_list, list(reviewed.values())
