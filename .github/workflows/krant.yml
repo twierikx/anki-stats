@@ -1,0 +1,84 @@
+name: Spaanse krant
+
+on:
+  workflow_dispatch:
+    inputs:
+      alleen_testen:
+        description: "Alleen testen (HTML downloaden, niet publiceren)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: krant
+  cancel-in-progress: false
+
+jobs:
+  maak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      published: ${{ steps.krant.outputs.published }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Krant maken
+        id: krant
+        env:
+          ANKI_ACCOUNTS: ${{ secrets.ANKI_ACCOUNTS }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+        run: |
+          if [ "${{ github.event_name == 'workflow_dispatch' && inputs.alleen_testen }}" = "true" ]; then
+            python krant.py --test
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python krant.py --force
+          else
+            python krant.py
+          fi
+
+      - name: Test-HTML bewaren
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: krant-test
+          path: out/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Archief opslaan in de repo
+        if: steps.krant.outputs.published == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs
+          git commit -m "Krant $(TZ=Europe/Madrid date +%F)" || echo "Niets te committen"
+          git push
+
+      - name: Pagina klaarzetten
+        if: steps.krant.outputs.published == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  publiceer:
+    needs: maak
+    if: needs.maak.outputs.published == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
