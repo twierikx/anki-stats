@@ -1,0 +1,47 @@
+name: Anki-weekrapport
+
+on:
+  schedule:
+    # Every Monday 07:00 UTC = 08:00 Spanish winter time (09:00 in summer)
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+    inputs:
+      alleen_testen:
+        description: "Alleen testen (geen mail versturen)"
+        type: boolean
+        default: true
+
+jobs:
+  rapport:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Rapport maken
+        env:
+          ANKI_ACCOUNTS: ${{ secrets.ANKI_ACCOUNTS }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+        run: |
+          if [ "${{ github.event_name == 'workflow_dispatch' && inputs.alleen_testen }}" = "true" ]; then
+            python weekly_report.py --dry-run
+          else
+            python weekly_report.py
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: weekrapport
+          path: out/
+          if-no-files-found: ignore
+          retention-days: 14
