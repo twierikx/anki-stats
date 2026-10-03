@@ -1,6 +1,10 @@
 name: Spaanse krant
 
 on:
+  schedule:
+    # 04:20 and 05:20 UTC; the script only runs once it is 06:00+ in Madrid and today's
+    # edition does not exist yet -> ~06:20 local time, both in summer and winter time.
+    - cron: "20 4,5 * * *"
   workflow_dispatch:
     inputs:
       alleen_testen:
