@@ -11,17 +11,13 @@ from dataclasses import dataclass
 import feedparser
 import requests
 
-EP = "https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com"
+# El País is left out on purpose: its pages sit behind a paywall (403 for scripts).
+# RTVE's RSS feeds have been frozen since 2022, so they are not used either.
 FEEDS = [
-    ("El País", f"{EP}/portada", 25),
-    ("El País", f"{EP}/section/ciencia/portada", 12),
-    ("El País", f"{EP}/section/clima-y-medio-ambiente/portada", 10),
-    ("El País", f"{EP}/section/sociedad/portada", 10),
-    ("El País", f"{EP}/section/cultura/portada", 8),
-    ("elDiario.es", "https://www.eldiario.es/rss/", 20),
-    ("20minutos", "https://www.20minutos.es/rss/", 20),
-    ("Europa Press", "https://www.europapress.es/rss/rss.aspx", 10),
-    ("La Vanguardia", "https://www.lavanguardia.com/rss/home.xml", 15),
+    ("elDiario.es", "https://www.eldiario.es/rss/", 30),
+    ("20minutos", "https://www.20minutos.es/rss/", 30),
+    ("Europa Press", "https://www.europapress.es/rss/rss.aspx", 15),
+    ("La Vanguardia", "https://www.lavanguardia.com/rss/home.xml", 25),
 ]
 MAX_AGE_H = 48
 UA = {
