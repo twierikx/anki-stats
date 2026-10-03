@@ -111,7 +111,9 @@ def main() -> None:
         for seed, name in ((1, "Thomas"), (2, "Vriendin")):
             results.append(stats.compute(name, demo_collection(seed, today), week_start, today))
     else:
-        from ankiweb_sync import AnkiWebError, download_collection
+        from ankiweb_sync import AnkiWebError, check_api, download_collection
+
+        print(f"anki-pakket versie {check_api()}", flush=True)
 
         raw = os.environ.get("ANKI_ACCOUNTS", "").strip()
         if not raw:

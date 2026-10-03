@@ -20,6 +20,18 @@ class AnkiWebError(RuntimeError):
     pass
 
 
+def check_api() -> str:
+    """Fail early (with a clear message) if the installed anki package changed its API."""
+    import anki.buildinfo
+    from anki.collection import Collection
+
+    needed = ["sync_login", "sync_collection", "close_for_full_sync", "full_upload_or_download"]
+    missing = [m for m in needed if not hasattr(Collection, m)]
+    if missing:
+        raise AnkiWebError(f"anki {anki.buildinfo.version} mist: {', '.join(missing)}")
+    return anki.buildinfo.version
+
+
 def download_collection(username: str, password: str, workdir: str | None = None) -> str:
     """Return the path to a local .anki2 copy of the user's AnkiWeb collection."""
     from anki.collection import Collection  # imported lazily: heavy package
