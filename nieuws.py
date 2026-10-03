@@ -24,7 +24,13 @@ FEEDS = [
     ("La Vanguardia", "https://www.lavanguardia.com/rss/home.xml", 15),
 ]
 MAX_AGE_H = 48
-UA = {"User-Agent": "Mozilla/5.0 (anki-stats krant; +https://github.com/twierikx/anki-stats)"}
+UA = {
+    "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                   "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "es-ES,es;q=0.9",
+}
+MIN_TEXT = 800
 
 
 @dataclass
@@ -36,11 +42,19 @@ class Item:
     link: str
     section: str
     published: float
+    content: str = ""  # full text when the feed itself carries it
+
+
+def paragraphs_from_html(s: str) -> str:
+    s = re.sub(r"(?i)</p\s*>|<br\s*/?>", "\n\n", s or "")
+    parts = [clean(p) for p in s.split("\n\n")]
+    return "\n\n".join(p for p in parts if len(p) > 1)
 
 
 def clean(s: str) -> str:
     s = html.unescape(re.sub(r"<[^>]+>", " ", s or ""))
-    return re.sub(r"\s+", " ", s).strip()
+    s = re.sub(r"\s+", " ", s).strip()
+    return re.sub(r"\s+([.,;:!?)»”])", r"\1", s)
 
 
 def fetch_items() -> list[Item]:
@@ -69,12 +83,38 @@ def fetch_items() -> list[Item]:
                 continue
             seen.add(key)
             section = clean(" / ".join(t.get("term", "") for t in e.get("tags", [])[:2]))
-            items.append(Item(len(items), source, title, summary[:600], link, section, published))
+            content = ""
+            for c in e.get("content", []) or []:
+                text = paragraphs_from_html(c.get("value", ""))
+                if len(text) > len(content):
+                    content = text
+            content = content[:6000] if len(content) >= MIN_TEXT else ""
+            items.append(Item(len(items), source, title, summary[:600], link, section, published,
+                              content))
             n += 1
             if n >= limit:
                 break
         print(f"  {source}: {n} berichten")
     return items
+
+
+def readable_sources(items: list[Item]) -> set[str]:
+    """Try one article per source; return the sources whose pages we can actually read."""
+    ok: set[str] = set()
+    tried: dict[str, int] = {}
+    for it in items:
+        if it.source in ok:
+            continue
+        if it.content:
+            ok.add(it.source)
+            continue
+        if tried.get(it.source, 0) >= 2:
+            continue
+        tried[it.source] = tried.get(it.source, 0) + 1
+        if len(fetch_article(it.link)) >= MIN_TEXT:
+            ok.add(it.source)
+    print(f"  Leesbare bronnen: {', '.join(sorted(ok)) or 'geen'}")
+    return ok
 
 
 # ------------------------------------------------------- full article text --
@@ -166,6 +206,7 @@ def extract_text(page: str, max_chars: int = 6000) -> str:
 
 def fetch_article(url: str) -> str:
     try:
+        time.sleep(0.5)
         r = requests.get(url, headers=UA, timeout=25)
         r.raise_for_status()
         r.encoding = r.encoding if r.encoding and r.encoding.lower() != "iso-8859-1" else "utf-8"

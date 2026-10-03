@@ -152,7 +152,7 @@ def select_items(model: str, items) -> list[dict]:
             seen.add(s["id"])
     if len(chosen) < 3:
         raise SystemExit(f"Gemini koos te weinig berichten: {res}")
-    return chosen[:8]
+    return chosen[:12]
 
 
 def with_full_text(chosen: list[dict], by_id: dict, want: int = 5) -> tuple[list[dict], dict]:
@@ -162,7 +162,7 @@ def with_full_text(chosen: list[dict], by_id: dict, want: int = 5) -> tuple[list
     texts: dict[int, str] = {}
     keep: list[dict] = []
     for c in chosen:
-        text = fetch_article(by_id[c["id"]].link)
+        text = by_id[c["id"]].content or fetch_article(by_id[c["id"]].link)
         print(f"  {len(text):5d} tekens  {by_id[c['id']].title[:70]}")
         if len(text) >= MIN_ARTICLE_CHARS:
             texts[c["id"]] = text
@@ -356,7 +356,7 @@ def main() -> None:
 
     import gemini
     from ankiweb_sync import download_collection
-    from nieuws import fetch_items
+    from nieuws import fetch_items, readable_sources
 
     print("Nieuws ophalen ...", flush=True)
     items = fetch_items()
@@ -365,7 +365,11 @@ def main() -> None:
     by_id = {it.id: it for it in items}
     model = gemini.pick_model()
     print(f"Gemini-model: {model}", flush=True)
-    candidates = select_items(model, items)
+    readable = readable_sources(items)
+    pool = [it for it in items if it.content or it.source in readable]
+    if len(pool) < 15:
+        pool = items
+    candidates = select_items(model, pool)
     print("Volledige artikelen ophalen ...", flush=True)
     chosen, texts = with_full_text(candidates, by_id)
     print("Gekozen: " + " | ".join(f"{c['tono']}: {by_id[c['id']].title[:60]}" for c in chosen))

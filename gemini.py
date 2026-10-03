@@ -89,7 +89,7 @@ SELECT_SYSTEM = """Eres el editor de un pequeño periódico diario en español p
 de español (nivel B1) que vive en Madrid. El lector se desanima con el sesgo negativo de las \
 noticias. Tu trabajo es ELEGIR, no escribir.
 
-Devuelve 8 noticias ordenadas por preferencia (la mejor primero). Algunas páginas no se pueden leer; entonces se usan las siguientes de tu lista, así que cualquier grupo de 5 consecutivas debería cumplir los criterios de mezcla.
+Devuelve 12 noticias ordenadas por preferencia (la mejor primero). Algunas páginas no se pueden leer; entonces se usan las siguientes de tu lista, así que cualquier grupo de 5 consecutivas debería cumplir los criterios de mezcla.
 
 Criterios:
 - Prioriza piezas que muestren tendencias de largo plazo o cambios estructurales (sociedad, \
