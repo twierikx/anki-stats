@@ -189,8 +189,12 @@ SELECT_SCHEMA = {
                                 "Etiqueta corta en español: España, Sociedad, Ciencia, Clima, "
                                 "Cultura, Economía, Salud, Tecnología, Mundo o Buenas noticias"},
                     "tono": {"type": "STRING", "enum": ["tendencia", "positivo", "actualidad"]},
+                    "tema": {"type": "STRING", "description":
+                             "El asunto en una o dos palabras en minúscula, p. ej. 'vivienda', "
+                             "'clima', 'inteligencia artificial'. Noticias del mismo asunto llevan "
+                             "exactamente el mismo tema."},
                 },
-                "required": ["id", "rubrica", "tono"],
+                "required": ["id", "rubrica", "tono", "tema"],
             },
         }
     },

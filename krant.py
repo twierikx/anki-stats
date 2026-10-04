@@ -164,12 +164,19 @@ def with_full_text(chosen: list[dict], by_id: dict, want: int = 5) -> tuple[list
 
     texts: dict[int, str] = {}
     keep: list[dict] = []
+    topics: set[str] = set()
     for c in chosen:
+        topic = (c.get("tema") or "").strip().lower()
+        if topic and topic in topics:
+            print(f"  overgeslagen (al een bericht over '{topic}'): {by_id[c['id']].title[:60]}")
+            continue
         text = by_id[c["id"]].content or fetch_article(by_id[c["id"]].link)
         print(f"  {len(text):5d} tekens  {by_id[c['id']].title[:70]}")
         if len(text) >= MIN_ARTICLE_CHARS:
             texts[c["id"]] = text
             keep.append(c)
+            if topic:
+                topics.add(topic)
         if len(keep) >= want:
             break
     if len(keep) < 3:  # sites blocked us: fall back to the RSS summaries
