@@ -23,70 +23,115 @@ def _key() -> str:
     return key
 
 
-def pick_model() -> str:
-    """Use GEMINI_MODEL if set, otherwise the newest general 'flash' model available."""
-    wanted = os.environ.get("GEMINI_MODEL", "").strip()
+_MODELS: list[str] | None = None
+USAGE: list[dict] = []
+# Paid-tier list prices per 1M tokens (input, output incl. thinking), for the cost estimate only.
+PRICES = {"lite": (0.30, 2.50), "flash": (0.75, 3.75)}
+
+
+def _models() -> list[str]:
+    global _MODELS
+    if _MODELS is None:
+        r = requests.get(f"{API}/models", headers={"x-goog-api-key": _key()},
+                         params={"pageSize": 200}, timeout=30)
+        if r.status_code != 200:
+            raise GeminiError(f"modellen opvragen mislukt ({r.status_code}): {r.text[:200]}")
+        _MODELS = [
+            m["name"].removeprefix("models/") for m in r.json().get("models", [])
+            if "generateContent" in m.get("supportedGenerationMethods", [])
+        ]
+    return _MODELS
+
+
+def _version(n: str) -> tuple:
+    m = re.search(r"gemini-(\d+)(?:\.(\d+))?", n)
+    stable = "preview" not in n
+    return (int(m.group(1)), int(m.group(2) or 0), stable) if m else (0, 0, stable)
+
+
+def pick_model(lite: bool = False) -> str:
+    """Writing: GEMINI_MODEL or the newest 'flash'. Selection (lite=True): the newest
+    'flash-lite' (GEMINI_LITE_MODEL overrides), falling back to the writing model."""
+    wanted = os.environ.get("GEMINI_LITE_MODEL" if lite else "GEMINI_MODEL", "").strip()
     if wanted:
         return wanted.removeprefix("models/")
-    r = requests.get(f"{API}/models", headers={"x-goog-api-key": _key()},
-                     params={"pageSize": 200}, timeout=30)
-    if r.status_code != 200:
-        raise GeminiError(f"modellen opvragen mislukt ({r.status_code}): {r.text[:200]}")
-    names = [
-        m["name"].removeprefix("models/") for m in r.json().get("models", [])
-        if "generateContent" in m.get("supportedGenerationMethods", [])
-    ]
-    flash = [n for n in names if "flash" in n and not re.search(
-        r"lite|image|tts|audio|live|exp|embedding|thinking|robotics|computer", n)]
+    names = _models()
+    bad = r"image|tts|audio|live|exp|embedding|thinking|robotics|computer"
+    if lite:
+        cands = [n for n in names if "flash-lite" in n and not re.search(bad, n)]
+        if "gemini-flash-lite-latest" in cands:
+            return "gemini-flash-lite-latest"
+        return max(cands, key=_version) if cands else pick_model()
+    flash = [n for n in names if "flash" in n and "lite" not in n and not re.search(bad, n)]
     if "gemini-flash-latest" in flash:
         return "gemini-flash-latest"
-
-    def version(n: str) -> tuple:
-        m = re.search(r"gemini-(\d+)(?:\.(\d+))?", n)
-        stable = "preview" not in n
-        return (int(m.group(1)), int(m.group(2) or 0), stable) if m else (0, 0, stable)
-
     if not flash:
         raise GeminiError(f"geen geschikt Gemini-model gevonden in: {names[:20]}")
-    return max(flash, key=version)
+    return max(flash, key=_version)
 
 
 def generate_json(model: str, system: str, prompt: str, schema: dict,
-                  temperature: float = 0.6) -> dict:
+                  temperature: float = 0.6, thinking: str | None = None,
+                  label: str = "") -> dict:
+    config = {
+        "temperature": temperature,
+        "responseMimeType": "application/json",
+        "responseSchema": schema,
+        "maxOutputTokens": 32768,
+    }
+    if thinking:
+        config["thinkingConfig"] = {"thinkingLevel": thinking}
     body = {
         "systemInstruction": {"parts": [{"text": system}]},
         "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-        "generationConfig": {
-            "temperature": temperature,
-            "responseMimeType": "application/json",
-            "responseSchema": schema,
-            "maxOutputTokens": 16384,
-        },
+        "generationConfig": config,
     }
     last = ""
     for attempt in range(5):
         r = requests.post(f"{API}/models/{model}:generateContent",
-                          headers={"x-goog-api-key": _key()}, json=body, timeout=180)
+                          headers={"x-goog-api-key": _key()}, json=body, timeout=240)
+        if r.status_code == 400 and "thinking" in r.text.lower() and "thinkingConfig" in config:
+            config.pop("thinkingConfig")  # model does not support this setting: use default
+            continue
         if r.status_code in (429, 500, 502, 503, 504):
             last = f"{r.status_code}: {r.text[:200]}"
-            time.sleep(10 * (attempt + 1))
+            time.sleep(15 * (attempt + 1))
             continue
         if r.status_code != 200:
             raise GeminiError(f"Gemini-fout {r.status_code}: {r.text[:300]}")
         data = r.json()
+        u = data.get("usageMetadata", {})
+        USAGE.append({"label": label, "model": model,
+                      "in": u.get("promptTokenCount", 0),
+                      "out": u.get("candidatesTokenCount", 0) + u.get("thoughtsTokenCount", 0),
+                      "thoughts": u.get("thoughtsTokenCount", 0)})
         try:
-            text = "".join(p.get("text", "") for p in data["candidates"][0]["content"]["parts"])
+            cand = data["candidates"][0]
+            text = "".join(p.get("text", "") for p in cand["content"]["parts"])
             return json.loads(text)
         except (KeyError, IndexError, json.JSONDecodeError) as exc:
-            last = f"onleesbaar antwoord ({exc}): {str(data)[:300]}"
+            reason = data.get("candidates", [{}])[0].get("finishReason", "?")
+            last = f"onleesbaar antwoord ({exc}, finishReason={reason}): {str(data)[:200]}"
             time.sleep(5)
     raise GeminiError(f"Gemini gaf na 5 pogingen geen bruikbaar antwoord. Laatste: {last}")
 
 
+def print_usage() -> None:
+    total = 0.0
+    print("\nGemini-gebruik deze run:")
+    for u in USAGE:
+        pin, pout = PRICES["lite" if "lite" in u["model"] else "flash"]
+        cost = (u["in"] * pin + u["out"] * pout) / 1e6
+        total += cost
+        print(f"  {u['label']:<10} {u['model']:<26} in {u['in']:>7,}  uit {u['out']:>6,} "
+              f"(waarvan denken {u['thoughts']:,})  ≈ ${cost:.3f}")
+    print(f"  Totaal ≈ ${total:.3f} bij betaald tarief (met een gratis sleutel: $0).")
+
+
 # ------------------------------------------------------------------ prompts --
 
-SELECT_SYSTEM = """Eres el editor de un pequeño periódico diario en español para un estudiante \
-de español (nivel B1) que vive en Madrid. El lector se desanima con el sesgo negativo de las \
+SELECT_SYSTEM = """Eres el editor de un pequeño periódico diario en español para dos \
+estudiantes de español (nivel B2) que viven en Madrid. Los lectores se desaniman con el sesgo negativo de las \
 noticias. Tu trabajo es ELEGIR, no escribir.
 
 Devuelve 12 noticias ordenadas por preferencia (la mejor primero). Algunas páginas no se pueden leer; entonces se usan las siguientes de tu lista, así que cualquier grupo de 5 consecutivas debería cumplir los criterios de mezcla.
@@ -126,7 +171,7 @@ SELECT_SCHEMA = {
     "required": ["seleccion"],
 }
 
-WRITE_SYSTEM = """Escribes un pequeño periódico diario en español fácil (nivel B1) para un \
+WRITE_SYSTEM = """Escribes un pequeño periódico diario en español de nivel B2 para un \
 estudiante neerlandés. Reglas estrictas:
 1. NO INVENTES NADA. Usa solo los hechos del titular y la entradilla que recibes. No añadas \
 cifras, nombres, fechas, causas ni consecuencias que no estén en el texto original.
@@ -135,7 +180,7 @@ párrafos con una línea en blanco en "texto". Basa todo en el "Texto del artíc
 esencial, después el contexto, las causas o la tendencia de fondo que explica el artículo, y si \
 el artículo lo menciona, lo que viene después o lo que da esperanza. No copies frases del \
 original; como mucho una cita de pocas palabras.
-3. Usa vocabulario y gramática de nivel B1: frases claras, sin jerga.
+3. Escribe para un nivel B2: frases naturales y variadas, vocabulario rico pero claro, sin jerga innecesaria.
 4. Usa con naturalidad TANTAS palabras de las listas del estudiante como puedas. Prioridad: \
 primero REPASAR (respuestas falladas), después NUEVAS, y por último REPASADAS (solo si encajan \
 bien). Puedes conjugarlas o ponerlas en plural. No fuerces palabras que no encajen con el hecho.
@@ -144,7 +189,7 @@ bien). Puedes conjugarlas o ponerlas en plural. No fuerces palabras que no encaj
 
 En "palabras" de cada noticia incluye:
 - cada palabra de las listas que hayas usado, y
-- 5 a 10 palabras más que un estudiante B1 probablemente no conoce.
+- 5 a 10 palabras más que un estudiante B2 probablemente no conoce.
 Para cada una: "forma" = exactamente como aparece en "texto" (o en "titulo"); "lema" = forma \
 de diccionario (verbos en infinitivo, sustantivos en singular); "nl" = significado en \
 neerlandés en este contexto (corto); "tipo" = categoría en neerlandés (werkwoord, \

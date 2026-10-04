@@ -17,7 +17,7 @@ import re
 import sys
 import unicodedata
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timedelta
 from html import escape
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -54,6 +54,8 @@ class Edition:
     counts: dict[str, int]
     review: list[int] = field(default_factory=list)  # indices into words
     model: str = ""
+    stats_me: dict | None = None
+    stats_all: list = field(default_factory=list)
 
 
 def slugify(name: str) -> str:
@@ -138,12 +140,13 @@ def select_items(model: str, items) -> list[dict]:
 
     listing = "\n\n".join(
         f"[{it.id}] {it.source}{(' · ' + it.section) if it.section else ''}\n"
-        f"Titular: {it.title}\nEntradilla: {it.summary}"
+        f"Titular: {it.title}\nEntradilla: {it.summary[:220]}"
         for it in items
     )
     res = gemini.generate_json(model, gemini.SELECT_SYSTEM,
                                f"Noticias disponibles:\n\n{listing}",
-                               gemini.SELECT_SCHEMA, temperature=0.4)
+                               gemini.SELECT_SCHEMA, temperature=0.4, thinking="low",
+                               label="selectie")
     valid = {it.id for it in items}
     chosen, seen = [], set()
     for s in res.get("seleccion", []):
@@ -178,7 +181,8 @@ def with_full_text(chosen: list[dict], by_id: dict, want: int = 5) -> tuple[list
 
 
 def write_articles(model: str, chosen: list[dict], by_id: dict, texts: dict,
-                   recent: list[Word], wrong: list[Word], reviewed: list[Word]) -> dict:
+                   recent: list[Word], wrong: list[Word], reviewed: list[Word],
+                   other: dict | None = None) -> dict:
     import gemini
 
     def fmt(ws: list[Word]) -> str:
@@ -198,7 +202,18 @@ def write_articles(model: str, chosen: list[dict], by_id: dict, texts: dict,
         f"Escribe una noticia para cada una de estas {len(chosen)} noticias, en el mismo orden "
         f"y con el mismo id:\n\n{news}"
     )
-    return gemini.generate_json(model, gemini.WRITE_SYSTEM, prompt, gemini.WRITE_SCHEMA)
+    if other and other.get("articulos"):
+        versions = "\n\n".join(
+            f"[{a.get('id')}] {a.get('titulo', '')}\n{a.get('texto', '')}" for a in other["articulos"])
+        prompt += (
+            "\n\nVERSIÓN QUE YA ESCRIBISTE PARA OTRO LECTOR (con otras palabras de vocabulario). "
+            "Escribe para ESTE lector una versión claramente distinta de las mismas noticias: otro "
+            "titular, otra entrada, otro orden de las ideas, otras frases y, si el artículo los "
+            "ofrece, otros detalles. Construye las frases alrededor de las palabras de ESTE lector. "
+            "No copies frases de esta versión:\n\n" + versions
+        )
+    return gemini.generate_json(model, gemini.WRITE_SYSTEM, prompt, gemini.WRITE_SCHEMA,
+                                label="schrijven")
 
 
 def make_edition(name: str, date: datetime, chosen: list[dict], by_id: dict,
@@ -337,8 +352,20 @@ def main() -> None:
     root = Path("out" if (args.test or args.demo) else "docs")
 
     if args.demo:
-        for name in ("Thomas", "Margot"):
-            save(demo_edition(name, now), root, archive=True)
+        import stats as st
+        import stats_html
+        from weekly_report import demo_collection
+        overviews = []
+        for seed, name in ((1, "Thomas"), (2, "Margot")):
+            o = st.overview(name, demo_collection(seed, now.date()), now.date())
+            o["slug"] = slugify(name)
+            overviews.append(o)
+        for o in overviews:
+            ed = demo_edition(o["name"], now)
+            ed.stats_me, ed.stats_all = o, overviews
+            save(ed, root, archive=True)
+        (root / "stats").mkdir(parents=True, exist_ok=True)
+        (root / "stats" / "index.html").write_text(stats_html.render_stats(overviews, now), "utf-8")
         (root / "index.html").write_text(krant_html.render_home(["Thomas", "Margot"]), "utf-8")
         print(f"Demo geschreven naar {root}/")
         return
@@ -364,28 +391,54 @@ def main() -> None:
         sys.exit(f"Te weinig nieuws gevonden ({len(items)} berichten).")
     by_id = {it.id: it for it in items}
     model = gemini.pick_model()
-    print(f"Gemini-model: {model}", flush=True)
+    lite = gemini.pick_model(lite=True)
+    print(f"Gemini-modellen: schrijven {model}, selectie {lite}", flush=True)
     pool = usable_items(items)
     if len(pool) < 15:
         pool = items
-    candidates = select_items(model, pool)
+    candidates = select_items(lite, pool)
     print("Volledige artikelen ophalen ...", flush=True)
     chosen, texts = with_full_text(candidates, by_id)
     print("Gekozen: " + " | ".join(f"{c['tono']}: {by_id[c['id']].title[:60]}" for c in chosen))
 
-    names = []
+    import stats as st
+    import stats_html
+    from ankiweb_sync import AnkiWebError
+
+    people = []
     for acc in accounts:
         name = acc["name"]
-        print(f"\n{name}: Anki-woorden ophalen ...", flush=True)
-        recent, wrong, reviewed = anki_words.load_words(
-            download_collection(acc["username"], acc["password"]))
-        print(f"  {len(recent)} nieuw, {len(wrong)} fout, {len(reviewed)} moeilijk/goed herhaald")
-        written = write_articles(model, chosen, by_id, texts, recent, wrong, reviewed)
+        print(f"\n{name}: Anki ophalen ...", flush=True)
+        try:
+            path = download_collection(acc["username"], acc["password"])
+        except AnkiWebError as exc:
+            print(f"::warning::{name} overgeslagen: {exc}")
+            continue
+        recent, wrong, reviewed = anki_words.load_words(path)
+        col = st.load_collection(path)
+        overview = st.overview(name, col, (now - timedelta(hours=col.rollover)).date())
+        overview["slug"] = slugify(name)
+        print(f"  {len(recent)} nieuw, {len(wrong)} fout, {len(reviewed)} moeilijk/goed herhaald; "
+              f"reeks {overview['streak']}")
+        people.append((name, recent, wrong, reviewed, overview))
+    if not people:
+        sys.exit("Van geen enkel account konden de Anki-gegevens worden opgehaald.")
+    overviews = [p[4] for p in people]
+
+    names, previous = [], None
+    for name, recent, wrong, reviewed, overview in people:
+        print(f"\n{name}: krant schrijven ...", flush=True)
+        written = write_articles(model, chosen, by_id, texts, recent, wrong, reviewed, previous)
+        previous = written
         ed = make_edition(name, now, chosen, by_id, written, recent, wrong, reviewed, model)
+        ed.stats_me, ed.stats_all = overview, overviews
         print(f"  {len(ed.articles)} berichten, gemarkeerd: {ed.counts}")
         save(ed, root, archive=not args.test)
         names.append(name)
 
+    (root / "stats").mkdir(parents=True, exist_ok=True)
+    (root / "stats" / "index.html").write_text(stats_html.render_stats(overviews, now), "utf-8")
+    gemini.print_usage()
     (root / "index.html").write_text(krant_html.render_home(names), encoding="utf-8")
     (root / ".nojekyll").write_text("", encoding="utf-8")
     print(f"\nKlaar: {root}/")

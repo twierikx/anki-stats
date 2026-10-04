@@ -21,14 +21,14 @@ CSS = """
   --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
   --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
   --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
-  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd;
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
     --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
     --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
-    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926;
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
   }
 }
 *{box-sizing:border-box}
@@ -72,6 +72,18 @@ article p{margin:0 0 10px}
 .chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
   background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
 .chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
 .foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
 .foot a{color:inherit}
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
@@ -137,6 +149,35 @@ def _legend(c: dict) -> str:
     )
 
 
+DAG = ["ma", "di", "wo", "do", "vr", "za", "zo"]
+
+
+def pulse(me: dict | None, everyone: list[dict], link: str = "../stats/") -> str:
+    """Small stats block under the newspaper: both streaks, my last 7 days, link."""
+    if not me:
+        return ""
+    others = [o for o in everyone if o["name"] != me["name"]]
+    flames = "".join(
+        f'<span><span class="fl{"" if o["streak"] else " off"}">🔥 {o["streak"]}</span> '
+        f'<span class="who">{escape(o["name"])}</span></span>'
+        for o in [me] + others
+    )
+    top = max(n for _, n in me["last7"]) or 1
+    bars = "".join(
+        f'<div><i class="{"zero" if not n else ""}" style="height:{max(3, round(36 * n / top))}px"'
+        f' title="{n} herhalingen"></i><span>{DAG[wd]}</span></div>'
+        for wd, n in me["last7"]
+    )
+    total7 = sum(n for _, n in me["last7"])
+    return (
+        '<section class="pulse"><div class="row">' + flames + "</div>"
+        f'<div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen">{bars}</div>'
+        f'<div class="row"><span>Gisteren <b class="who">{me["yesterday"]}</b> herhalingen</span>'
+        f'<span>7 dagen <b class="who">{total7}</b></span>'
+        f'<a href="{link}">Alle statistieken →</a></div></section>'
+    )
+
+
 def render(ed) -> str:
     arts = []
     for a in ed.articles:
@@ -172,8 +213,9 @@ def render(ed) -> str:
 {_legend(ed.counts)}
 {''.join(arts)}
 {review}
-<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español fácil
-(B1) por Gemini. Comprueba los detalles en el artículo original.<br>
+{pulse(getattr(ed, "stats_me", None), getattr(ed, "stats_all", []))}
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
 <a href="archief.html">Archief</a> · bijgewerkt {ed.date:%H:%M}</div>
 </div>
 <div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
@@ -206,5 +248,6 @@ def render_archive(name: str, dates: list[str]) -> str:
 def render_home(names: list[str]) -> str:
     from krant import slugify
     items = "".join(f'<li><a href="{slugify(n)}/">El diario de {escape(n)}</a></li>' for n in names)
+    items += '<li><a href="stats/">Estadísticas</a></li>'
     return _simple("Noticias de hoy", f'<header><div class="kicker">Español con Anki</div>'
                    f"<h1>Noticias de hoy</h1></header><ul>{items}</ul>")

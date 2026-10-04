@@ -153,3 +153,69 @@ def error_stats(name: str, week_start: date, message: str) -> WeekStats:
         total_cards=0, mature_cards=0, prev_reviews=0, prev_minutes=0,
         prev_days_studied=0, error=message,
     )
+
+
+# ------------------------------------------------------------ daily overview --
+
+HEATMAP_WEEKS = 13
+
+
+def overview(name: str, col: Collection, today: date) -> dict:
+    """Numbers for the stats page and the footer of the newspaper (JSON-friendly)."""
+    study = [r for r in col.revlog if r[4] in STUDY_TYPES and r[2] > 0]
+    per_day: dict[date, int] = {}
+    minutes: dict[date, float] = {}
+    first_seen: dict[int, date] = {}
+    for r in sorted(study):
+        d = anki_day(r[0], col.rollover)
+        per_day[d] = per_day.get(d, 0) + 1
+        minutes[d] = minutes.get(d, 0) + min(r[3], 60_000) / 60_000
+        first_seen.setdefault(r[1], d)
+    new_per_day: dict[date, int] = {}
+    for d in first_seen.values():
+        new_per_day[d] = new_per_day.get(d, 0) + 1
+
+    days = set(per_day)
+    end = today if today in days else today - timedelta(days=1)
+    streak = _streak_ending(days, end)
+    best = run = 0
+    prev = None
+    for d in sorted(days):
+        run = run + 1 if prev is not None and d - prev == timedelta(days=1) else 1
+        best = max(best, run)
+        prev = d
+
+    monday = today - timedelta(days=today.weekday())
+    week = [monday + timedelta(days=i) for i in range(7)]
+    last_week = [monday - timedelta(days=7 - i) for i in range(7)]
+    cut30 = today - timedelta(days=29)
+    rev30 = [r for r in study if r[4] == 1 and anki_day(r[0], col.rollover) >= cut30]
+    retention = round(100 * sum(r[2] > 1 for r in rev30) / len(rev30)) if rev30 else None
+
+    start = monday - timedelta(weeks=HEATMAP_WEEKS - 1)
+    heat = [[d.isoformat(), per_day.get(d, 0)]
+            for d in (start + timedelta(days=i) for i in range((today - start).days + 1))]
+    return {
+        "name": name,
+        "today": today.isoformat(),
+        "streak": streak,
+        "studied_today": today in days,
+        "best_streak": best,
+        "yesterday": per_day.get(today - timedelta(days=1), 0),
+        "today_reviews": per_day.get(today, 0),
+        "week": [per_day.get(d, 0) for d in week],
+        "last7": [[(today - timedelta(days=6 - i)).weekday(),
+                   per_day.get(today - timedelta(days=6 - i), 0)] for i in range(7)],
+        "week_total": sum(per_day.get(d, 0) for d in week),
+        "week_minutes": round(sum(minutes.get(d, 0) for d in week)),
+        "week_new": sum(new_per_day.get(d, 0) for d in week),
+        "last_week_total": sum(per_day.get(d, 0) for d in last_week),
+        "last_week_days": sum(1 for d in last_week if d in days),
+        "days_30": sum(1 for i in range(30) if today - timedelta(days=i) in days),
+        "reviews_30": sum(per_day.get(today - timedelta(days=i), 0) for i in range(30)),
+        "retention_30": retention,
+        "total_reviews": len(study),
+        "total_cards": len(col.card_ivls),
+        "mature_cards": sum(1 for i in col.card_ivls if i >= 21),
+        "heatmap": heat,
+    }
