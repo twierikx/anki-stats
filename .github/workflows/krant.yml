@@ -42,6 +42,7 @@ jobs:
         env:
           ANKI_ACCOUNTS: ${{ secrets.ANKI_ACCOUNTS }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_BACKUP_PAID: ${{ secrets.GEMINI_API_KEY_BACKUP_PAID }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
         run: |
           if [ "${{ github.event_name == 'workflow_dispatch' && inputs.alleen_testen }}" = "true" ]; then
