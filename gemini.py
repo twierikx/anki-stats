@@ -16,11 +16,18 @@ class GeminiError(RuntimeError):
     pass
 
 
-def _key() -> str:
-    key = os.environ.get("GEMINI_API_KEY", "").strip()
-    if not key:
+def _keys() -> list[tuple[str, str]]:
+    """(label, key) pairs: the free key first, the paid backup key second."""
+    keys = [("gratis", os.environ.get("GEMINI_API_KEY", "").strip()),
+            ("betaald", os.environ.get("GEMINI_API_KEY_BACKUP_PAID", "").strip())]
+    keys = [(label, k) for label, k in keys if k]
+    if not keys:
         raise GeminiError("GEMINI_API_KEY ontbreekt in de GitHub secrets.")
-    return key
+    return keys
+
+
+def _key() -> str:
+    return _keys()[0][1]
 
 
 _MODELS: list[str] | None = None
@@ -32,9 +39,13 @@ PRICES = {"lite": (0.30, 2.50), "flash": (0.75, 3.75)}
 def _models() -> list[str]:
     global _MODELS
     if _MODELS is None:
-        r = requests.get(f"{API}/models", headers={"x-goog-api-key": _key()},
-                         params={"pageSize": 200}, timeout=30)
-        if r.status_code != 200:
+        r = None
+        for _label, key in _keys():
+            r = requests.get(f"{API}/models", headers={"x-goog-api-key": key},
+                             params={"pageSize": 200}, timeout=30)
+            if r.status_code == 200:
+                break
+        if r is None or r.status_code != 200:
             raise GeminiError(f"modellen opvragen mislukt ({r.status_code}): {r.text[:200]}")
         _MODELS = [
             m["name"].removeprefix("models/") for m in r.json().get("models", [])
@@ -87,45 +98,60 @@ def generate_json(model: str, system: str, prompt: str, schema: dict,
         "generationConfig": config,
     }
     last = ""
-    for attempt in range(5):
-        r = requests.post(f"{API}/models/{model}:generateContent",
-                          headers={"x-goog-api-key": _key()}, json=body, timeout=240)
-        if r.status_code == 400 and "thinking" in r.text.lower() and "thinkingConfig" in config:
-            config.pop("thinkingConfig")  # model does not support this setting: use default
-            continue
-        if r.status_code in (429, 500, 502, 503, 504):
-            last = f"{r.status_code}: {r.text[:200]}"
-            time.sleep(15 * (attempt + 1))
-            continue
-        if r.status_code != 200:
-            raise GeminiError(f"Gemini-fout {r.status_code}: {r.text[:300]}")
-        data = r.json()
-        u = data.get("usageMetadata", {})
-        USAGE.append({"label": label, "model": model,
-                      "in": u.get("promptTokenCount", 0),
-                      "out": u.get("candidatesTokenCount", 0) + u.get("thoughtsTokenCount", 0),
-                      "thoughts": u.get("thoughtsTokenCount", 0)})
-        try:
-            cand = data["candidates"][0]
-            text = "".join(p.get("text", "") for p in cand["content"]["parts"])
-            return json.loads(text)
-        except (KeyError, IndexError, json.JSONDecodeError) as exc:
-            reason = data.get("candidates", [{}])[0].get("finishReason", "?")
-            last = f"onleesbaar antwoord ({exc}, finishReason={reason}): {str(data)[:200]}"
-            time.sleep(5)
-    raise GeminiError(f"Gemini gaf na 5 pogingen geen bruikbaar antwoord. Laatste: {last}")
+    for key_label, key in _keys():
+        for attempt in range(3):
+            try:
+                r = requests.post(f"{API}/models/{model}:generateContent",
+                                  headers={"x-goog-api-key": key}, json=body, timeout=240)
+            except requests.RequestException as exc:
+                last = f"verbinding mislukt: {exc}"
+                time.sleep(10 * (attempt + 1))
+                continue
+            if r.status_code == 400 and "thinking" in r.text.lower() and "thinkingConfig" in config:
+                config.pop("thinkingConfig")  # model does not support this setting: use default
+                continue
+            if r.status_code in (429, 500, 502, 503, 504):
+                last = f"{key_label} sleutel {r.status_code}: {r.text[:200]}"
+                print(f"  Gemini ({label}, {key_label} sleutel) niet beschikbaar: {r.status_code}",
+                      flush=True)
+                time.sleep(10 * (attempt + 1))
+                continue
+            if r.status_code in (401, 402, 403):  # key refused / no credit: try the next key
+                last = f"{key_label} sleutel {r.status_code}: {r.text[:200]}"
+                print(f"  Gemini ({label}): {key_label} sleutel geweigerd ({r.status_code})", flush=True)
+                break
+            if r.status_code != 200:
+                raise GeminiError(f"Gemini-fout {r.status_code}: {r.text[:300]}")
+            data = r.json()
+            u = data.get("usageMetadata", {})
+            USAGE.append({"label": label, "model": model, "key": key_label,
+                          "in": u.get("promptTokenCount", 0),
+                          "out": u.get("candidatesTokenCount", 0) + u.get("thoughtsTokenCount", 0),
+                          "thoughts": u.get("thoughtsTokenCount", 0)})
+            try:
+                cand = data["candidates"][0]
+                text = "".join(p.get("text", "") for p in cand["content"]["parts"])
+                return json.loads(text)
+            except (KeyError, IndexError, json.JSONDecodeError) as exc:
+                reason = data.get("candidates", [{}])[0].get("finishReason", "?")
+                last = f"onleesbaar antwoord ({exc}, finishReason={reason}): {str(data)[:200]}"
+                time.sleep(5)
+    raise GeminiError(f"Gemini gaf met geen enkele sleutel een bruikbaar antwoord. Laatste: {last}")
 
 
 def print_usage() -> None:
-    total = 0.0
+    paid = 0.0
     print("\nGemini-gebruik deze run:")
     for u in USAGE:
         pin, pout = PRICES["lite" if "lite" in u["model"] else "flash"]
         cost = (u["in"] * pin + u["out"] * pout) / 1e6
-        total += cost
-        print(f"  {u['label']:<10} {u['model']:<26} in {u['in']:>7,}  uit {u['out']:>6,} "
-              f"(waarvan denken {u['thoughts']:,})  ≈ ${cost:.3f}")
-    print(f"  Totaal ≈ ${total:.3f} bij betaald tarief (met een gratis sleutel: $0).")
+        if u["key"] == "betaald":
+            paid += cost
+        print(f"  {u['label']:<10} {u['model']:<26} {u['key']:<8} in {u['in']:>7,}  uit {u['out']:>6,} "
+              f"(denken {u['thoughts']:,})  ≈ ${cost:.3f}" + ("" if u["key"] == "betaald" else " (gratis)"))
+    print(f"  Betaald deze run ≈ ${paid:.3f}")
+    if paid:
+        print(f"::notice::Gemini viel terug op de betaalde sleutel (≈ ${paid:.3f}).")
 
 
 # ------------------------------------------------------------------ prompts --
