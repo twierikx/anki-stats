@@ -2,14 +2,24 @@ name: Anki-weekrapport
 
 on:
   schedule:
-    # Every Monday 07:00 UTC = 08:00 Spanish winter time (09:00 in summer)
-    - cron: "0 7 * * 1"
+    # GitHub's scheduler is best-effort: scheduled runs are often delayed or skipped,
+    # especially on the hour. So: several off-peak slots every Monday (06:13-11:43 UTC).
+    # The "Al verstuurd?" step below sends only once per week and not before 08:00 in
+    # Madrid -> mail around 08:13 local time, both in summer and winter time.
+    - cron: "13,43 6-11 * * 1"
   workflow_dispatch:
     inputs:
       alleen_testen:
         description: "Alleen testen (geen mail versturen)"
         type: boolean
         default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekrapport
+  cancel-in-progress: false
 
 jobs:
   rapport:
@@ -18,14 +28,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Al verstuurd deze week?
+        id: check
+        run: |
+          week=$(TZ=Europe/Madrid date +%G-W%V)
+          echo "week=$week" >> "$GITHUB_OUTPUT"
+          skip=false
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            if [ "$(TZ=Europe/Madrid date +%-H)" -lt 8 ]; then
+              echo "Het is $(TZ=Europe/Madrid date +%H:%M) in Madrid: te vroeg, deze run slaat over."
+              skip=true
+            elif [ "$(cat .weekrapport-verstuurd 2>/dev/null)" = "$week" ]; then
+              echo "Het weekrapport van $week is al verstuurd."
+              skip=true
+            fi
+          fi
+          echo "skip=$skip" >> "$GITHUB_OUTPUT"
+
       - uses: actions/setup-python@v5
+        if: steps.check.outputs.skip != 'true'
         with:
           python-version: "3.12"
           cache: pip
 
-      - run: pip install -r requirements.txt
+      - if: steps.check.outputs.skip != 'true'
+        run: pip install -r requirements.txt
 
       - name: Rapport maken
+        if: steps.check.outputs.skip != 'true'
         env:
           ANKI_ACCOUNTS: ${{ secrets.ANKI_ACCOUNTS }}
           SMTP_USER: ${{ secrets.SMTP_USER }}
@@ -38,8 +68,19 @@ jobs:
             python weekly_report.py
           fi
 
+      - name: Week als verstuurd markeren
+        if: steps.check.outputs.skip != 'true' && !(github.event_name == 'workflow_dispatch' && inputs.alleen_testen)
+        run: |
+          echo "${{ steps.check.outputs.week }}" > .weekrapport-verstuurd
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .weekrapport-verstuurd
+          git commit -m "Weekrapport ${{ steps.check.outputs.week }} verstuurd" || echo "Niets te committen"
+          git pull --rebase origin main
+          git push
+
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.check.outputs.skip != 'true'
         with:
           name: weekrapport
           path: out/

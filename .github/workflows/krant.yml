@@ -2,9 +2,12 @@ name: Spaanse krant
 
 on:
   schedule:
-    # 04:20 and 05:20 UTC; the script only runs once it is 06:00+ in Madrid and today's
-    # edition does not exist yet -> ~06:20 local time, both in summer and winter time.
-    - cron: "20 4,5 * * *"
+    # GitHub's scheduler is best-effort: scheduled runs are often delayed by hours or
+    # skipped altogether. So: many off-peak slots (every 30 min, 04:07-09:37 UTC).
+    # krant.py only builds once it is 06:00+ in Madrid and today's edition does not exist
+    # yet, so the extra runs just skip in ~10 s -> paper around 06:07 local time,
+    # both in summer and winter time, with plenty of retries if a slot is dropped.
+    - cron: "7,37 4-9 * * *"
   workflow_dispatch:
     inputs:
       alleen_testen:
@@ -69,6 +72,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add docs
           git commit -m "Krant $(TZ=Europe/Madrid date +%F)" || echo "Niets te committen"
+          git pull --rebase origin main
           git push
 
       - name: Pagina klaarzetten
