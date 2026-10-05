@@ -1,9 +1,9 @@
 """Daily Spanish newspaper built around the words you are learning in Anki.
 
 Usage:
-  python krant.py --test     # build into out/ only (artifact), no publishing
-  python krant.py            # build into docs/ (GitHub Pages) – used by the schedule
-  python krant.py --demo     # canned data, no network/keys needed (for design work)
+  python krant.py --test   # build into out/ only (artifact), no publishing
+  python krant.py          # build into docs/ (GitHub Pages) – used by the schedule
+  python krant.py --demo   # canned data, no network/keys needed (for design work)
 
 Environment: ANKI_ACCOUNTS, GEMINI_API_KEY, optional GEMINI_MODEL.
 """
@@ -24,14 +24,19 @@ from zoneinfo import ZoneInfo
 
 import anki_words
 import krant_html
-from anki_words import Word, norm
+from anki_words import Word, lemma_key
 
 TZ = ZoneInfo("Europe/Madrid")
 MAX_RECENT = 70
 MAX_WRONG = 40
-MAX_REVIEWED = 60
+MAX_REVIEWED = 150
 MIN_ARTICLE_CHARS = 800
+MIN_BREVE_CHARS = 250
 EARLIEST_HOUR = 6
+# 1 lead story, 3 normal pieces and 3 short ones ("En breve")
+SLOTS = {"principal": 1, "normal": 3, "breve": 3}
+DEMOTE = {"principal": "normal", "normal": "breve", "breve": None}
+ORDER = {"principal": 0, "normal": 1, "breve": 2}
 
 
 @dataclass
@@ -42,6 +47,7 @@ class Article:
     source: str
     link: str
     tono: str
+    formato: str = "normal"
 
 
 @dataclass
@@ -50,9 +56,9 @@ class Edition:
     slug: str
     date: datetime
     articles: list[Article]
-    words: list[dict]                       # for the bottom sheet, referenced by index
+    words: list[dict]                 # for the bottom sheet, referenced by index
     counts: dict[str, int]
-    review: list[int] = field(default_factory=list)  # indices into words
+    review: list[int] = field(default_factory=list)   # indices into words
     model: str = ""
     stats_me: dict | None = None
     stats_all: list = field(default_factory=list)
@@ -67,6 +73,21 @@ def slugify(name: str) -> str:
 # ------------------------------------------------------------- highlighting --
 
 WORDCHARS = "A-Za-zÁÉÍÓÚÜÑáéíóúüñ0-9"
+FUNCTION_POS = {"voorzetsel", "voegwoord", "lidwoord", "voornaamwoord", "telwoord"}
+STOPWORDS = {"para", "como", "pero", "porque", "cuando", "donde", "desde", "hasta", "sobre",
+             "entre", "este", "esta", "esto", "estos", "estas", "otro", "otra", "otros", "otras",
+             "todo", "toda", "todos", "todas", "muy", "más", "mucho", "mucha", "muchos",
+             "muchas", "también", "tambien", "ahora", "hacer", "tener", "estar", "haber",
+             "poder", "decir", "ser", "año", "ano", "años", "anos", "cada", "bien"}
+
+
+def base_form(lemma: str) -> str:
+    """Dictionary form as written on the card, with accents: 'el poeta (nm)' -> 'poeta'."""
+    s = re.split(r"[,/;(]", lemma or "", maxsplit=1)[0].strip()
+    parts = s.split()
+    if len(parts) > 1 and parts[0].lower() in anki_words.ARTICLES:
+        s = " ".join(parts[1:])
+    return s
 
 
 def find_span(text: str, form: str, taken: list[tuple[int, int]]) -> tuple[int, int] | None:
@@ -91,34 +112,49 @@ def build_article(art: dict, recent: dict[str, Word], wrong: dict[str, Word],
     spans: list[tuple[int, int, int]] = []  # start, end, word index
     taken: list[tuple[int, int]] = []
     seen_lemmas: set[str] = set()
+
+    def classify(*keys: str) -> tuple[str, Word | None]:
+        for kind, d in (("fout", wrong), ("nieuw", recent), ("herhaald", reviewed)):
+            for k in keys:
+                if k and k in d:
+                    return kind, d[k]
+        return "moeilijk", None
+
+    def mark(span, kind: str, card: Word | None, lemma: str, nl: str, tipo: str) -> None:
+        key = (kind, lemma_key(lemma))
+        if key not in index:
+            index[key] = len(words)
+            words.append({"w": lemma, "nl": nl.strip(), "t": tipo.strip(), "k": kind})
+        spans.append((span[0], span[1], index[key]))
+        taken.append(span)
+
     for p in sorted(art.get("palabras", []), key=lambda p: -len(p.get("forma", ""))):
-        lemma_key, form_key = norm(p.get("lema", "")), norm(p.get("forma", ""))
-        if not lemma_key or lemma_key in seen_lemmas:
+        lemma_k, form_k = lemma_key(p.get("lema", "")), lemma_key(p.get("forma", ""))
+        if not lemma_k or lemma_k in seen_lemmas:
             continue
-        if lemma_key in wrong or form_key in wrong:
-            kind, card = "fout", wrong.get(lemma_key) or wrong.get(form_key)
-        elif lemma_key in recent or form_key in recent:
-            kind, card = "nieuw", recent.get(lemma_key) or recent.get(form_key)
-        elif lemma_key in reviewed or form_key in reviewed:
-            kind, card = "herhaald", reviewed.get(lemma_key) or reviewed.get(form_key)
-        else:
-            kind, card = "moeilijk", None
+        kind, card = classify(lemma_k, form_k)
         span = find_span(text, p.get("forma", ""), taken)
         if span is None:
             continue
         lemma = card.lemma if card else p.get("lema", "").strip()
-        key = (kind, norm(lemma))
-        if key not in index:
-            index[key] = len(words)
-            words.append({
-                "w": lemma,
-                "nl": (p.get("nl") or (card.gloss if card else "")).strip(),
-                "t": (p.get("tipo") or (card.pos if card else "")).strip(),
-                "k": kind,
-            })
-        spans.append((span[0], span[1], index[key]))
-        taken.append(span)
-        seen_lemmas.add(lemma_key)
+        mark(span, kind, card, lemma,
+             p.get("nl") or (card.gloss if card else ""),
+             p.get("tipo") or (card.pos if card else ""))
+        seen_lemmas.add(lemma_k)
+        if card:
+            seen_lemmas.add(card.key)
+
+    # List words that appear literally (dictionary form) but Gemini forgot to report;
+    # small function words ("para", "como") would only add noise, so they are skipped.
+    for kind, d in (("fout", wrong), ("nieuw", recent), ("herhaald", reviewed)):
+        for k, card in d.items():
+            if k in seen_lemmas or len(k) < 4 or k in STOPWORDS or card.pos in FUNCTION_POS:
+                continue
+            span = find_span(text, base_form(card.lemma), taken)
+            if span is None:
+                continue
+            mark(span, kind, card, card.lemma, card.gloss, card.pos)
+            seen_lemmas.add(k)
 
     out, pos = [], 0
     for start, end, wi in sorted(spans):
@@ -138,8 +174,14 @@ def build_article(art: dict, recent: dict[str, Word], wrong: dict[str, Word],
 def select_items(model: str, items) -> list[dict]:
     import gemini
 
+    rank: dict[int, int] = {}
+    per_source: dict[str, int] = {}
+    for it in items:  # feeds list the front page roughly in order of prominence
+        per_source[it.source] = per_source.get(it.source, 0) + 1
+        rank[it.id] = per_source[it.source]
     listing = "\n\n".join(
-        f"[{it.id}] {it.source}{(' · ' + it.section) if it.section else ''}\n"
+        f"[{it.id}] {it.source} (#{rank[it.id]} en su portada)"
+        f"{(' · ' + it.section) if it.section else ''}\n"
         f"Titular: {it.title}\nEntradilla: {it.summary[:220]}"
         for it in items
     )
@@ -151,17 +193,22 @@ def select_items(model: str, items) -> list[dict]:
     chosen, seen = [], set()
     for s in res.get("seleccion", []):
         if s.get("id") in valid and s["id"] not in seen:
+            if s.get("formato") not in SLOTS:
+                s["formato"] = "normal"
             chosen.append(s)
             seen.add(s["id"])
     if len(chosen) < 3:
         raise SystemExit(f"Gemini koos te weinig berichten: {res}")
-    return chosen[:12]
+    return chosen[:18]
 
 
-def with_full_text(chosen: list[dict], by_id: dict, want: int = 5) -> tuple[list[dict], dict]:
-    """Fetch the article pages; keep the first `want` candidates that have enough text."""
+def with_full_text(chosen: list[dict], by_id: dict) -> tuple[list[dict], dict]:
+    """Fill 1 lead, 3 normal and 3 short slots from the ranked candidates, fetching the
+    article pages; a candidate whose slot is full moves down one format."""
     from nieuws import fetch_article
 
+    free = dict(SLOTS)
+    want = sum(SLOTS.values())
     texts: dict[int, str] = {}
     keep: list[dict] = []
     topics: set[str] = set()
@@ -170,9 +217,22 @@ def with_full_text(chosen: list[dict], by_id: dict, want: int = 5) -> tuple[list
         if topic and topic in topics:
             print(f"  overgeslagen (al een bericht over '{topic}'): {by_id[c['id']].title[:60]}")
             continue
-        text = by_id[c["id"]].content or fetch_article(by_id[c["id"]].link)
-        print(f"  {len(text):5d} tekens  {by_id[c['id']].title[:70]}")
-        if len(text) >= MIN_ARTICLE_CHARS:
+        fmt = c.get("formato", "normal")
+        while fmt and not free[fmt]:
+            fmt = DEMOTE[fmt]
+        if not fmt:
+            continue
+        item = by_id[c["id"]]
+        text = item.content or fetch_article(item.link)
+        if fmt == "breve" and len(text) < MIN_BREVE_CHARS and len(item.summary) >= 150:
+            text = item.summary
+        need = MIN_BREVE_CHARS if fmt == "breve" else MIN_ARTICLE_CHARS
+        if len(text) < need and fmt != "breve" and len(text) >= MIN_BREVE_CHARS and free["breve"]:
+            fmt, need = "breve", MIN_BREVE_CHARS  # too little text for a full piece
+        print(f"  {len(text):5d} tekens  {fmt:<9} {item.title[:64]}")
+        if len(text) >= need:
+            c["formato"] = fmt
+            free[fmt] -= 1
             texts[c["id"]] = text
             keep.append(c)
             if topic:
@@ -181,9 +241,14 @@ def with_full_text(chosen: list[dict], by_id: dict, want: int = 5) -> tuple[list
             break
     if len(keep) < 3:  # sites blocked us: fall back to the RSS summaries
         for c in chosen:
-            if c not in keep and len(keep) < want:
+            if c not in keep and len(keep) < 5:
                 texts[c["id"]] = by_id[c["id"]].summary
+                c["formato"] = "breve"
                 keep.append(c)
+    if keep and not any(c["formato"] == "principal" for c in keep):
+        lead = next((c for c in keep if c["formato"] == "normal"), keep[0])
+        lead["formato"] = "principal"
+    keep.sort(key=lambda c: ORDER[c["formato"]])  # stable: keeps the editor's ranking
     return keep, texts
 
 
@@ -196,18 +261,21 @@ def write_articles(model: str, chosen: list[dict], by_id: dict, texts: dict,
         return "\n".join(f"- {w.lemma} — {w.gloss}" for w in ws) or "(ninguna)"
 
     news = "\n\n".join(
-        f"[{c['id']}] rúbrica: {c['rubrica']} · tono: {c['tono']} · fuente: {by_id[c['id']].source}\n"
+        f"[{c['id']}] formato: {c.get('formato', 'normal')} · rúbrica: {c['rubrica']} · "
+        f"tono: {c['tono']} · fuente: {by_id[c['id']].source}\n"
         f"Titular: {by_id[c['id']].title}\nEntradilla: {by_id[c['id']].summary}\n"
         f"Texto del artículo:\n{texts.get(c['id'], by_id[c['id']].summary)}"
         for c in chosen
     )
     prompt = (
-        f"LISTA REPASAR (palabras falladas, máxima prioridad):\n{fmt(wrong[:MAX_WRONG])}\n\n"
-        f"LISTA NUEVAS (aprendidas hace poco):\n{fmt(recent[:MAX_RECENT])}\n\n"
-        f"LISTA REPASADAS (contestadas 'difícil' o 'bien'; menos prioridad, úsalas si encajan):\n"
+        f"LISTA REPASAR (palabras falladas: máxima prioridad, úsalas varias veces):\n"
+        f"{fmt(wrong[:MAX_WRONG])}\n\n"
+        f"LISTA NUEVAS (aprendidas hace poco: usa al menos tres cuartas partes):\n"
+        f"{fmt(recent[:MAX_RECENT])}\n\n"
+        f"LISTA REPASADAS (repasadas en los últimos meses: úsalas siempre que encajen):\n"
         f"{fmt(reviewed[:MAX_REVIEWED])}\n\n"
-        f"Escribe una noticia para cada una de estas {len(chosen)} noticias, en el mismo orden "
-        f"y con el mismo id:\n\n{news}"
+        f"Escribe una noticia para cada una de estas {len(chosen)} noticias, en el mismo orden, "
+        f"con el mismo id y con la longitud que indica su formato:\n\n{news}"
     )
     if other and other.get("articulos"):
         versions = "\n\n".join(
@@ -226,9 +294,9 @@ def write_articles(model: str, chosen: list[dict], by_id: dict, texts: dict,
 def make_edition(name: str, date: datetime, chosen: list[dict], by_id: dict,
                  written: dict, recent: list[Word], wrong: list[Word], reviewed: list[Word],
                  model: str) -> Edition:
-    recent_d = {w.key: w for w in recent}
-    reviewed_d = {w.key: w for w in reviewed}
-    wrong_d = {w.key: w for w in wrong}
+    recent_d = {w.key: w for w in recent[:MAX_RECENT]}
+    reviewed_d = {w.key: w for w in reviewed[:MAX_REVIEWED]}
+    wrong_d = {w.key: w for w in wrong[:MAX_WRONG]}
     words: list[dict] = []
     index: dict[tuple[str, str], int] = {}
     arts: list[Article] = []
@@ -245,10 +313,18 @@ def make_edition(name: str, date: datetime, chosen: list[dict], by_id: dict,
             titulo=art["titulo"].strip(),
             html=build_article(art, recent_d, wrong_d, reviewed_d, words, index),
             source=item.source, link=item.link, tono=c.get("tono", ""),
+            formato=c.get("formato", "normal"),
         ))
 
+    counts = {"nieuw": 0, "herhaald": 0, "fout": 0, "moeilijk": 0}
+    in_text: set[int] = set()
+    for a in arts:
+        in_text.update(int(i) for i in re.findall(r'data-i="(\d+)"', a.html))
+    for i in in_text:
+        counts[words[i]["k"]] += 1
+
     # "Herhaal deze woorden": every wrong word, with a Dutch meaning from Gemini if possible
-    repaso = {norm(r.get("lema", "")): r for r in written.get("repaso", [])}
+    repaso = {lemma_key(r.get("lema", "")): r for r in written.get("repaso", [])}
     review = []
     for w in wrong[:MAX_WRONG]:
         key = ("fout", w.key)
@@ -258,14 +334,22 @@ def make_edition(name: str, date: datetime, chosen: list[dict], by_id: dict,
             words.append({"w": w.lemma, "nl": r.get("nl") or w.gloss,
                           "t": r.get("tipo") or w.pos, "k": "fout"})
         review.append(index[key])
-
-    counts = {"nieuw": 0, "herhaald": 0, "fout": 0, "moeilijk": 0}
-    in_text: set[int] = set()
-    for a in arts:
-        in_text.update(int(i) for i in re.findall(r'data-i="(\d+)"', a.html))
-    for i in in_text:
-        counts[words[i]["k"]] += 1
     return Edition(name, slugify(name), date, arts, words, counts, review, model)
+
+
+def coverage(ed: Edition, recent: list[Word], wrong: list[Word]) -> str:
+    """One log line: how much of the Anki lists made it into the text."""
+    used = {(w["k"], lemma_key(w["w"])) for i, w in enumerate(ed.words)
+            if f'data-i="{i}"' in "".join(a.html for a in ed.articles)}
+    n_wrong = sum(1 for w in wrong[:MAX_WRONG] if ("fout", w.key) in used)
+    n_new = sum(1 for w in recent[:MAX_RECENT] if ("nieuw", w.key) in used)
+    c = ed.counts
+    anki = c["nieuw"] + c["herhaald"] + c["fout"]
+    total = anki + c["moeilijk"]
+    pct = round(100 * anki / total) if total else 0
+    return (f"  Anki: fout {n_wrong}/{min(len(wrong), MAX_WRONG)}, "
+            f"nieuw {n_new}/{min(len(recent), MAX_RECENT)}, herhaald {c['herhaald']}; "
+            f"{pct}% van de gemarkeerde woorden komt uit Anki")
 
 
 # --------------------------------------------------------------------- demo --
@@ -289,9 +373,9 @@ def demo_edition(name: str, date: datetime) -> Edition:
 
     by_id = {1: It("El País", "https://elpais.com/"), 2: It("elDiario.es", "https://eldiario.es/"),
              3: It("El País", "https://elpais.com/")}
-    chosen = [{"id": 1, "rubrica": "Clima", "tono": "positivo"},
-              {"id": 2, "rubrica": "Sociedad", "tono": "tendencia"},
-              {"id": 3, "rubrica": "Cultura", "tono": "positivo"}]
+    chosen = [{"id": 1, "rubrica": "Clima", "tono": "positivo", "formato": "principal"},
+              {"id": 2, "rubrica": "Sociedad", "tono": "tendencia", "formato": "normal"},
+              {"id": 3, "rubrica": "Cultura", "tono": "positivo", "formato": "breve"}]
     P = lambda f, l, nl, t: {"forma": f, "lema": l, "nl": nl, "tipo": t}  # noqa: E731
     written = {
         "articulos": [
@@ -321,7 +405,6 @@ def demo_edition(name: str, date: datetime) -> Edition:
                       "local leyó una declaración en la inauguración. El museo quiere lograr "
                       "que más vecinos lo visiten.",
              "palabras": [P("crecer", "crecer", "groeien", "werkwoord"),
-                          P("poeta", "poeta", "dichter", "zelfst. nw. (m/v)"),
                           P("declaración", "declaración", "verklaring", "zelfst. nw. (vr.)"),
                           P("lograr", "lograr", "bereiken, voor elkaar krijgen", "werkwoord"),
                           P("ampliación", "ampliación", "uitbreiding", "zelfst. nw. (vr.)")]},
@@ -406,7 +489,8 @@ def main() -> None:
     candidates = select_items(lite, pool)
     print("Volledige artikelen ophalen ...", flush=True)
     chosen, texts = with_full_text(candidates, by_id)
-    print("Gekozen: " + " | ".join(f"{c['tono']}: {by_id[c['id']].title[:60]}" for c in chosen))
+    print("Gekozen: " + " | ".join(f"{c['formato']}/{c['tono']}: {by_id[c['id']].title[:50]}"
+                                   for c in chosen))
 
     import stats as st
     import stats_html
@@ -425,7 +509,7 @@ def main() -> None:
         col = st.load_collection(path)
         overview = st.overview(name, col, (now - timedelta(hours=col.rollover)).date())
         overview["slug"] = slugify(name)
-        print(f"  {len(recent)} nieuw, {len(wrong)} fout, {len(reviewed)} moeilijk/goed herhaald; "
+        print(f"  {len(recent)} nieuw, {len(wrong)} fout, {len(reviewed)} herhaald (90 dagen); "
               f"reeks {overview['streak']}")
         people.append((name, recent, wrong, reviewed, overview))
     if not people:
@@ -440,6 +524,7 @@ def main() -> None:
         ed = make_edition(name, now, chosen, by_id, written, recent, wrong, reviewed, model)
         ed.stats_me, ed.stats_all = overview, overviews
         print(f"  {len(ed.articles)} berichten, gemarkeerd: {ed.counts}")
+        print(coverage(ed, recent, wrong))
         save(ed, root, archive=not args.test)
         names.append(name)
 

@@ -1,9 +1,10 @@
 """Pick the Spanish words to practise from an Anki collection.
 
-- recent: Spanish cards answered for the first time in the last RECENT_DAYS days
-- wrong:  Spanish cards answered "Again" (ease 1) in the last WRONG_DAYS days
-- reviewed: Spanish cards answered "Hard" or "Good" (ease 2/3) in the last REVIEWED_DAYS
-  days that are in neither list above (lower priority, still nice to meet in context)
+- recent:   Spanish cards answered for the first time in the last RECENT_DAYS days
+- wrong:    Spanish cards answered "Again" (ease 1) in the last WRONG_DAYS days
+- reviewed: Spanish cards answered "Hard", "Good" or "Easy" in the last REVIEWED_DAYS
+  days that are in neither list above (lower priority, still nice to meet in context);
+  "Hard" answers first, then the most recently reviewed
 """
 
 from __future__ import annotations
@@ -16,8 +17,8 @@ from dataclasses import dataclass
 
 RECENT_DAYS = 30
 WRONG_DAYS = 14
-REVIEWED_DAYS = 14
-MAX_REVIEWED = 80
+REVIEWED_DAYS = 90
+MAX_REVIEWED = 200
 MIN_WORDS = 20  # top up with the most recently reviewed cards below this
 
 # (Spanish field, gloss field) candidates, in order of preference
@@ -32,19 +33,21 @@ POS = {
     "pron": "voornaamwoord", "art": "lidwoord", "interj": "tussenwerpsel", "num": "telwoord",
 }
 
+ARTICLES = {"el", "la", "los", "las", "un", "una", "unos", "unas", "lo"}
+
 
 @dataclass
 class Word:
-    lemma: str        # "heredar"
-    gloss: str        # meaning on the card (often English)
-    pos: str          # Dutch word type from the card, may be ""
-    kind: str         # "recent", "wrong" or "reviewed"
-    last_ms: int      # last time answered
-    lapses: int = 0   # how often "Again" in the window
+    lemma: str       # "heredar"
+    gloss: str       # meaning on the card (often English)
+    pos: str         # Dutch word type from the card, may be ""
+    kind: str        # "recent", "wrong" or "reviewed"
+    last_ms: int     # last time answered
+    lapses: int = 0  # how often "Again" in the window
 
     @property
     def key(self) -> str:
-        return norm(self.lemma)
+        return lemma_key(self.lemma)
 
 
 def norm(s: str) -> str:
@@ -52,6 +55,19 @@ def norm(s: str) -> str:
     s = unicodedata.normalize("NFD", s)
     s = "".join(c for c in s if unicodedata.category(c) != "Mn").replace("\x00", "ñ")
     return re.sub(r"\s+", " ", re.sub(r"[^a-zñ ]+", " ", s)).strip()
+
+
+def lemma_key(s: str) -> str:
+    """Matching key for a dictionary form, so card and Gemini spellings meet:
+    'el poeta' -> 'poeta', 'bueno, -a' -> 'bueno', 'parecerse' -> 'parecer'."""
+    s = re.split(r"[,/;(]", s or "", maxsplit=1)[0]
+    k = norm(s)
+    parts = k.split(" ")
+    if len(parts) > 1 and parts[0] in ARTICLES:
+        k = " ".join(parts[1:])
+    if re.fullmatch(r"[a-zñ]+(ar|er|ir)se", k):
+        k = k[:-2]
+    return k
 
 
 def clean(s: str) -> str:
@@ -97,7 +113,7 @@ def load_words(path: str, now_ms: int | None = None) -> tuple[list[Word], list[W
     wrong_cut = now_ms - WRONG_DAYS * 86_400_000
     reviewed_cut = now_ms - REVIEWED_DAYS * 86_400_000
     hard: dict[int, int] = {}   # cid -> number of Hard answers in the window
-    good: dict[int, int] = {}   # cid -> last Good answer in the window
+    good: dict[int, int] = {}   # cid -> last Good/Easy answer in the window
     first: dict[int, int] = {}
     last: dict[int, int] = {}
     lapses: dict[int, int] = {}
@@ -121,7 +137,7 @@ def load_words(path: str, now_ms: int | None = None) -> tuple[list[Word], list[W
             lapses[cid] = lapses.get(cid, 0) + 1
         elif ease == 2 and rid >= reviewed_cut:
             hard[cid] = hard.get(cid, 0) + 1
-        elif ease == 3 and rid >= reviewed_cut:
+        elif ease >= 3 and rid >= reviewed_cut:
             good[cid] = rid
 
     wrong: dict[str, Word] = {}
@@ -149,7 +165,7 @@ def load_words(path: str, now_ms: int | None = None) -> tuple[list[Word], list[W
                 break
 
     reviewed: dict[str, Word] = {}
-    # Hard answers first (most often), then Good answers (most recent first)
+    # Hard answers first (most often), then Good/Easy answers (most recent first)
     order = sorted(hard, key=lambda c: (-hard[c], -last[c])) + sorted(
         (c for c in good if c not in hard), key=lambda c: -good[c])
     for cid in order:

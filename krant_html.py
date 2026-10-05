@@ -37,7 +37,7 @@ body{margin:0;background:var(--bg);color:var(--ink);
   font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
   -webkit-font-smoothing:antialiased}
 .wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
-.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button{
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
   font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
 header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
 .kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
@@ -54,7 +54,17 @@ article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
 .rubric.positivo{color:var(--new)}
 h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
   font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
 article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
 .src{font-size:14px;color:var(--muted)}
 .src a{color:inherit;text-underline-offset:3px}
 .w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
@@ -100,14 +110,14 @@ article p{margin:0 0 10px}
 .snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
 .close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
   background:var(--chip);color:var(--ink);cursor:pointer}
-@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}body{font-size:18px}}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
 @media (prefers-reduced-motion:reduce){.sheet{transition:none}}
 """
 
 JS = """
 const W = JSON.parse(document.getElementById('words').textContent);
 const sheet = document.getElementById('sheet');
-const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki (moeilijk/goed)', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
 let current = null;
 function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
   if(current) current.classList.remove('on'); current = null; }
@@ -178,16 +188,24 @@ def pulse(me: dict | None, everyone: list[dict], link: str = "../stats/") -> str
     )
 
 
+def _article(a) -> str:
+    tone = " positivo" if a.tono == "positivo" else ""
+    cls = ' class="lead"' if getattr(a, "formato", "") == "principal" else ""
+    return (
+        f'<article{cls}><span class="rubric{tone}">{escape(a.rubrica)}</span>'
+        f"<h2>{escape(a.titulo)}</h2><p>{a.html}</p>"
+        f'<div class="src">Bron: <a href="{escape(a.link)}" rel="noopener" target="_blank">'
+        f"{escape(a.source)}</a></div></article>"
+    )
+
+
 def render(ed) -> str:
-    arts = []
-    for a in ed.articles:
-        tone = " positivo" if a.tono == "positivo" else ""
-        arts.append(
-            f'<article><span class="rubric{tone}">{escape(a.rubrica)}</span>'
-            f"<h2>{escape(a.titulo)}</h2><p>{a.html}</p>"
-            f'<div class="src">Bron: <a href="{escape(a.link)}" rel="noopener" target="_blank">'
-            f"{escape(a.source)}</a></div></article>"
-        )
+    main = [a for a in ed.articles if getattr(a, "formato", "normal") != "breve"]
+    breves = [a for a in ed.articles if getattr(a, "formato", "normal") == "breve"]
+    arts = "".join(_article(a) for a in main)
+    if breves:
+        arts += ('<section class="breves"><h3 class="sec">En breve</h3>'
+                 + "".join(_article(a) for a in breves) + "</section>")
     review = ""
     if ed.review:
         chips = "".join(
@@ -211,7 +229,7 @@ def render(ed) -> str:
 <header><div class="kicker">El diario de {escape(ed.name)}</div>
 <h1>Noticias de hoy</h1><div class="date">{fecha(ed.date)}</div></header>
 {_legend(ed.counts)}
-{''.join(arts)}
+{arts}
 {review}
 {pulse(getattr(ed, "stats_me", None), getattr(ed, "stats_all", []))}
 <div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español

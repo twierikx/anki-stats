@@ -157,24 +157,34 @@ def print_usage() -> None:
 # ------------------------------------------------------------------ prompts --
 
 SELECT_SYSTEM = """Eres el editor de un pequeño periódico diario en español para dos \
-estudiantes de español (nivel B2) que viven en Madrid. Los lectores se desaniman con el sesgo negativo de las \
-noticias. Tu trabajo es ELEGIR, no escribir.
+estudiantes de español (nivel B2) que viven en Madrid. Quieren seguir lo que pasa de verdad \
+en España, pero se desaniman con el sesgo negativo de las noticias. Tu trabajo es ELEGIR, no escribir.
 
-Devuelve 12 noticias ordenadas por preferencia (la mejor primero). Algunas páginas no se pueden leer; entonces se usan las siguientes de tu lista, así que cualquier grupo de 5 consecutivas debería cumplir los criterios de mezcla.
+Cada noticia trae su fuente y su posición en la portada de esa fuente (#1 = la que abre). \
+Una noticia que abre varias portadas, o cuyo tema aparece en varias fuentes, es importante hoy.
 
-Criterios:
-- Prioriza piezas que muestren tendencias de largo plazo o cambios estructurales (sociedad, \
-ciencia, clima y soluciones, economía cotidiana, salud pública, cultura, ciudades, tecnología).
-- Incluye al menos 2 noticias claramente positivas o esperanzadoras (un avance, una solución \
-que funciona, un descubrimiento, un logro colectivo, algo bonito de la cultura).
-- Como máximo 2 noticias de actualidad dura (última hora, política), y solo si son realmente \
-importantes para la vida en España.
+La edición tiene tres formatos:
+- "principal": LA noticia del día, la que más pesa en las portadas. Puede ser política, \
+economía, Europa o cualquier tema, siempre que sea de verdad lo que hoy importa en España. \
+Se explica con contexto.
+- "normal": noticias de peso medio.
+- "breve": noticias pequeñas que se cuentan en un solo párrafo.
+
+Devuelve 16 noticias ordenadas por preferencia (la mejor primero). Algunas páginas no se pueden \
+leer; entonces se usan las siguientes, así que marca 2 como "principal" (la mejor primero), unas \
+6 como "normal" y unas 8 como "breve". La edición final tiene 1 principal, 3 normales y 3 breves.
+
+Criterios de mezcla para la edición:
+- La principal y 1 o 2 normales o breves siguen la actualidad del día, también la política \
+(gobierno, Congreso, partidos, elecciones, Unión Europea), si es lo que domina las portadas.
+- El resto: tendencias de largo plazo y cambios estructurales (sociedad, ciencia, clima y \
+soluciones, economía cotidiana, salud, cultura, ciudades, tecnología) y al menos 2 noticias \
+claramente positivas o esperanzadoras.
 - Evita sucesos, crímenes, accidentes, violencia gráfica, cotilleo, resultados deportivos, \
-directos ("en directo", "última hora" con muchos temas), columnas de opinión y peleas \
-partidistas sin contenido.
-- Busca variedad de temas y de fuentes: como máximo una noticia sobre el mismo asunto \
-(por ejemplo, no dos sobre vivienda). Prefiere noticias sobre España.
-- Elige solo noticias cuya entradilla tenga suficiente información para resumirlas."""
+directos ("en directo", "última hora" con muchos temas) y columnas de opinión. La política \
+sí, pero con contenido: decisiones, leyes, negociaciones, resultados; no meros insultos entre partidos.
+- Variedad: como máximo una noticia sobre el mismo asunto. Prefiere noticias sobre España.
+- Elige solo noticias cuya entradilla tenga suficiente información."""
 
 SELECT_SCHEMA = {
     "type": "OBJECT",
@@ -185,16 +195,18 @@ SELECT_SCHEMA = {
                 "type": "OBJECT",
                 "properties": {
                     "id": {"type": "INTEGER"},
+                    "formato": {"type": "STRING", "enum": ["principal", "normal", "breve"]},
                     "rubrica": {"type": "STRING", "description":
-                                "Etiqueta corta en español: España, Sociedad, Ciencia, Clima, "
-                                "Cultura, Economía, Salud, Tecnología, Mundo o Buenas noticias"},
+                                "Etiqueta corta en español: España, Política, Sociedad, Ciencia, "
+                                "Clima, Cultura, Economía, Salud, Tecnología, Europa, Mundo o "
+                                "Buenas noticias"},
                     "tono": {"type": "STRING", "enum": ["tendencia", "positivo", "actualidad"]},
                     "tema": {"type": "STRING", "description":
                              "El asunto en una o dos palabras en minúscula, p. ej. 'vivienda', "
                              "'clima', 'inteligencia artificial'. Noticias del mismo asunto llevan "
                              "exactamente el mismo tema."},
                 },
-                "required": ["id", "rubrica", "tono", "tema"],
+                "required": ["id", "formato", "rubrica", "tono", "tema"],
             },
         }
     },
@@ -202,24 +214,46 @@ SELECT_SCHEMA = {
 }
 
 WRITE_SYSTEM = """Escribes un pequeño periódico diario en español de nivel B2 para un \
-estudiante neerlandés. Reglas estrictas:
-1. NO INVENTES NADA. Usa solo los hechos del titular y la entradilla que recibes. No añadas \
-cifras, nombres, fechas, causas ni consecuencias que no estén en el texto original.
-2. Escribe con tus propias palabras cada noticia en 3 a 5 párrafos de 2 a 4 frases. Separa los \
-párrafos con una línea en blanco en "texto". Basa todo en el "Texto del artículo": primero lo \
-esencial, después el contexto, las causas o la tendencia de fondo que explica el artículo, y si \
-el artículo lo menciona, lo que viene después o lo que da esperanza. No copies frases del \
-original; como mucho una cita de pocas palabras.
-3. Escribe para un nivel B2: frases naturales y variadas, vocabulario rico pero claro, sin jerga innecesaria.
-4. Usa con naturalidad TANTAS palabras de las listas del estudiante como puedas. Prioridad: \
-primero REPASAR (respuestas falladas), después NUEVAS, y por último REPASADAS (solo si encajan \
-bien). Puedes conjugarlas o ponerlas en plural. No fuerces palabras que no encajen con el hecho.
-5. Tono tranquilo y constructivo. En noticias duras, neutral y sin sensacionalismo.
+estudiante neerlandés que vive en Madrid. El periódico tiene dos objetivos: que entienda las \
+noticias reales del día y que repase SU vocabulario de Anki leyéndolas. Reglas:
+
+1. NO INVENTES NADA. Usa solo los hechos del titular, la entradilla y el "Texto del artículo". \
+No añadas cifras, nombres, fechas, causas ni consecuencias que no estén ahí. No copies frases \
+del original; como mucho una cita de pocas palabras.
+
+2. LA LONGITUD DEPENDE DEL FORMATO, y dentro del margen, de lo importante y complejo que sea el tema:
+   - "principal": la noticia del día, de 5 a 7 párrafos. Lo esencial primero; después el \
+contexto, las causas, qué significa para la gente en España y qué viene ahora. En política, \
+explica con neutralidad qué hace o propone cada parte y qué critican los demás, sin opinar.
+   - "normal": de 2 a 4 párrafos. Más si el tema es complejo o importante, menos si es sencillo.
+   - "breve": UN solo párrafo de 2 a 4 frases.
+   Párrafos de 2 a 4 frases, separados por una línea en blanco en "texto". No rellenes: si el \
+artículo da poco, escribe menos.
+
+3. VOCABULARIO DEL ESTUDIANTE. Es lo más importante después de los hechos.
+   - Antes de escribir cada noticia, busca en las listas todas las palabras que encajan con su \
+tema y construye las frases a su alrededor. Las listas son la materia prima del texto.
+   - Objetivo para el periódico entero: usar al menos tres cuartas partes de las palabras de \
+REPASAR y de NUEVAS, repartidas entre las noticias.
+   - Las palabras de REPASAR (falladas) deben salir varias veces: si encajan, en dos o más \
+noticias distintas.
+   - Las de REPASADAS (repasadas en los últimos meses) úsalas libremente siempre que encajen; \
+cuantas más, mejor.
+   - Orientación: una principal lleva unas 20 a 30 palabras de las listas, una normal de 8 a \
+15, una breve de 3 a 6.
+   - Puedes conjugar, poner en plural o en femenino, y usar la palabra en una explicación, una \
+comparación o una frase de contexto relacionada con la noticia. Lo que NO puedes es cambiar los \
+hechos ni escribir frases raras o forzadas: si una palabra no encaja en ninguna noticia, déjala.
+
+4. Nivel B2: frases naturales y variadas, vocabulario rico pero claro, sin jerga innecesaria.
+5. Tono tranquilo y constructivo. En noticias duras y en política, neutral y sin sensacionalismo.
 6. Titular corto y propio (no copies el original).
 
 En "palabras" de cada noticia incluye:
-- cada palabra de las listas que hayas usado, y
-- 5 a 10 palabras más que un estudiante B2 probablemente no conoce.
+- CADA palabra de las listas que hayas usado en esa noticia (también si ya la usaste en otra \
+noticia), con el "lema" EXACTAMENTE como aparece en la lista;
+- además, como mucho 3 palabras difíciles que NO están en las listas y que un estudiante B2 \
+probablemente no conoce.
 Para cada una: "forma" = exactamente como aparece en "texto" (o en "titulo"); "lema" = forma \
 de diccionario (verbos en infinitivo, sustantivos en singular); "nl" = significado en \
 neerlandés en este contexto (corto); "tipo" = categoría en neerlandés (werkwoord, \
