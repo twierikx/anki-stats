@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 12-10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">lunes, 12 de octubre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>41</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>5</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>0</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">Política</span><h2>Rufián repetirá como candidato de ERC en las elecciones de noviembre</h2><p>Gabriel Rufián volverá a encabezar la candidatura de Esquerra Republicana por Barcelona en las elecciones legislativas del próximo 29 de noviembre. La dirección de su partido avala formalmente su continuidad tras varios días de conversaciones internas sobre el rumbo de la organización. El portavoz republicano mantendrá así su escaño en las <span class="w w-nieuw" role="button" tabindex="0" data-i="9">Cortes</span>, donde prevé <span class="w w-fout" role="button" tabindex="0" data-i="3">ejercer</span> una <span class="w w-nieuw" role="button" tabindex="0" data-i="10">fuerte</span> presencia en la política estatal.</p><p>En los últimos meses, el dirigente ha insistido en la necesidad de construir una <span class="w w-nieuw" role="button" tabindex="0" data-i="11">unidad</span> de las izquierdas para <span class="w w-nieuw" role="button" tabindex="0" data-i="12">luchar</span> contra el bloque de la <span class="w w-nieuw" role="button" tabindex="0" data-i="4">derecha</span>. En su opinión, <span class="w w-fout" role="button" tabindex="0" data-i="13">acudir</span> a los comicios de forma aislada solo serviría para facilitar un gobierno del Partido Popular y Vox. Por esa razón, ha <span class="w w-fout" role="button" tabindex="0" data-i="2">procurado</span> buscar acuerdos en un <span class="w w-nieuw" role="button" tabindex="0" data-i="5">intento</span> decidido por tejer alianzas electorales con fuerzas políticas afines.</p><p>Fruto de esta estrategia, Rufián ha perfilado un pacto de colaboración con Podemos que cuenta con el visto bueno de la dirección republicana. Este acuerdo persigue el <span class="w w-nieuw" role="button" tabindex="0" data-i="15">doble</span> objetivo de sumar apoyos sin que la formación morada compita en Catalunya para no <span class="w w-nieuw" role="button" tabindex="0" data-i="6">dividir</span> el voto progresista. A cambio, el portavoz catalán podrá intervenir en actos electorales fuera de su comunidad, adentrándose en un terreno que no resultará <span class="w w-fout" role="button" tabindex="0" data-i="16">ajeno</span> a sus aspiraciones de proyección general.</p><p>En el seno de la formación independentista, la ejecutiva reunió este domingo los avales requeridos para oficializar el puesto de Rufián. Asimismo, la organización fijó el calendario interno para <span class="w w-nieuw" role="button" tabindex="0" data-i="1">determinar</span> las listas definitivas antes del plazo legal ante la Junta Electoral. En las candidaturas de Lleida y Tarragona ya <span class="w w-fout" role="button" tabindex="0" data-i="7">figuran</span> cabezas de cartel definidas, mientras que en Girona se celebrarán unas elecciones primarias.</p><p>Por su parte, la formación de los Comuns ha recibido este movimiento con evidentes <span class="w w-nieuw" role="button" tabindex="0" data-i="0">comentarios</span> de disgusto. Aunque sus portavoces afirman respetar la decisión, recuerdan la <span class="w w-nieuw" role="button" tabindex="0" data-i="8">llamada</span> pública que hicieron al líder republicano para sumarse al proyecto del Frente Amplio. Para ellos, este paso <span class="w w-nieuw" role="button" tabindex="0" data-i="14">limita</span> las opciones de coordinar un frente amplio conjunto capaz de frenar a los conservadores como sucedió en 2023.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/politica/20261011/11656507/gabriel-rufian-volvera-liderar-candidatura-erc-elecciones-29-n.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Europa</span><h2>Trump anuncia una tregua energética que sorprende a Ucrania</h2><p>Donald Trump ha anunciado en su red social la puesta en marcha de un alto el fuego energético entre Rusia y Ucrania, exigiendo a ambas partes que no lo rompan. Según el expresidente estadounidense, los dos países habrían aceptado frenar de forma inmediata los bombardeos contra las instalaciones eléctricas del <span class="w w-nieuw" role="button" tabindex="0" data-i="21">enemigo</span>. Con este llamamiento, Trump asegura buscar una desescalada para <span class="w w-nieuw" role="button" tabindex="0" data-i="20">proteger</span> infraestructuras esenciales y defender este <span class="w w-nieuw" role="button" tabindex="0" data-i="17">compromiso</span> internacional.</p><p>El anuncio <span class="w w-nieuw" role="button" tabindex="0" data-i="22">causó</span> una profunda sorpresa en el gobierno de Kiev, donde el presidente Volodímir Zelenski declaró que todavía espera detalles precisos sobre el <span class="w w-nieuw" role="button" tabindex="0" data-i="19">contenido</span> del plan. Zelenski recordó que Ucrania ya había propuesto <span class="w w-nieuw" role="button" tabindex="0" data-i="23">parar</span> los ataques a refinerías de petróleo si las tropas rusas respetaban una tregua recíproca de sesenta días. No obstante, el mandatario ucraniano criticó con dureza el acuerdo de Trump con el Kremlin para exportar combustible ruso al mercado <span class="w w-nieuw" role="button" tabindex="0" data-i="18">extranjero</span>, advirtiendo de que ese dinero financiará la invasión.</p><p>En Moscú, las autoridades confirmaron el levantamiento parcial del veto a la exportación de gasóleo tras el pacto con el gobierno estadounidense. Esta medida permitirá enviar una importante <span class="w w-nieuw" role="button" tabindex="0" data-i="24">carga</span> de carburante fuera del país para abastecer la demanda global. Entre tanto, Trump <span class="w w-fout" role="button" tabindex="0" data-i="2">procura</span> calmar la subida internacional del precio del combustible antes de las elecciones en Estados Unidos.</p><div class="src">Bron: <a href="https://www.eldiario.es/internacional/trump-asegura-rusia-ucrania-han-aceptado-alto-fuego-energetico-les-pide-no-rompan_1_13578878.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Sociedad</span><h2>El acceso a la vivienda frena la independencia de los jóvenes</h2><p>Más del cuarenta por ciento de los jóvenes de entre 26 y 34 años en España continúa viviendo con sus padres debido a los elevados precios de la vivienda. La <span class="w w-nieuw" role="button" tabindex="0" data-i="33">raíz</span> de este problema reside en que el coste medio de un alquiler en solitario absorbe casi el sueldo entero de un trabajador joven. Por este motivo, muchos <span class="w w-nieuw" role="button" tabindex="0" data-i="25">individuos</span> se ven forzados a residir en pisos compartidos con hasta <span class="w w-nieuw" role="button" tabindex="0" data-i="30">quince</span> inquilinos o a prolongar su estancia familiar.</p><p>El testimonio de varias jóvenes ilustra las dificultades para alquilar un techo en ciudades como Barcelona. Sonia y Camila pasaron por habitaciones mal acondicionadas y pleitos con una empresa intermediaria que se negó a <span class="w w-nieuw" role="button" tabindex="0" data-i="29">devolver</span> su fianza para <span class="w w-nieuw" role="button" tabindex="0" data-i="31">cobrar</span> un consumo <span class="w w-fout" role="button" tabindex="0" data-i="16">ajeno</span> de luz. Tras buscar otras opciones, tuvieron que aceptar un piso caro y oscuro, hasta que un acuerdo sobre un piso heredado les permita independizarse y cumplir una <span class="w w-nieuw" role="button" tabindex="0" data-i="26">obligación</span> moral con la familia.</p><p>Otras personas deciden invertir en acondicionar su dormitorio en casa de sus progenitores al constatar que mudarse sin pareja o <span class="w w-nieuw" role="button" tabindex="0" data-i="32">marido</span> resulta inviable a corto plazo. Esta <span class="w w-nieuw" role="button" tabindex="0" data-i="27">constante</span> falta de vivienda asequible crea una <span class="w w-nieuw" role="button" tabindex="0" data-i="28">sensación</span> de bloqueo personal muy extendida. Ante la falta de recursos propios, el respaldo de los padres se convierte en el único camino posible hacia una vida adulta.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/vida/20261011/11649381/generacion-irse-casa-cinco-casos-reales-ilustran-crisis-emancipacion-espana.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric positivo">Ciencia</span><h2>Telescopios gigantes en La Palma para observar el cosmos extremo</h2><p>El Observatorio del Roque de los Muchachos, en la isla canaria de La Palma, pondrá en marcha un avanzado complejo astronómico denominado CTAO-Norte. La instalación dispone de cuatro telescopios gigantes diseñados para registrar los fenómenos más violentos del universo <span class="w w-nieuw" role="button" tabindex="0" data-i="36">extremo</span>, como los agujeros negros y las estrellas de neutrones. Numerosos centros científicos españoles participan en este ambicioso proyecto internacional.</p><p>Cuando los rayos gamma procedentes del espacio chocan con la atmósfera terrestre, desatan una cascada de partículas subatómicas. Estas partículas viajan a través del aire más <span class="w w-nieuw" role="button" tabindex="0" data-i="34">rápidamente</span> que la propia luz en ese medio, desafiando la <span class="w w-nieuw" role="button" tabindex="0" data-i="37">regla</span> habitual y produciendo un tenue destello azul conocido como radiación Cherenkov. Los telescopios pueden detectar <span class="w w-nieuw" role="button" tabindex="0" data-i="35">semejante</span> iluminación en pocos segundos para estudiar el origen de estas emisiones lejanas.</p><p>La sede de La Palma operará en <span class="w w-nieuw" role="button" tabindex="0" data-i="38">total</span> coordinación con otro centro complementario ubicado en el desierto de Atacama, en Chile. Especialistas de distintos países prevén <span class="w w-fout" role="button" tabindex="0" data-i="13">acudir</span> a la isla para <span class="w w-fout" role="button" tabindex="0" data-i="3">ejercer</span> tareas de observación punteras en cuanto finalicen los ensayos técnicos. La iniciativa consolida a España como un referente indiscutible en la investigación del espacio profundo.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/ciencia/20261011/11651082/palma-estrena-complejo-mas-potente-mundo-captar-universo-extremo.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric">Salud</span><h2>El papa se someterá a una intervención en el pulmón</h2><p>El papa León XIV anunció este domingo ante los fieles reunidos en la <span class="w w-nieuw" role="button" tabindex="0" data-i="39">plaza</span> de San Pedro que deberá operarse para extirpar un nódulo pulmonar detectado en fase inicial. El pontífice, que <span class="w w-nieuw" role="button" tabindex="0" data-i="40">posee</span> también la nacionalidad peruana y planea viajar a Sudamérica en noviembre, confirmó que la intervención se realizará en los próximos días con un ingreso estimado de una semana. Numerosos creyentes <span class="w w-fout" role="button" tabindex="0" data-i="13">acudieron</span> a la cita dominical y escucharon con atención sus palabras de tranquilidad.</p><div class="src">Bron: <a href="https://www.20minutos.es/internacional/papa-anuncia-que-debera-operarse-un-nodulo-pulmon-fase-muy-inicial_7047606_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Salud</span><h2>La variante XFG eleva los contagios sin aumentar la gravedad</h2><p>España afronta una nueva ola de coronavirus impulsada por la variante XFG, aunque las autoridades médicas aseguran que no existe un mayor <span class="w w-nieuw" role="button" tabindex="0" data-i="43">riesgo</span> de sufrir complicaciones graves. Los expertos atribuyen este aumento a la pérdida progresiva de defensas y al regreso a la rutina de cada <span class="w w-nieuw" role="button" tabindex="0" data-i="41">estudiante</span> y trabajador tras el periodo estival. A pesar del crecimiento en el número de infectados, los sanitarios insisten en no <span class="w w-nieuw" role="button" tabindex="0" data-i="42">inventar</span> alarmas innecesarias ante unos síntomas que siguen siendo leves.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/asi-es-xfg-variante-ola-covid-espana-repunte-transmision-real-fluctuacion-estadistica_7047529_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric positivo">Cultura</span><h2>Maria del Mar Bonet regresa a los escenarios de París</h2><p>La cantante balear Maria del Mar Bonet ofreció un emotivo recital en la sala Olympia de París medio siglo después de su histórica actuación durante los últimos meses de la dictadura franquista. Acompañada por músicos y artistas invitados, la intérprete defendió la belleza de su <span class="w w-nieuw" role="button" tabindex="0" data-i="45">idioma</span> cantando temas populares y adaptaciones de grandes <span class="w w-nieuw" role="button" tabindex="0" data-i="44">escritores</span> como Bartomeu Rosselló-Porcel. Entre los asistentes que decidieron <span class="w w-fout" role="button" tabindex="0" data-i="13">acudir</span> al concierto <span class="w w-fout" role="button" tabindex="0" data-i="7">figuraba</span> también el expresidente Carles Puigdemont.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/cultura/20261011/11656563/maria-mar-bonet-emociona-paris-medio-siglo.html" rel="noopener" target="_blank">La Vanguardia</a></div></article></section>
+<section class="review"><h3>Herhaal deze woorden</h3><p>Deze had je de afgelopen twee weken fout in Anki. Tik voor de betekenis.</p><div class="chips"><button class="chip" data-i="16">ajeno</button><button class="chip" data-i="3">ejercer</button><button class="chip" data-i="7">figurar</button><button class="chip" data-i="2">procurar</button><button class="chip" data-i="13">acudir</button></div></section>
+<section class="pulse"><div class="row"><span><span class="fl off">🔥 0</span> <span class="who">Margot</span></span><span><span class="fl">🔥 2</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="" style="height:26px" title="25 herhalingen"></i><span>di</span></div><div><i class="" style="height:36px" title="34 herhalingen"></i><span>wo</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>do</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>vr</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>za</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>zo</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>ma</span></div></div><div class="row"><span>Gisteren <b class="who">0</b> herhalingen</span><span>7 dagen <b class="who">59</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "comentario", "nl": "opmerkingen, commentaar", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "determinar", "nl": "bepalen, vaststellen", "t": "werkwoord", "k": "nieuw"}, {"w": "procurar", "nl": "geprobeerd, getracht", "t": "werkwoord", "k": "fout"}, {"w": "ejercer", "nl": "uitoefenen", "t": "werkwoord", "k": "fout"}, {"w": "derecha", "nl": "rechts (politiek)", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "intento", "nl": "poging", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "dividir", "nl": "verdelen, splitsen", "t": "werkwoord", "k": "nieuw"}, {"w": "figurar", "nl": "staan vermeld", "t": "werkwoord", "k": "fout"}, {"w": "llamada", "nl": "oproep", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "corte", "nl": "parlement", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "fuerte", "nl": "sterk", "t": "bijv. nw.", "k": "nieuw"}, {"w": "unidad", "nl": "eenheid", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "luchar", "nl": "strijden, vechten", "t": "werkwoord", "k": "nieuw"}, {"w": "acudir", "nl": "gaan naar, opdagen", "t": "werkwoord", "k": "fout"}, {"w": "limitar", "nl": "beperkt", "t": "werkwoord", "k": "nieuw"}, {"w": "doble", "nl": "dubbel", "t": "bijv. nw.", "k": "nieuw"}, {"w": "ajeno", "nl": "vreemd, niet eigen", "t": "bijv. nw.", "k": "fout"}, {"w": "compromiso", "nl": "verbintenis, afspraak", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "extranjero", "nl": "buitenlands", "t": "bijv. nw.", "k": "nieuw"}, {"w": "contenido", "nl": "inhoud", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "proteger", "nl": "beschermen", "t": "werkwoord", "k": "nieuw"}, {"w": "enemigo", "nl": "vijand", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "causar", "nl": "veroorzaakte", "t": "werkwoord", "k": "nieuw"}, {"w": "parar", "nl": "stoppen", "t": "werkwoord", "k": "nieuw"}, {"w": "carga", "nl": "lading, vracht", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "individuo", "nl": "individuen, personen", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "obligación", "nl": "verplichting", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "constante", "nl": "voortdurend, constant", "t": "bijv. nw.", "k": "nieuw"}, {"w": "sensación", "nl": "gevoel, sensatie", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "devolver", "nl": "teruggeven", "t": "werkwoord", "k": "nieuw"}, {"w": "quince", "nl": "vijftien", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "cobrar", "nl": "aanrekenen, innen", "t": "werkwoord", "k": "nieuw"}, {"w": "marido", "nl": "echtgenoot", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "raíz", "nl": "wortel, oorsprong", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "rápidamente", "nl": "snel", "t": "bijwoord", "k": "nieuw"}, {"w": "semejante", "nl": "dergelijk, zulk", "t": "bijv. nw.", "k": "nieuw"}, {"w": "extremo", "nl": "extreem", "t": "bijv. nw.", "k": "nieuw"}, {"w": "regla", "nl": "regel", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "total", "nl": "totaal, volledig", "t": "bijv. nw.", "k": "nieuw"}, {"w": "plaza", "nl": "plein", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "poseer", "nl": "bezit", "t": "werkwoord", "k": "nieuw"}, {"w": "estudiante", "nl": "student", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "inventar", "nl": "verzinnen", "t": "werkwoord", "k": "nieuw"}, {"w": "riesgo", "nl": "risico", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "escritor (nm/f)", "nl": "schrijvers", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "idioma", "nl": "taal", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
