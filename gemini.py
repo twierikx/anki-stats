@@ -253,7 +253,8 @@ En "palabras" de cada noticia incluye:
 - CADA palabra de las listas que hayas usado en esa noticia (también si ya la usaste en otra \
 noticia), con el "lema" EXACTAMENTE como aparece en la lista;
 En "dificiles" de cada noticia: DESPUÉS de escribir el texto, señala todas las palabras que \
-ya aparecen en él, NO están en las listas y que un estudiante B2 probablemente no conoce. Es \
+ya aparecen en él, NO están en las listas y que un estudiante de nivel B1 quizá no conoce \
+(su vocabulario es más bajo que el nivel del texto; ante la duda, márcala). Es \
 solo una anotación: no escribas el texto de otra manera ni añadas palabras difíciles para \
 llenar esta lista. Si no hay ninguna, deja la lista vacía. No repitas aquí palabras que ya \
 están en "palabras".
