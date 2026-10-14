@@ -128,7 +128,9 @@ def build_article(art: dict, recent: dict[str, Word], wrong: dict[str, Word],
         spans.append((span[0], span[1], index[key]))
         taken.append(span)
 
-    for p in sorted(art.get("palabras", []), key=lambda p: -len(p.get("forma", ""))):
+    # Anki words first, so they win when a hard word overlaps them; then the extra hard words.
+    by_len = lambda ws: sorted(ws or [], key=lambda p: -len(p.get("forma", "")))
+    for p in by_len(art.get("palabras")) + by_len(art.get("dificiles")):
         lemma_k, form_k = lemma_key(p.get("lema", "")), lemma_key(p.get("forma", ""))
         if not lemma_k or lemma_k in seen_lemmas:
             continue
@@ -391,7 +393,10 @@ def demo_edition(name: str, date: datetime) -> Edition:
                           P("ayudas", "ayuda", "subsidie", "zelfst. nw. (vr.)"),
                           P("emisiones", "emisión", "uitstoot", "zelfst. nw. (vr.)"),
                           P("ciudades", "ciudad", "stad", "zelfst. nw. (vr.)"),
-                          P("precio", "precio", "prijs", "zelfst. nw. (mnl.)")]},
+                          P("precio", "precio", "prijs", "zelfst. nw. (mnl.)")],
+             "dificiles": [P("puntos de carga", "punto de carga", "laadpaal", "zelfst. nw. (mnl.)"),
+                           P("tendencia", "tendencia", "trend", "zelfst. nw. (vr.)"),
+                           P("alcanzar", "alcanzar", "bereiken", "werkwoord")]},
             {"id": 2, "rubrica": "Sociedad", "titulo": "La vivienda, el gran tema del año",
              "texto": "Miles de personas salieron a la calle en Madrid para pedir vivienda "
                       "asequible. Muchos jóvenes no pueden heredar una casa ni pagar un alquiler. "
@@ -399,7 +404,8 @@ def demo_edition(name: str, date: datetime) -> Edition:
              "palabras": [P("heredar", "heredar", "erven", "werkwoord"),
                           P("figura", "figurar", "voorkomen, staan", "werkwoord"),
                           P("asequible", "asequible", "betaalbaar", "bijv. nw."),
-                          P("alquiler", "alquiler", "huur", "zelfst. nw. (mnl.)")]},
+                          P("alquiler", "alquiler", "huur", "zelfst. nw. (mnl.)")],
+             "dificiles": [P("debate", "debate", "debat", "zelfst. nw. (mnl.)")]},
             {"id": 3, "rubrica": "Cultura", "titulo": "Un museo que vuelve a crecer",
              "texto": "El Museo de Bellas Artes de Bilbao abre una nueva ampliación. Un poeta "
                       "local leyó una declaración en la inauguración. El museo quiere lograr "

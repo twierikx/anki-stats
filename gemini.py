@@ -252,9 +252,12 @@ hechos ni escribir frases raras o forzadas: si una palabra no encaja en ninguna 
 En "palabras" de cada noticia incluye:
 - CADA palabra de las listas que hayas usado en esa noticia (también si ya la usaste en otra \
 noticia), con el "lema" EXACTAMENTE como aparece en la lista;
-- además, como mucho 3 palabras difíciles que NO están en las listas y que un estudiante B2 \
-probablemente no conoce.
-Para cada una: "forma" = exactamente como aparece en "texto" (o en "titulo"); "lema" = forma \
+En "dificiles" de cada noticia incluye las palabras del texto que NO están en las listas y que \
+un estudiante B2 probablemente no conoce: de 8 a 12 en una principal, de 4 a 8 en una normal y \
+de 2 a 4 en una breve (menos solo si el texto de verdad no tiene más). No repitas aquí palabras \
+que ya están en "palabras".
+
+Para cada palabra de "palabras" y de "dificiles": "forma" = exactamente como aparece en "texto" (o en "titulo"); "lema" = forma \
 de diccionario (verbos en infinitivo, sustantivos en singular); "nl" = significado en \
 neerlandés en este contexto (corto); "tipo" = categoría en neerlandés (werkwoord, \
 zelfst. nw. (mnl.), zelfst. nw. (vr.), bijv. nw., bijwoord, voorzetsel, voegwoord, uitdrukking).
@@ -286,8 +289,9 @@ WRITE_SCHEMA = {
                     "titulo": {"type": "STRING"},
                     "texto": {"type": "STRING"},
                     "palabras": {"type": "ARRAY", "items": WORD},
+                    "dificiles": {"type": "ARRAY", "items": WORD},
                 },
-                "required": ["id", "rubrica", "titulo", "texto", "palabras"],
+                "required": ["id", "rubrica", "titulo", "texto", "palabras", "dificiles"],
             },
         },
         "repaso": {
