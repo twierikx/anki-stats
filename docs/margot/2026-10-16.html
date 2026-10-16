@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 16-10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">viernes, 16 de octubre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>33</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>2</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>15</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">Política</span><h2>Disputa constante entre el Gobierno y la oposición por las pensiones</h2><p>El futuro de las pensiones ha vuelto a entrar de lleno en la agenda electoral antes de los <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">comicios</span> del 29-N. En un principio, el debate político parecía centrado en la presión migratoria sobre Ceuta o en presuntos escándalos de corrupción <span class="w w-nieuw" role="button" tabindex="0" data-i="10">ajenos</span> a esta materia. Sin embargo, diversos <span class="w w-nieuw" role="button" tabindex="0" data-i="0">comentarios</span> de portavoces del Partido Popular y de Vox sobre la <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">sostenibilidad</span> financiera han provocado una <span class="w w-nieuw" role="button" tabindex="0" data-i="11">fuerte</span> discusión pública.</p><p>Desde la oposición de <span class="w w-nieuw" role="button" tabindex="0" data-i="5">derecha</span>, los líderes han salido <span class="w w-nieuw" role="button" tabindex="0" data-i="1">rápidamente</span> a calmar los ánimos. Alberto Núñez Feijóo afirmó con rotundidad que su <span class="w w-nieuw" role="button" tabindex="0" data-i="2">compromiso</span> de actualizar las pensiones según el IPC es innegociable si llega al poder. Para respaldar su postura, recordó que el único partido que congeló estas pagas en el pasado fue el PSOE en 2010 con el apoyo parlamentario de Pedro Sánchez, por lo que considera que el actual presidente carece de legitimidad para dar lecciones.</p><p>Por su parte, el presidente del Gobierno ha acusado a sus adversarios de ocultar sus verdaderas intenciones hasta después de votar. Sánchez sostuvo que la alianza de los populares con Vox supone un grave <span class="w w-nieuw" role="button" tabindex="0" data-i="12">riesgo</span> para el Estado de bienestar, pues a su juicio ambas formaciones pretenden <span class="w w-nieuw" role="button" tabindex="0" data-i="6">limitar</span> el gasto social y recortar los ingresos de los jubilados. En un acto reciente, el mandatario alertó contra <span class="w w-nieuw" role="button" tabindex="0" data-i="4">semejante</span> plan y calificó las promesas populares de engaño deliberado.</p><p>El Gobierno busca ahora <span class="w w-nieuw" role="button" tabindex="0" data-i="3">determinar</span> la fórmula exacta para aprobar la subida antes de que termine el año, previsiblemente en diciembre a través de un decreto ley. Carlos Cuerpo indicó que la medida se tramitará una vez se conozca la cifra oficial de inflación, para someterla después a la <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">convalidación</span> parlamentaria. Esta estrategia permite al Ejecutivo <span class="w w-fout" role="button" tabindex="0" data-i="7">ejercer</span> su labor legislativa aun estando en funciones, con el respaldo de la mayoría progresista.</p><p>Ambas fuerzas políticas compiten intensamente por convencer a más de diez millones de ciudadanos que <span class="w w-nieuw" role="button" tabindex="0" data-i="13">cobran</span> una prestación pública. Mientras la oposición intenta <span class="w w-nieuw" role="button" tabindex="0" data-i="14">parar</span> las dudas insistiendo en que el abono está garantizado cueste lo que cueste, el oficialismo <span class="w w-nieuw" role="button" tabindex="0" data-i="8">procura</span> mantener la atención ciudadana sobre este asunto. El choque evidencia hasta qué punto las pensiones continúan siendo un factor clave capaz de <span class="w w-nieuw" role="button" tabindex="0" data-i="9">dividir</span> a los votantes españoles.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/politica/20261016/11660046/feijoo-garantiza-revalorizara-pensiones-sanchez-le-acusa-mentir.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric positivo">Cultura</span><h2>Isabel Allende obtiene el prestigioso Premio Planeta</h2><p>La <span class="w w-moeilijk" role="button" tabindex="0" data-i="26">consagrada</span> <span class="w w-nieuw" role="button" tabindex="0" data-i="18">escritora</span> chilena Isabel Allende ha sido galardonada con el Premio Planeta 2026 gracias a su nueva novela, &#x27;La hora antes del alba&#x27;. El fallo del jurado se dio a conocer durante una cena solemne en Barcelona a la que decidieron <span class="w w-fout" role="button" tabindex="0" data-i="22">acudir</span> personalidades políticas y figuras de la cultura. Con este reconocimiento, dotado con un millón de euros, la narradora afirmó tener una <span class="w w-nieuw" role="button" tabindex="0" data-i="19">sensación</span> comparable a la de ganar el premio Nobel.</p><p>El argumento del libro rescata la saga iniciada en &#x27;La casa de los espíritus&#x27; a través de Alba, quien regresa <span class="w w-moeilijk" role="button" tabindex="0" data-i="27">encinta</span> a su hogar tras padecer la violencia de una dictadura militar. Para la autora, este texto representa un esfuerzo por <span class="w w-nieuw" role="button" tabindex="0" data-i="23">luchar</span> contra el autoritarismo y <span class="w w-nieuw" role="button" tabindex="0" data-i="20">proteger</span> el valor de la memoria democrática en tiempos difíciles. En su discurso, recordó que escribir no consiste únicamente en <span class="w w-nieuw" role="button" tabindex="0" data-i="21">inventar</span> hechos ficticios, sino en dar voz a vivencias que pesan en la sociedad.</p><p>Este premio marca también un <span class="w w-moeilijk" role="button" tabindex="0" data-i="28">hito</span> editorial para Allende tras más de cuatro décadas en otro grupo literario, mientras que el autor Sergio Hernández <span class="w w-nieuw" role="button" tabindex="0" data-i="24">figuró</span> como finalista del certamen. Los Reyes asistieron a esta velada que conmemoraba los 75 años del concurso, reafirmando el papel central de la literatura en el <span class="w w-nieuw" role="button" tabindex="0" data-i="25">idioma</span> español.</p><div class="src">Bron: <a href="https://www.eldiario.es/catalunya/cat/isabel-allende-gana-premio-planeta-2026-hora-alba_1_13589698.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Economía</span><h2>El transporte doméstico acentúa la brecha social en España</h2><p>El coste de los desplazamientos cotidianos se ha consolidado como un factor determinante de desigualdad para miles de familias en España. Un informe reciente de EAE Business School revela que el gasto medio anual en transporte ha crecido más del 27% en una década, alcanzando los 4.020 euros. Los expertos subrayan que este <span class="w w-moeilijk" role="button" tabindex="0" data-i="36">desembolso</span> no funciona como un gasto accesorio, sino como una <span class="w w-nieuw" role="button" tabindex="0" data-i="33">carga</span> esencial que cada <span class="w w-nieuw" role="button" tabindex="0" data-i="30">individuo</span> debe asumir para trabajar o estudiar.</p><p>La investigación destaca un <span class="w w-nieuw" role="button" tabindex="0" data-i="34">doble</span> modelo territorial que penaliza con dureza a quienes residen en pueblos pequeños frente a las grandes capitales. En las localidades de menos de 10.000 vecinos, más del 70% de la población depende del vehículo privado para su rutina, mientras que en las grandes <span class="w w-moeilijk" role="button" tabindex="0" data-i="37">urbes</span> el transporte público es la alternativa principal. Esta diferencia geográfica impone una <span class="w w-nieuw" role="button" tabindex="0" data-i="29">obligación</span> económica <span class="w w-nieuw" role="button" tabindex="0" data-i="31">extrema</span> a los hogares con menos recursos que viven alejados de los centros de trabajo.</p><p>Asimismo, el encarecimiento logístico por carretera repercute de forma directa sobre el <span class="w w-nieuw" role="button" tabindex="0" data-i="35">total</span> de la economía productiva nacional. Sectores clave como la alimentación, el comercio y la distribución sufren este impacto, lo que puede <span class="w w-nieuw" role="button" tabindex="0" data-i="32">causar</span> incrementos añadidos en los precios de numerosos productos de consumo básico.</p><div class="src">Bron: <a href="https://www.20minutos.es/lainformacion/economia-y-finanzas/gasto-medio-transporte-los-hogares-espanoles-supera-los-4-000-euros-se-consolida-como-factor-desigualdad_7049196_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Economía</span><h2>Muchas viviendas compradas en la burbuja se vendieron con pérdidas</h2><p>Un nuevo informe estadístico de la Agencia Tributaria ha desmontado la creencia general de que la adquisición de <span class="w w-moeilijk" role="button" tabindex="0" data-i="41">inmuebles</span> residenciales resulta siempre rentable a medio plazo. Según los datos analizados sobre transacciones efectuadas en 2024, más de la mitad de las casas compradas entre 2006 y 2008 generaron pérdidas a sus propietarios al desprenderse de ellas. Aquellos años marcaron el punto culminante de la burbuja constructora en España.</p><p>Para muchos compradores, el <span class="w w-nieuw" role="button" tabindex="0" data-i="38">contenido</span> de estas operaciones supuso una experiencia financiera adversa tras casi dos décadas de espera. En aquella época, los promotores redujeron las dimensiones de los pisos para contener los precios ante el encarecimiento desmedido del suelo, fijando una superficie media cercana a los 96 metros cuadrados. Esta <span class="w w-nieuw" role="button" tabindex="0" data-i="40">regla</span> de mercado no impidió que miles de particulares vieran <span class="w w-moeilijk" role="button" tabindex="0" data-i="42">menguar</span> su patrimonio al <span class="w w-nieuw" role="button" tabindex="0" data-i="39">devolver</span> el inmueble al mercado libre.</p><p>El análisis también revela diferencias territoriales notables en el dinero medio pagado por los compradores, que a escala estatal se situó en 171.594 euros. Mientras en comunidades como Baleares o Madrid el importe medio superó ampliamente los 300.000 euros, en otras regiones la cuantía fue notablemente inferior, reflejando una brecha que continuó condicionando las pérdidas y ganancias de los vendedores.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/economia/20261015/11660054/mitad-viviendas-compradas-burbuja-inmobiliaria-vendieron-perdidas.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric">Economía</span><h2>Catalunya superará el ritmo de crecimiento de Madrid en 2027</h2><p>Según las proyecciones publicadas por BBVA Research, el producto interior bruto de Catalunya avanzará un 2,3% en el año 2027 frente al 2,1% estimado para la Comunidad de Madrid. El estudio explica que la reactivación <span class="w w-moeilijk" role="button" tabindex="0" data-i="44">paulatina</span> de la demanda en el sector industrial <span class="w w-nieuw" role="button" tabindex="0" data-i="43">extranjero</span> favorecerá a las autonomías del norte peninsular. Por el contrario, la moderación del consumo y el encarecimiento del crédito frenarán el avance en las zonas del centro y el sur.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/economia/20261015/11659730/catalunya-crecera-mas-madrid-2027-primera-vez-seis-anos-bbva-research.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Ciencia</span><h2>Eliminan el segundo intercalar para proteger los sistemas digitales</h2><p>Los países que integran la Convención del Metro han aprobado <span class="w w-moeilijk" role="button" tabindex="0" data-i="46">prescindir</span> del segundo intercalar a partir de mayo de 2027 con el fin de armonizar la hora astronómica y la atómica sin alterar las redes tecnológicas. La comunidad científica adoptó esta resolución para neutralizar el peligro de que una sincronización forzada causara graves fallos de seguridad en las plataformas de navegación e internet. La medida permitirá tolerar una <span class="w w-moeilijk" role="button" tabindex="0" data-i="45">discrepancia</span> horaria mayor durante los próximos siglos antes de ejecutar un nuevo ajuste.</p><div class="src">Bron: <a href="https://www.eldiario.es/sociedad/mundo-aprueba-separar-hora-relojes-atomicos-rotacion-tierra-evitar-caos-tecnologico-global_1_13587967.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric positivo">Cultura</span><h2>El Valle de Ricote, un histórico enclave natural en Murcia</h2><p>Ubicado en el interior de la Región de Murcia, el Valle de Ricote atrae a numerosos viajeros que deciden <span class="w w-fout" role="button" tabindex="0" data-i="22">acudir</span> a este entorno fluvial para disfrutar del <span class="w w-moeilijk" role="button" tabindex="0" data-i="49">sosiego</span> de sus huertas y pueblos tradicionales. Con una profunda <span class="w w-nieuw" role="button" tabindex="0" data-i="47">raíz</span> andalusí visible en sus <span class="w w-moeilijk" role="button" tabindex="0" data-i="48">acequias</span> y azudes centenarios, localidades como Ojós o Ricote cautivan con su arquitectura singular y sus miradores al río Segura. La comarca cuenta además con senderos protegidos que facilitan una experiencia turística respetuosa y conectada con la historia local.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/magazine/viajes/20261015/11657784/valle-ricote-oasis-region-murcia-brl.html" rel="noopener" target="_blank">La Vanguardia</a></div></article></section>
+<section class="review"><h3>Herhaal deze woorden</h3><p>Deze had je de afgelopen twee weken fout in Anki. Tik voor de betekenis.</p><div class="chips"><button class="chip" data-i="7">ejercer</button><button class="chip" data-i="22">acudir</button></div></section>
+<section class="pulse"><div class="row"><span><span class="fl off">🔥 0</span> <span class="who">Margot</span></span><span><span class="fl">🔥 6</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>za</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>zo</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>ma</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>di</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>wo</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>do</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>vr</span></div></div><div class="row"><span>Gisteren <b class="who">0</b> herhalingen</span><span>7 dagen <b class="who">0</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "comentario", "nl": "opmerkingen", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "rápidamente", "nl": "snel", "t": "bijwoord", "k": "nieuw"}, {"w": "compromiso", "nl": "toezegging, verbintenis", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "determinar", "nl": "bepalen", "t": "werkwoord", "k": "nieuw"}, {"w": "semejante", "nl": "dergelijk", "t": "bijv. nw.", "k": "nieuw"}, {"w": "derecha", "nl": "rechts", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "limitar", "nl": "beperken", "t": "werkwoord", "k": "nieuw"}, {"w": "ejercer", "nl": "uitoefenen", "t": "werkwoord", "k": "fout"}, {"w": "procurar", "nl": "probeert", "t": "werkwoord", "k": "nieuw"}, {"w": "dividir", "nl": "verdelen", "t": "werkwoord", "k": "nieuw"}, {"w": "ajeno", "nl": "losstaand van", "t": "bijv. nw.", "k": "nieuw"}, {"w": "fuerte", "nl": "heftig, sterk", "t": "bijv. nw.", "k": "nieuw"}, {"w": "riesgo", "nl": "risico", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "cobrar", "nl": "ontvangen (geld)", "t": "werkwoord", "k": "nieuw"}, {"w": "parar", "nl": "stoppen, een halt toeroepen", "t": "werkwoord", "k": "nieuw"}, {"w": "sostenibilidad", "nl": "duurzaamheid, houdbaarheid", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "convalidación", "nl": "bekrachtiging", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "comicio", "nl": "verkiezingen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "escritor (nm/f)", "nl": "schrijfster", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "sensación", "nl": "gevoel, sensatie", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "proteger", "nl": "beschermen", "t": "werkwoord", "k": "nieuw"}, {"w": "inventar", "nl": "verzinnen", "t": "werkwoord", "k": "nieuw"}, {"w": "acudir", "nl": "gaan naar, bijwonen", "t": "werkwoord", "k": "fout"}, {"w": "luchar", "nl": "strijden, vechten", "t": "werkwoord", "k": "nieuw"}, {"w": "figurar", "nl": "stond vermeld, verscheen", "t": "werkwoord", "k": "nieuw"}, {"w": "idioma", "nl": "taal", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "consagrado", "nl": "gevestigd, befaamd", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "encinta", "nl": "zwanger", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "hito", "nl": "mijlpaal", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "obligación", "nl": "verplichting", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "individuo", "nl": "individu", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "extremo", "nl": "uiterst, extreem", "t": "bijv. nw.", "k": "nieuw"}, {"w": "causar", "nl": "veroorzaken", "t": "werkwoord", "k": "nieuw"}, {"w": "carga", "nl": "last", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "doble", "nl": "dubbel", "t": "bijv. nw.", "k": "nieuw"}, {"w": "total", "nl": "totaal, geheel", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "desembolso", "nl": "uitgave", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "urbe", "nl": "grote steden", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "contenido", "nl": "inhoud", "t": "zelfst. nw. (mnl.)", "k": "nieuw"}, {"w": "devolver", "nl": "terugbrengen, retourneren", "t": "werkwoord", "k": "nieuw"}, {"w": "regla", "nl": "regel", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "inmueble", "nl": "onroerend goed, panden", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "menguar", "nl": "afnemen, slinken", "t": "werkwoord", "k": "moeilijk"}, {"w": "extranjero", "nl": "buitenlands", "t": "bijv. nw.", "k": "nieuw"}, {"w": "paulatino", "nl": "geleidelijk", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "discrepancia", "nl": "verschil, afwijking", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "prescindir", "nl": "afzien van, schrappen", "t": "werkwoord", "k": "moeilijk"}, {"w": "raíz", "nl": "wortel, oorsprong", "t": "zelfst. nw. (vr.)", "k": "nieuw"}, {"w": "acequia", "nl": "irrigatiekanalen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "sosiego", "nl": "rust, kalmte", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
