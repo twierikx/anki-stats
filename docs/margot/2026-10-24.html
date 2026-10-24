@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 24-10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">sábado, 24 de octubre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>23</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">España</span><h2>Felipe VI reivindica la paciencia y la convivencia democrática en Oviedo</h2><p>Durante la clausura de los Premios Princesa de Asturias en el Teatro Campoamor de Oviedo, el rey Felipe VI defendió que el <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">porvenir</span> democrático de España va mucho más allá de la cita con las urnas del próximo 29 de noviembre. El monarca remarcó que el funcionamiento de una sociedad madura exige una labor constante y perseverante para proteger las instituciones y consolidar la armonía ciudadana frente a cualquier <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">desencuentro</span>.</p><p>En su discurso, el jefe del Estado evocó los logros de la Transición política y la aprobación en 1977 de la Ley para la Reforma Política, que permitió <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">desmantelar</span> pacíficamente el régimen franquista. Felipe VI destacó la generosidad de los dirigentes de aquella etapa para <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">fraguar</span> la Constitución de 1978, un marco legal integrador diseñado para <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">amparar</span> a todos los españoles sin ningún tipo de exclusión.</p><p>Apoyándose en palabras del escritor Jorge Luis Borges, el soberano ensalzó la sinceridad como una cualidad humana insustituible para que el esfuerzo colectivo dé resultados <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">provechosos</span>. En este sentido, contrapuso la autenticidad moral de las personas galardonadas a la frialdad técnica de los algoritmos informáticos, que carecen de la capacidad de comprender el entorno social.</p><p>Respecto a los avances en inteligencia artificial, el monarca reconoció su asombrosa capacidad de cálculo y síntesis de datos, pero cuestionó si la máquina podrá algún día asimilar los valores éticos que solo otorgan los años y la experiencia compartida. Por ello, instó a la sociedad a no dejarse <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">arrastrar</span> por la aceleración tecnológica y a concederse el tiempo necesario para madurar y alcanzar sus metas comunes.</p><p>Por otra parte, la ceremonia contó con la novedad protocolaria de que la princesa Leonor recibió previamente a los galardonados sin la compañía de los reyes. Felipe VI expresó su satisfacción por el aprendizaje que su primogénita y la infanta Sofía acumulan en sus respectivas responsabilidades institucionales.</p><div class="src">Bron: <a href="https://www.europapress.es/nacional/noticia-rey-recurre-transicion-defender-democracia-no-acaba-29n-requiere-compromiso-diario-20261023195458.html" rel="noopener" target="_blank">Europa Press</a></div></article><article><span class="rubric positivo">Salud</span><h2>Una terapia personalizada frena la reaparición del melanoma avanzado</h2><p>Un ensayo clínico internacional de fase tres ha comprobado que la administración conjunta de una vacuna de ARN mensajero desarrollada por Moderna y el fármaco pembrolizumab reduce notablemente las probabilidades de recaída tras la <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">extirpación</span> quirúrgica del melanoma. El estudio, llevado a cabo con 1.137 pacientes con tumores cutáneos de alto riesgo, constató un descenso del 42 % en el peligro combinado de reproducción del tumor o fallecimiento en comparación con quienes solo recibieron la inmunoterapia convencional.</p><p>La investigación contó con la colaboración de seis centros hospitalarios españoles, incluidos el Clínic y Vall d’Hebron en Barcelona, así como recintos sanitarios de Madrid, Valencia y Málaga. A pesar de estos datos alentadores, la divulgación imprevista de las conclusiones en un portal especializado provocó <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">desconcierto</span> en las bolsas internacionales, donde los títulos de Moderna sufrieron una fuerte <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">depreciación</span> debido a las desmedidas expectativas previas de los inversores.</p><p>Cada vacuna se elabora de manera individualizada a partir del análisis genético del tejido extirpado, con el fin de instruir a las defensas biológicas para neutralizar las células malignas residuales sin dañar los tejidos sanos. No obstante, los oncólogos recuerdan que todavía falta comprobar si el fármaco prolonga la supervivencia a largo plazo y subrayan la necesidad de estudiar detenidamente cómo <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">amortiguar</span> su elevado coste de producción para que resulte asumible dentro de la sanidad pública.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/vida/20261023/11666366/vacuna-personalizada-cancer-reduce-mas-40-riesgo-muerte.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric positivo">Cultura</span><h2>Los galardonados de Asturias destacan el sentido social del conocimiento</h2><p>La entrega de los Premios Princesa de Asturias reunió en Oviedo a destacadas figuras de la ciencia, las artes y el deporte en una ceremonia presidida por la Familia Real. Entre los homenajeados figuraron la <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">cantautora</span> Patti Smith, el escritor británico Julian Barnes, la astronauta Christina Koch, el pensador Timothy Garton Ash y el futbolista Lionel Messi, quienes acapararon una enorme atención mediática y despertaron el entusiasmo de cientos de seguidores congregados a las puertas del auditorio.</p><p>En los discursos pronunciados por los homenajeados predominó una llamada a la solidaridad colectiva por encima de los méritos particulares. Julian Barnes rechazó la creencia de que el arte experimenta un avance lineal e ininterrumpido, proponiendo en cambio un diálogo <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">atemporal</span> entre creadores de distintas épocas; asimismo, Christina Koch recurrió a su experiencia en las misiones espaciales para instar a los ciudadanos a considerarse compañeros de una misma tripulación en su vida diaria.</p><p>Por su parte, el historiador Timothy Garton Ash alertó sobre la fragilidad del proyecto europeo frente a la desinformación en las redes y las presiones exteriores, comparando la defensa de las libertades con la sincronización deportiva del fútbol asociativo. Entretanto, en las <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">inmediaciones</span> del recinto se desarrollaron protestas pacíficas en favor del derecho a la vivienda y manifestaciones republicanas bajo una estricta vigilancia de las fuerzas de seguridad.</p><div class="src">Bron: <a href="https://www.eldiario.es/asturias/premios-princesa-asturias-2026-reivindican-esperanza-futuro-comun-cultura-ciencia-avales_1_13610547.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Sociedad</span><h2>Jóvenes talentos analizan en Barcelona el desafío digital y la realidad afgana</h2><p>La Sala Astoria de la capital catalana acogió el foro La Cultura del Talento, un acto promovido por la Fundación Banco Sabadell que convocó a unos trescientos jóvenes para reflexionar sobre los cambios sociopolíticos y científicos actuales. La dirección de la entidad promotora destacó que más del sesenta por ciento de sus fondos se destina a respaldar iniciativas formativas y becas de investigación para las nuevas generaciones.</p><p>Durante la primera mesa de discusión, varios emprendedores examinaron la irrupción de la inteligencia artificial y el exceso de reglamentación que a menudo frena la competitividad europea en comparación con otros países. Asimismo, se presentó un prototipo de teléfono móvil minimalista diseñado expresamente para <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">mitigar</span> la adicción a las pantallas y combatir la constante <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">dispersión</span> de la atención provocada por las redes sociales en el entorno cotidiano.</p><p>El encuentro concluyó con una mesa sobre geopolítica en la que intervino la activista afgana Karima Shujazada, quien narró su peligroso <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">éxodo</span> hacia España a través de Irán y Pakistán tras el retorno de los talibanes en 2021. Shujazada recordó conmovida la grave vulneración de los derechos civiles que aún padecen las mujeres en su país, advirtiendo de que la pérdida de libertades allí afecta a la dignidad de toda la comunidad internacional.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/dinero/20261023/11665411/fundacion-banco-sabadell-reune-jovenes-referentes-segunda-edicion-cultura-talento-brl.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric">Tecnología</span><h2>El teléfono plegable de Apple debuta con marco de titanio y acabado mate</h2><p>La multinacional estadounidense Apple ha lanzado al mercado su primer teléfono plegable, bautizado como iPhone Duo, dotado de un chasis resistente de titanio y una bisagra de más de cien piezas diminutas que aseguran una apertura gradual y firme. El terminal cuenta con una pantalla interior <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">antirreflectante</span> de 7,6 pulgadas cuya textura suaviza el pliegue central, aunque su elevado precio de salida superior a los 2.300 euros contrasta con la ausencia de sensores biométricos faciales y con la necesidad de adaptar el diseño de numerosas aplicaciones que todavía muestran <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">franjas</span> negras.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/vida/20261023/11666389/iphone-duo-abre-propio-camino.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">España</span><h2>Llega el ajuste horario de otoño para retrasar los relojes una hora</h2><p>En la madrugada de este domingo 25 de octubre entra en vigor el horario de invierno en todo el territorio español, de modo que las <span class="w w-moeilijk" role="button" tabindex="0" data-i="20">agujas</span> deberán retrasarse sesenta minutos para marcar de nuevo las dos al llegar las tres en la península, y de las dos a la una en Canarias. Esta directriz se ajusta a los protocolos unificados de la Unión Europea, donde la propuesta de suprimir definitivamente estos cambios <span class="w w-moeilijk" role="button" tabindex="0" data-i="19">semestrales</span> continúa paralizada entre los Estados miembros, obligando a ajustar manualmente los relojes analógicos.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/cambio-hora-2026-llega-dia-atrasar-relojes-espana-entrar-horario-invierno_7052767_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Ciencia</span><h2>Una deformidad facial congénita explicaría el método creativo de Gaudí</h2><p>Una investigación multidisciplinar dada a conocer en el Gaudí International Congress plantea que una asimetría en el cráneo de Antoni Gaudí, originada probablemente en el parto, influyó de forma decisiva en su peculiar desarrollo cognitivo y en su capacidad artística. Al examinar su máscara funeraria, los especialistas comprobaron que el arquitecto catalán padecía una <span class="w w-moeilijk" role="button" tabindex="0" data-i="22">acusada</span> anomalía visual que nunca quiso corregir con lentes monóculos, lo que según los ponentes le permitió <span class="w w-moeilijk" role="button" tabindex="0" data-i="21">afianzar</span> un modo sensorial y visual irrepetible para concebir sus célebres edificios.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/cultura/20261023/11666600/asimetria-craneal-gaudi-causa-genio-teresa-vilardell-congress.html" rel="noopener" target="_blank">La Vanguardia</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl">🔥 5</span> <span class="who">Margot</span></span><span><span class="fl">🔥 14</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>zo</span></div><div><i class="" style="height:31px" title="45 herhalingen"></i><span>ma</span></div><div><i class="" style="height:35px" title="52 herhalingen"></i><span>di</span></div><div><i class="" style="height:36px" title="53 herhalingen"></i><span>wo</span></div><div><i class="" style="height:36px" title="53 herhalingen"></i><span>do</span></div><div><i class="" style="height:17px" title="25 herhalingen"></i><span>vr</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>za</span></div></div><div class="row"><span>Gisteren <b class="who">25</b> herhalingen</span><span>7 dagen <b class="who">228</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "desencuentro", "nl": "onenigheid / misverstand", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "desmantelar", "nl": "ontmantelen", "t": "werkwoord", "k": "moeilijk"}, {"w": "provechoso", "nl": "nuttig / voordelig", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "arrastrar", "nl": "meeslepen", "t": "werkwoord", "k": "moeilijk"}, {"w": "porvenir", "nl": "toekomst", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "fraguar", "nl": "smeden / tot stand brengen", "t": "werkwoord", "k": "moeilijk"}, {"w": "amparar", "nl": "beschermen / beschutten", "t": "werkwoord", "k": "moeilijk"}, {"w": "desconcierto", "nl": "verwarring / ontreddering", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "depreciación", "nl": "waardevermindering", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "extirpación", "nl": "verwijdering (chirurgisch)", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "amortiguar", "nl": "opvangen / dempen", "t": "werkwoord", "k": "moeilijk"}, {"w": "inmediaciones", "nl": "omgeving / nabijheid", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "cantautor", "nl": "singer-songwriter", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "atemporal", "nl": "tijdloos", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "dispersión", "nl": "verstrooiing / afleiding", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "mitigar", "nl": "verzachten / verminderen", "t": "werkwoord", "k": "moeilijk"}, {"w": "éxodo", "nl": "uittocht / vlucht", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "antirreflectante", "nl": "ontspiegeld / ontspiegelend", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "franja", "nl": "stroken / balken", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "semestral", "nl": "halfjaarlijks", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "aguja", "nl": "wijzers (van een klok)", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "afianzar", "nl": "versterken / bevestigen", "t": "werkwoord", "k": "moeilijk"}, {"w": "acusado", "nl": "uitgesproken / opvallend", "t": "bijv. nw.", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
