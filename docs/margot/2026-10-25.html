@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 25-10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">domingo, 25 de octubre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>22</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">Política</span><h2>Sánchez invoca la figura de Lorca para defender la cultura y la memoria</h2><p>Granada acogió este sábado un acto del PSOE centrado en la cultura y los derechos sociales, donde Pedro Sánchez tomó la palabra en un espacio bautizado en honor a Federico García Lorca. Ante los asistentes, el líder socialista recitó unos versos de Cantos Nuevos, poema escrito por el autor granadino en 1920, para presentar a su formación como defensora de la diversidad frente al avance de la derecha.</p><p>Durante su discurso, Sánchez criticó duramente las políticas de la Junta de Castilla y León, gobernada por el Partido Popular y Vox, por revisar la ideología de las obras teatrales y artísticas antes de otorgar ayudas públicas. Para el presidente, estas decisiones anticipan una <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">involución</span> cultural y suponen una amenaza para la libertad creativa si la oposición llega al poder en las próximas elecciones.</p><p>El candidato socialista también abordó la reciente estancia en España del presidente de Argentina, Javier Milei, asegurando que tanto Feijóo como Abascal evitaron retratarse junto a él para no evidenciar sus coincidencias políticas. Según denunció, ambos dirigentes comparten una agenda de recortes presupuestarios que Sánchez comparó con el uso de tijeras y motosierras sobre el gasto público.</p><p>En materia de derechos civiles, Sánchez se comprometió formalmente a incluir el derecho al aborto en la Constitución española durante la próxima legislatura para <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">blindar</span> la autonomía de las mujeres. Este plan gubernamental ya había recibido el visto bueno del Consejo de Ministros en abril, pero su <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">tramitación</span> parlamentaria se detuvo con el fin de la anterior etapa política debido a la falta de apoyos suficientes para modificar el texto constitucional.</p><p>La vicesecretaria general del PSOE, María Jesús Montero, intervino asimismo para recordar el <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">fusilamiento</span> de Lorca en 1936 al comienzo del conflicto civil y alertar contra la derogación de la ley de memoria democrática. Sánchez cerró el encuentro apelando al voto el 29 de noviembre para impedir el retroceso en los avances logrados y asegurar que la esperanza ciudadana frene cualquier intento de resignación social.</p><div class="src">Bron: <a href="https://www.eldiario.es/politica/sanchez-reivindica-espana-lorca-frente-tijeras-feijoo-motosierra-abascal_1_13611964.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">España</span><h2>Incidentes violentos y decenas de detenciones en una protesta en Barcelona</h2><p>Una convocatoria juvenil difundida en plataformas digitales bajo el lema Instituts Indignats provocó graves <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">altercados</span> este sábado por la noche en el centro de Barcelona. La protesta, inspirada en las recientes movilizaciones estudiantiles francesas, congregó a unos quinientos participantes que no contaban con autorización oficial del departamento de Interior.</p><p>La concentración degeneró en <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">saqueos</span> a catorce comercios, barricadas con fuego en contenedores y rotura de <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">escaparates</span> en vías próximas a la plaza de Catalunya. Ante el caos en las calles, los Mossos d&#x27;Esquadra efectuaron cargas policiales y detuvieron a un centenar de personas, entre las cuales figuran veinticinco menores de edad.</p><p>La consellera de Interior, Núria Parlon, calificó los hechos de violencia desorganizada ajena a cualquier reivindicación social legítima. Por su parte, el alcalde Jaume Collboni anunció que el <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">consistorio</span> ejercerá la acusación particular en los tribunales y buscará que los <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">progenitores</span> asuman económicamente los daños ocasionados por los hijos menores.</p><div class="src">Bron: <a href="https://www.eldiario.es/catalunya/altercados-saqueos-cargas-centro-barcelona-protesta-juvenil-sistema_1_13612854.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Sociedad</span><h2>Una multitud de pensionistas exige en Madrid blindar las pensiones públicas</h2><p>Miles de pensionistas procedentes de diversas comunidades autónomas se manifestaron este sábado por las calles de Madrid para exigir pensiones dignas y el blindaje del sistema público. Convocada por la coordinadora COESPE, la marcha reunió a cincuenta mil asistentes según los organizadores y a veinticinco mil de acuerdo con la Delegación del Gobierno, terminando en las inmediaciones de la Puerta del Sol.</p><p>Entre sus demandas fundamentales figura actualizar las prestaciones según el IPC real y fijar la pensión mínima en la cuantía del salario mínimo interprofesional. Asimismo, los jubilados reclamaron eliminar las <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">penalizaciones</span> a los trabajadores que se retiraron anticipadamente tras <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">cotizar</span> más de cuatro décadas, además de exigir una <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">auditoría</span> oficial sobre el uso histórico de los fondos de la Seguridad Social.</p><p>Durante el recorrido, los portavoces de la protesta advirtieron del peligro de derivar recursos hacia fondos privados de pensiones y denunciaron su vinculación con la especulación de la vivienda de alquiler. Los manifestantes insistieron en la necesidad de unir fuerzas con las generaciones más jóvenes y confirmaron su respaldo a la huelga general prevista para el próximo 11 de noviembre.</p><div class="src">Bron: <a href="https://www.eldiario.es/economia/pensionistas-escenifican-union-juventud-gran-manifestacion-madrid-no-aceptar-marcha_1_13612262.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Ciencia</span><h2>Las claves científicas y geográficas sobre el fin del cambio de hora</h2><p>El tradicional atraso de las <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">manecillas</span> del reloj previsto para finales de octubre llega acompañado de un renovado debate sobre la conveniencia de suprimir este ajuste semestral. La iniciativa planteada por el Ejecutivo español a las instituciones comunitarias busca evaluar el impacto real que supondría fijar de forma permanente el horario de invierno o el de verano.</p><p>Gran parte de los expertos en <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">cronobiología</span> defiende consolidar el horario invernal porque ofrece mayor cantidad de luz matinal, un factor que favorece el reloj biológico y previene diversas dolencias cardiovasculares. Además, esta alternativa reduce el <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">desfase</span> respecto al meridiano geográfico de referencia, manteniendo a la península a solo una hora de diferencia frente a las dos horas del periodo estival.</p><p>Por el contrario, prolongar el horario veraniego durante todo el año provocaría que el sol saliera a las diez de la mañana en urbes occidentales como A Coruña durante el invierno. En cambio, con el horario invernal fijo amanecería antes de las seis de la mañana en verano, si bien los científicos recuerdan que las variaciones estacionales de luz dependen inevitablemente de la latitud.</p><div class="src">Bron: <a href="https://www.eldiario.es/sociedad/mapa-queda-horario-salida-puesta-sol-si-acaba-cambio-hora-municipio-municipio_1_13607111.html" rel="noopener" target="_blank">elDiario.es</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric positivo">Cultura</span><h2>Patti Smith conmueve en Oviedo al cantar durante los Princesa de Asturias</h2><p>La emblemática cantante y escritora Patti Smith fue <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">galardonada</span> este viernes con el Premio Princesa de Asturias de las Artes en una emotiva ceremonia en el Teatro Campoamor de Oviedo. Durante su discurso, la artista estadounidense animó a las nuevas generaciones a mantener la esperanza y sorprendió a todos los asistentes al cantar <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">a capela</span> un fragmento de su célebre tema Wing.</p><div class="src">Bron: <a href="https://www.eldiario.es/asturias/patti-smith-lanza-cantar-princesa-asturias-revolucion_1_13610617.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric positivo">Economía</span><h2>CaixaBank recibe un galardón internacional por su apoyo a las pymes</h2><p>La revista financiera Global Finance ha distinguido a CaixaBank como la mejor entidad para pequeñas y medianas empresas en España y Europa Occidental gracias a su modelo de asesoramiento integral. El banco gestiona una <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">cartera crediticia</span> de más de 46.000 millones de euros en este ámbito y ha incorporado herramientas de inteligencia artificial y tecnología digital para <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">agilizar</span> las operaciones comerciales cotidianas.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/economia/20261024/11665643/mejor-banco-espana-europa-occidental-pymes-global-finance-brl.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Cultura</span><h2>Singulares huellas de la arquitectura romana poco transitadas en España</h2><p>España alberga valiosos yacimientos arqueológicos de la época imperial que a menudo pasan <span class="w w-moeilijk" role="button" tabindex="0" data-i="19">desapercibidos</span>, como el imponente teatro de Acinipo excavado en roca caliza cerca de Ronda. Otros ejemplos singulares son las amplias cisternas subterráneas de Monturque descubiertas bajo un <span class="w w-moeilijk" role="button" tabindex="0" data-i="20">camposanto</span> andaluz, el <span class="w w-moeilijk" role="button" tabindex="0" data-i="21">enclave</span> minero de Munigua en Sevilla y los detallados mosaicos de la villa de Noheda en Cuenca.</p><div class="src">Bron: <a href="https://www.eldiario.es/viajes/teatro-acinipo-cisternas-monturque-12-tesoros-romanos-conocidos-espana_1_13602382.html" rel="noopener" target="_blank">elDiario.es</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl off">🔥 0</span> <span class="who">Margot</span></span><span><span class="fl off">🔥 0</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="" style="height:23px" title="45 herhalingen"></i><span>ma</span></div><div><i class="" style="height:27px" title="52 herhalingen"></i><span>di</span></div><div><i class="" style="height:28px" title="53 herhalingen"></i><span>wo</span></div><div><i class="" style="height:28px" title="53 herhalingen"></i><span>do</span></div><div><i class="" style="height:36px" title="69 herhalingen"></i><span>vr</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>za</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>zo</span></div></div><div class="row"><span>Gisteren <b class="who">0</b> herhalingen</span><span>7 dagen <b class="who">272</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "fusilamiento", "nl": "executie door het vuurpeloton", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "tramitación", "nl": "parlementaire behandeling", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "involución", "nl": "achteruitgang / regressie", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "blindar", "nl": "juridisch verankeren / afschermen", "t": "werkwoord", "k": "moeilijk"}, {"w": "progenitor", "nl": "ouders", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "escaparate", "nl": "etalages", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "consistorio", "nl": "gemeentebestuur", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "altercado", "nl": "rellen / ongeregeldheden", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "saqueo", "nl": "plunderingen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "penalización", "nl": "kortingen / strafkortingen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "auditoría", "nl": "audit / boekenonderzoek", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "cotizar", "nl": "sociale premies afdragen", "t": "werkwoord", "k": "moeilijk"}, {"w": "cronobiología", "nl": "chronobiologie", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "manecilla", "nl": "wijzers (van een klok)", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "desfase", "nl": "tijdsverschil / wanverhouding", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "galardonar", "nl": "onderscheiden / bekroond", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "a capela", "nl": "a capella (zonder instrumenten)", "t": "bijwoord", "k": "moeilijk"}, {"w": "cartera crediticia", "nl": "kredietportefeuille", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "agilizar", "nl": "versnellen / stroomlijnen", "t": "werkwoord", "k": "moeilijk"}, {"w": "desapercibido", "nl": "onopgemerkt", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "camposanto", "nl": "kerkhof / begraafplaats", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "enclave", "nl": "nederzetting / vestigingsplaats", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
