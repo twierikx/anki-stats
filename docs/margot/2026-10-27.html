@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 27-10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">martes, 27 de octubre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>21</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">Política</span><h2>Alianza entre el PP y Vox para concurrir al Senado</h2><p>El Partido Popular y Vox han formalizado un acuerdo electoral para presentar una estrategia coordinada en las elecciones al Senado. Esta decisión se ha tomado en la misma jornada en la que concluía el plazo oficial para registrar las listas de candidatos. La meta principal de ambas fuerzas políticas es maximizar sus posibilidades de obtener una mayoría en la <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">Cámara Alta</span> frente al bloque de izquierdas.</p><p>El pacto establece que Vox no concurrirá en seis provincias concretas: Las Palmas, Santa Cruz de Tenerife, Cádiz, Valencia, Castellón y Mallorca. En estos territorios insulares y peninsulares, las listas de los populares integrarán a una persona independiente propuesta por Vox. En contrapartida, el PP no presentará papeleta en tres provincias donde no cuenta con representación: Guipúzcoa, Girona y Tarragona.</p><p>Asimismo, en otras catorce <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">circunscripciones</span> Vox optará por inscribir a un único aspirante en vez de tres. Entre estas provincias se encuentran Sevilla, Asturias, Zaragoza, Navarra y Alicante, lo que permitirá a sus simpatizantes apoyar a su representante y completar su voto con nombres de la candidatura del PP. En las veintitrés provincias restantes de la geografía española, cada formación acudirá con sus propias listas completas.</p><p>Desde el PP, su secretario general, Miguel Tellado, ha defendido que esta colaboración es un acto de responsabilidad que busca frenar a la izquierda sin que ningún partido renuncie a sus siglas ni se diluya. Por su parte, el secretario general de Vox, Ignacio Garriga, ha indicado que la medida es útil para proteger las instituciones democráticas. Ambos dirigentes han insistido en que el entendimiento se limita de forma exclusiva al Senado y no altera en absoluto las candidaturas al Congreso de los Diputados.</p><p>La singularidad de este acuerdo radica en el mecanismo de votación de la Cámara Alta, donde cada elector peninsular elige a tres aspirantes para cubrir cuatro <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">escaños</span> provinciales. Esta dinámica suele premiar a la fuerza que encabeza el recuento y concede una plaza a la segunda opción más votada. Los estrategas conservadores confían en que coordinar las candidaturas les facilite disputar los cuatro senadores en circunscripciones como Almería o Murcia.</p><p>El anuncio ha generado un intercambio inmediato de declaraciones entre el Gobierno y la oposición. El presidente Pedro Sánchez ha criticado el pacto a través de las redes sociales, calificándolo como una prueba de que ambas formaciones comparten un mismo proyecto de <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">involución</span>. En respuesta, Alberto Núñez Feijóo ha señalado que esa reacción evidencia que su iniciativa política va por el rumbo correcto y actúa con altura de miras.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/pp-vox-alcanzan-un-acuerdo-para-frenar-izquierda-senado-los-abascal-no-se-presentaran-seis-provincias_7053481_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Política</span><h2>Sánchez sitúa las pensiones en el eje de su campaña en Gijón</h2><p>El presidente del Gobierno y líder del PSOE, Pedro Sánchez, ha protagonizado este lunes un acto electoral en Gijón ante unas seis mil personas. Durante su intervención, el mandatario ha anunciado que impulsará una reforma constitucional durante la próxima legislatura para <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">blindar</span> el sistema público de pensiones. Su objetivo declarado es asegurar por mandato legal que las prestaciones se <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">revaloricen</span> siempre con arreglo a la evolución de los precios de consumo.</p><p>Sánchez ha reclamado a los votantes una mayoría absoluta de ciento setenta y seis escaños para poder legislar con estabilidad tras ocho años de ejecutivos apoyados en mayorías parlamentarias fragmentadas. Para animar a sus seguidores, ha citado la reciente victoria electoral de Lula da Silva en Brasil como un ejemplo de que es posible protagonizar una <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">remontada</span> en las urnas el próximo 29 de noviembre.</p><p>El dirigente socialista también ha criticado duramente el acuerdo alcanzado entre el PP y Vox en el Senado, afirmando que ambas formaciones políticas representan exactamente el mismo proyecto conservador. En este sentido, ha pedido a los pensionistas y a las familias que apoyen al PSOE para defender las conquistas sociales frente a los recortes y al tono <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">crispado</span> que atribuye a las fuerzas de la oposición.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/sanchez-promete-reformar-constitucion-para-blindar-las-pensiones-carga-contra-pp-vox-por-pactar-senado-son-mismo_7053700_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Economía</span><h2>Nuevas reglas para la instalación de centros de datos en España</h2><p>El Gobierno ha trasladado al Consejo de Estado una versión corregida del proyecto de real decreto que regulará la apertura de centros de procesamiento de datos en el país. El cambio más relevante respecto al <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">borrador</span> original es que las exigencias técnicas solo se aplicarán a instalaciones que demanden diez megavatios o más, frente al límite inicial fijado en un solo megavatio. Con esta modificación, la norma se centrará exclusivamente en los grandes proyectos tecnológicos que disponen de mayor capacidad financiera.</p><p>El texto mantiene la obligación de que estas plantas cubran el ochenta por ciento de su consumo eléctrico mediante nuevas instalaciones de energía renovable o contratos de suministro a largo plazo. No obstante, el Ejecutivo ha <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">suavizado</span> las condiciones temporales reduciendo la duración mínima de dichos acuerdos de diez a seis años y autorizando el uso de baterías para almacenar energía en las horas de mayor generación solar. Además, se establece un periodo transitorio de adaptación que concluirá en el año 2031.</p><p>La normativa exige que las compañías conectadas al régimen transitorio colaboren con Red Eléctrica para desconectar sus equipos sin <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">retribución</span> económica en caso de saturación del sistema. Por el contrario, los criterios sobre consumo eficiente de agua y conservación de recursos <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">hídricos</span> se mantienen muy estrictos debido al estrés hídrico de la península, y se preserva el requisito de que la información ciudadana de especial sensibilidad permanezca almacenada dentro del territorio de la Unión Europea.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/economia/20261026/11666800/gobierno-rebaja-requisitos-instalar-nuevos-centros-datos.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric positivo">Salud</span><h2>Un dispositivo robótico ayuda a recuperar la marcha tras un ictus</h2><p>Pedro Asensio, un ciudadano de sesenta y tres años que sufrió un <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">ictus</span> a finales de 2024 debido al estrés, ha conseguido volver a caminar gracias a Awake, una estructura <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">biónica</span> desarrollada por la empresa española Robopedics. La tecnología ha sido presentada este lunes en Madrid con motivo del Día Mundial del Ictus para mostrar cómo ayuda a pacientes con parálisis parcial a recuperar la movilidad y la <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">autonomía</span> en sus rutinas cotidianas.</p><p>El mecanismo se adapta de manera individual a las medidas corporales, la velocidad y las características físicas de cada usuario, permitiendo continuar los ejercicios de rehabilitación directamente en el hogar tras el entrenamiento hospitalario. Asensio ha explicado que, aunque al principio el aparato parecía delicado, su uso le ha devuelto la confianza al guiar el movimiento voluntario de sus piernas sin depender enteramente de una silla de ruedas.</p><p>En el mismo encuentro, los responsables de Robopedics mostraron otros proyectos destinados a recintos hospitalarios y herramientas que combinan visión artificial con inteligencia adaptativa. Al mismo tiempo, un informe presentado por la Fundación Visible advirtió de que el sesenta y cuatro por ciento de los terapeutas no logra completar las pautas terapéuticas con sus pacientes por escasez de tiempo y medios, por lo que la empresa ha reclamado el apoyo de la sanidad pública para <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">democratizar</span> el acceso a estos tratamientos.</p><div class="src">Bron: <a href="https://www.20minutos.es/salud/pedro-asensio-paciente-ictus-vuelve-caminar-gracias-awake-personal-primer-momento-indices-recuperacion-serian-mayores_7053513_0.html" rel="noopener" target="_blank">20minutos</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric">Sociedad</span><h2>La Fiesta de la Trashumancia modifica su itinerario en Madrid</h2><p>Un total de mil cuatrocientas ovejas y cabras han recorrido las calles del centro de Madrid partiendo a primera hora desde el Puente del Rey. Los pastores se vieron obligados a modificar el recorrido habitual y cruzar por la Plaza Mayor debido a una acampada ciudadana por el derecho a la vivienda instalada en la Puerta del Sol.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/vida/20261026/11667729/miles-ovejas-cabras-pasan-plaza-mayor-madrid-debido-acampada.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric positivo">Cultura</span><h2>Premio en Estados Unidos a la traducción de una novela de Irene Solà</h2><p>La Asociación Americana de Traductores Literarios ha concedido el prestigioso galardón National Translation Award a Mara Faye Lethem por <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">verter</span> al inglés la novela de Irene Solà. El jurado ha elogiado la capacidad de la traductora para transmitir la riqueza lírica y folclórica de este relato original en catalán, que ya había sido premiado con anterioridad en los Países Bajos y <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">dotado</span> en esta ocasión con cuatro mil dólares.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/cultura/20261026/11668181/ultimo-libro-irene-sola-premiado-eeuu-traduccion-ingles-mara-lethem.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Ciencia</span><h2>Un estudio plantea una antigua desviación del río Llobregat</h2><p>El arquitecto y urbanista Albert Ferrer defiende en una serie de ensayos que el municipio barcelonés de Sant Feliu de Llobregat podría coincidir con la legendaria <span class="w w-moeilijk" role="button" tabindex="0" data-i="20">urbe</span> romana de Rubricata. La investigación sugiere además que el curso del río transcurría originariamente por el norte de Barcino y no descarta que los ingenieros romanos intervinieran en su <span class="w w-moeilijk" role="button" tabindex="0" data-i="19">cauce</span> para acondicionar el terreno, apoyándose en <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">cartografía</span> histórica y en recientes hallazgos arqueológicos.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/cultura/20261026/11665593/desviaron-romanos-llobregat.html" rel="noopener" target="_blank">La Vanguardia</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl off">🔥 0</span> <span class="who">Margot</span></span><span><span class="fl">🔥 17</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="" style="height:27px" title="53 herhalingen"></i><span>wo</span></div><div><i class="" style="height:27px" title="53 herhalingen"></i><span>do</span></div><div><i class="" style="height:35px" title="69 herhalingen"></i><span>vr</span></div><div><i class="" style="height:36px" title="70 herhalingen"></i><span>za</span></div><div><i class="" style="height:36px" title="70 herhalingen"></i><span>zo</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>ma</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>di</span></div></div><div class="row"><span>Gisteren <b class="who">0</b> herhalingen</span><span>7 dagen <b class="who">315</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "circunscripción", "nl": "kieskringen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "Cámara Alta", "nl": "Eerste Kamer / Senaat", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "involución", "nl": "achteruitgang / regressie", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "escaño", "nl": "zetels", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "revalorizar", "nl": "in waarde stijgen / herwaarderen", "t": "werkwoord", "k": "moeilijk"}, {"w": "remontada", "nl": "inhaalslag", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "crispado", "nl": "gespannen / verbitterd", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "blindar", "nl": "afschermen / wettelijk verankeren", "t": "werkwoord", "k": "moeilijk"}, {"w": "retribución", "nl": "vergoeding", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "suavizar", "nl": "verzacht / versoepeld", "t": "werkwoord", "k": "moeilijk"}, {"w": "borrador", "nl": "ontwerp / kladversie", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "hídrico", "nl": "water- / hydrologisch", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "democratizar", "nl": "voor iedereen toegankelijk maken", "t": "werkwoord", "k": "moeilijk"}, {"w": "autonomía", "nl": "zelfstandigheid", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "biónico", "nl": "bionisch", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "ictus", "nl": "beroerte", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "verter", "nl": "vertalen / overbrengen", "t": "werkwoord", "k": "moeilijk"}, {"w": "dotar", "nl": "voorzien van prijzengeld", "t": "werkwoord", "k": "moeilijk"}, {"w": "cartografía", "nl": "kartografie", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "cauce", "nl": "rivierbedding", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "urbe", "nl": "stad", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
