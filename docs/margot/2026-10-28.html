@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 28-10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">miércoles, 28 de octubre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>38</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric positivo">Economía</span><h2>Un modelo escandinavo para aprovechar la energía limpia</h2><p>El <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">divulgador</span> ambiental Javier Peña y la plataforma Hope! han presentado una propuesta para crear en España un fondo <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">soberano</span> inspirado en el modelo de Noruega, pero impulsado por la energía solar y eólica. La iniciativa, formulada ante las elecciones del 29 de noviembre dentro de la campaña &#x27;España puede ser la hostia&#x27;, plantea utilizar los ingresos procedentes de las energías limpias para financiar viviendas públicas y reforzar las pensiones. La idea surgió al constatar que el fondo noruego posee participaciones del 49% en siete plantas fotovoltaicas y una eólica gestionadas por Iberdrola en territorio español.</p><p>En el país escandinavo, este mecanismo nació en los años noventa tras el hallazgo de <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">yacimientos</span> petrolíferos en el mar del Norte en 1969. En la actualidad, el fondo noruego financia aproximadamente el 27% del gasto público de su país y cubre un déficit <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">presupuestario</span> equivalente al 13% del PIB. Aunque entidades ambientales como ZERO critican que mantenga inversiones en multinacionales petroleras como Repsol, BP o Shell, este fondo constituye una herramienta eficaz para <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">blindar</span> los servicios públicos frente al progresivo envejecimiento de la sociedad.</p><p>Los promotores de la iniciativa destacan que España importa actualmente el 68,4% de su energía, principalmente en forma de combustibles fósiles, según datos oficiales del Ministerio para la Transición Ecológica. El plan aspira a reducir esta dependencia energética por debajo del 20% para el año 2040 mediante la electrificación simultánea de la industria, el transporte y los hogares. Sus impulsores subrayan que España puede alcanzar la soberanía energética antes que otros países como Alemania, que se ha fijado la meta de abandonar los combustibles fósiles en 2045.</p><p>A diferencia de Noruega, donde el Estado controla dos tercios de la petrolera Equinor, en España las instalaciones energéticas son privadas, por lo que el proyecto requiere fondos iniciales para adquirir activos. La propuesta calcula que el Estado debería aportar unos 2.300 millones de euros anuales de los Presupuestos Generales hasta 2040 sin gastar el dinero <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">a fondo perdido</span>, sino invirtiéndolo en activos generadores de ingresos. Esta financiación se complementaría con la hucha de las pensiones, deuda verde, un sistema de ahorro popular similar a la libreta francesa Livret A y la recuperación pública de las <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">presas</span> hidroeléctricas cuyas concesiones venzan próximamente.</p><p>Según los cálculos elaborados por economistas como Rafael Pinilla y especialistas como Cote Romero y Manel Rivero, la <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">rentabilidad</span> de estas inversiones públicas permitiría <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">sufragar</span> el 4,7% del gasto estatal en pensiones en el año 2050. Peña defiende que esta medida no comprometería el sistema de jubilación, sino que ofrecería una garantía adicional para blindarlo ante los retos demográficos futuros.</p><div class="src">Bron: <a href="https://www.eldiario.es/ballenablanca/economia/renovables-pagar-vivienda-publica-pensiones-propuesta-crear-fondo-soberano-noruega_1_13617555.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric positivo">Cultura</span><h2>Premio Nacional de las Letras para Vila-Matas</h2><p>El escritor barcelonés Enrique Vila-Matas ha sido <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">galardonado</span> este martes con el Premio Nacional de las Letras Españolas, una distinción dotada con 50.000 euros que concede el Ministerio de Cultura para reconocer toda una trayectoria literaria. El jurado ha destacado su aportación original a la narrativa contemporánea y su constante diálogo con la tradición cervantina y borgiana. Asimismo, el veredicto resalta su capacidad para <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">difuminar</span> las barreras entre la realidad y la ficción posmoderna.</p><p>El autor recibió la noticia de forma <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">imprevista</span> mientras se encontraba en una librería de la capital catalana charlando con el escritor Alejandro Basteiro. Al principio, Vila-Matas decidió ignorar las llamadas telefónicas creyendo que se trataba de convocatorias a protestas, hasta que atendió a su editora, Elena Ramírez. El escritor admitió con ironía que no podía celebrar el premio de inmediato porque debía terminar un <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">prólogo</span> literario comprometido para ese mismo día, además de atender una improvisada rueda de prensa.</p><p>Con una <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">andadura</span> que comenzó a finales de los años sesenta como redactor en publicaciones culturales y aficionado al cine, Vila-Matas dirigió cortometrajes y participó como actor en varias películas antes de publicar sus primeras obras de ficción durante la década de 1970. En su comparecencia, el <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">flamante</span> premiado aludió con humor a sus recelos ante la inteligencia artificial, a la que asegura formular preguntas <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">capciosas</span> para <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">despistarla</span>, mientras celebra un reconocimiento que amplía el prestigioso historial de este galardón.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/cultura/20261027/11669284/enrique-vila-matas-gana-nacional-letras.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Política</span><h2>Alianza de izquierdas para el Senado en Cataluña</h2><p>El Partido de los Socialistas de Cataluña (PSC) y la formación Comuns han <span class="w w-moeilijk" role="button" tabindex="0" data-i="22">pactado</span> unir fuerzas para las elecciones generales del próximo 29 de noviembre en el Senado. El acuerdo establece que los ecosocialistas retiran sus listas electorales en las <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">circunscripciones</span> de Girona, Lleida y Tarragona para <span class="w w-moeilijk" role="button" tabindex="0" data-i="19">respaldar</span> a los candidatos socialistas. A cambio de esta renuncia territorial, el PSC facilitará la designación de un senador propuesto por el espacio de Ada Colau.</p><p>Ambas organizaciones han señalado que esta entente busca maximizar los <span class="w w-moeilijk" role="button" tabindex="0" data-i="20">sufragios</span> progresistas y evitar que la Cámara Alta caiga bajo el control de los partidos conservadores. El <span class="w w-moeilijk" role="button" tabindex="0" data-i="21">detonante</span> directo del pacto fue la decisión previa del Partido Popular y Vox de repartirse las candidaturas al Senado en Girona y Tarragona, donde los populares renunciaron a concurrir para ceder el protagonismo a la formación de extrema derecha.</p><p>La viceprimera secretaria del PSC, Lluïsa Moret, ha valorado este entendimiento como una respuesta obligada para proteger el <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">autogobierno</span> y la diversidad lingüística de Cataluña ante lo que considera un retroceso democrático. El pacto amplía la estrategia iniciada a nivel estatal por el PSOE y Frente Amplio, que ya habían acordado listas conjuntas en 44 provincias pero habían excluido inicialmente a las demarcaciones catalanas.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/politica/20261027/11669211/acuerdo-psc-comuns-senado-girona-tarragona-lleida.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Economía</span><h2>Nuevo récord laboral con desaceleración estival</h2><p>España cerró el tercer trimestre del año con un nuevo récord de ocupación al alcanzar las 22.852.600 personas con trabajo, tras sumar 73.600 empleos durante los meses de verano. No obstante, las cifras de la Encuesta de Población Activa (EPA) revelan que este avance laboral representa el crecimiento <span class="w w-moeilijk" role="button" tabindex="0" data-i="26">estival</span> más débil desde 2019. Al mismo tiempo, el desempleo <span class="w w-moeilijk" role="button" tabindex="0" data-i="27">repuntó</span> en 95.900 personas, situando la tasa de paro en el 10,2%, un incremento impulsado por la llegada de nuevos ciudadanos al mercado laboral.</p><p>El aumento de los puestos ocupados descansó enteramente en el sector público, que sumó 89.900 trabajadores durante el trimestre, mientras que la empresa privada recortó 16.300 puestos. En el ámbito privado se destruyeron además 15.500 empleos <span class="w w-moeilijk" role="button" tabindex="0" data-i="23">por cuenta propia</span>, mientras que el trabajo <span class="w w-moeilijk" role="button" tabindex="0" data-i="25">asalariado</span> creció apenas en diez personas. Por sectores, el empuje estival del comercio, la sanidad y la administración contrastó con la severa pérdida de ocupados en la educación debido a la pausa académica de las vacaciones.</p><p>Las reacciones de los agentes sociales reflejan lecturas encontradas de estos indicadores estadísticos. Mientras la patronal CEOE y la federación de autónomos ATA alertaron de que el encarecimiento de los costes frena la actividad de los pequeños negocios, los sindicatos CCOO y USO advirtieron sobre la vulnerabilidad que muestran todavía más de 786.000 hogares con todos sus <span class="w w-moeilijk" role="button" tabindex="0" data-i="24">integrantes</span> desempleados, reclamando mejoras en la retribución y en la estabilidad de los contratos.</p><div class="src">Bron: <a href="https://www.20minutos.es/lainformacion/economia-y-finanzas/espana-suma-73-600-empleos-tercer-trimestre-bate-un-nuevo-record-ocupacion-pero-paro-aumenta-10-2_7053792_0.html" rel="noopener" target="_blank">20minutos</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric">Sociedad</span><h2>Medidas policiales y judiciales contra convocatorias violentas</h2><p>Los Mossos d&#x27;Esquadra han solicitado por primera vez la colaboración de la Unidad Nacional de Retirada de Contenidos Ilícitos en Internet para <span class="w w-moeilijk" role="button" tabindex="0" data-i="30">clausurar</span> tres canales de Telegram vinculados al grupo Blocus, donde se promovían <span class="w w-moeilijk" role="button" tabindex="0" data-i="31">saqueos</span> y actos vandálicos en Barcelona. Paralelamente, una jueza ha impuesto a varios arrestados la prohibición preventiva de participar en futuras manifestaciones ante el riesgo evidente de <span class="w w-moeilijk" role="button" tabindex="0" data-i="29">reincidencia</span>, al tiempo que la Generalitat de Cataluña ha confirmado que ejercerá como <span class="w w-moeilijk" role="button" tabindex="0" data-i="28">acusación particular</span> en la causa para representar a los agentes que sufrieron lesiones en los incidentes.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/local/barcelona/20261027/11669511/mossos-recurren-mecanismos-antiterroristas-bloquear-chats-disturbios-barcelona.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Salud</span><h2>Jornadas de huelga médica en Cataluña y Madrid</h2><p>El sindicato Metges de Catalunya inicia este miércoles una huelga indefinida en la sanidad pública para exigir un convenio laboral propio y el fin de las <span class="w w-moeilijk" role="button" tabindex="0" data-i="34">extenuantes</span> guardias de 24 horas, en una convocatoria para la que el Govern ha fijado servicios mínimos elevados que aseguran las urgencias y los tratamientos médicos <span class="w w-moeilijk" role="button" tabindex="0" data-i="33">inaplazables</span>. De manera simultánea, los médicos madrileños arrancan también un calendario de paros <span class="w w-moeilijk" role="button" tabindex="0" data-i="32">intermitentes</span> hasta diciembre para protestar por la falta de avances en la negociación con la Consejería de Sanidad tras suspender las jornadas extraordinarias de trabajo.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/vida/20261027/11669587/servicios-minimos-altos-hospitales-25-cap-huelga-medicos-manana.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Sociedad</span><h2>Las competencias humanas en la dirección de equipos</h2><p>El salto a un puesto de mando en el entorno corporativo exige cultivar habilidades <span class="w w-moeilijk" role="button" tabindex="0" data-i="35">interpersonales</span> como la escucha activa, la empatía y la resolución constructiva de tensiones, aspectos que a menudo quedan al margen de la preparación técnica inicial. Diversos análisis del Foro Económico Mundial y entidades formativas subrayan que <span class="w w-moeilijk" role="button" tabindex="0" data-i="37">delegar</span> con claridad resulta imprescindible para evitar bloqueos <span class="w w-moeilijk" role="button" tabindex="0" data-i="36">operativos</span>, por lo que cada vez más organizaciones y plataformas educativas ofrecen cursos gratuitos para aprender a coordinar personas con flexibilidad.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/economia/20261027/11665730/te-han-ascendido-habilidades-necesitas-buen-lider-brl.html" rel="noopener" target="_blank">La Vanguardia</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl off">🔥 0</span> <span class="who">Margot</span></span><span><span class="fl off">🔥 0</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="" style="height:27px" title="53 herhalingen"></i><span>do</span></div><div><i class="" style="height:35px" title="69 herhalingen"></i><span>vr</span></div><div><i class="" style="height:36px" title="70 herhalingen"></i><span>za</span></div><div><i class="" style="height:36px" title="70 herhalingen"></i><span>zo</span></div><div><i class="" style="height:36px" title="70 herhalingen"></i><span>ma</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>di</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>wo</span></div></div><div class="row"><span>Gisteren <b class="who">0</b> herhalingen</span><span>7 dagen <b class="who">332</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "a fondo perdido", "nl": "als niet-terugbetaalbare subsidie", "t": "uitdrukking", "k": "moeilijk"}, {"w": "presupuestario", "nl": "begrotings-", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "rentabilidad", "nl": "rendement", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "yacimiento", "nl": "vindplaatsen / olievelden", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "divulgador", "nl": "wetenschapsvoorlichter / popularisator", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "soberano", "nl": "soeverein / staats-", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "sufragar", "nl": "bekostigen / financieren", "t": "werkwoord", "k": "moeilijk"}, {"w": "blindar", "nl": "afschermen / beschermen", "t": "werkwoord", "k": "moeilijk"}, {"w": "presa", "nl": "stuwdammen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "galardonar", "nl": "bekroond / gelauwerd", "t": "werkwoord", "k": "moeilijk"}, {"w": "despistar", "nl": "op een dwaalspoor brengen", "t": "werkwoord", "k": "moeilijk"}, {"w": "imprevisto", "nl": "onverwacht", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "difuminar", "nl": "vervagen", "t": "werkwoord", "k": "moeilijk"}, {"w": "capcioso", "nl": "strik- / misleidend", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "andadura", "nl": "loopbaan / traject", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "flamante", "nl": "gloednieuw / kersvers", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "prólogo", "nl": "voorwoord / proloog", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "circunscripción", "nl": "kiesdistricten", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "autogobierno", "nl": "zelfbestuur", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "respaldar", "nl": "steunen", "t": "werkwoord", "k": "moeilijk"}, {"w": "sufragio", "nl": "stemmen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "detonante", "nl": "aanleiding / trigger", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "pactar", "nl": "overeengekomen", "t": "werkwoord", "k": "moeilijk"}, {"w": "por cuenta propia", "nl": "als zelfstandige", "t": "uitdrukking", "k": "moeilijk"}, {"w": "integrante", "nl": "leden", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "asalariado", "nl": "in loondienst", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "estival", "nl": "zomers", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "repuntar", "nl": "steeg weer / veerde op", "t": "werkwoord", "k": "moeilijk"}, {"w": "acusación particular", "nl": "benadeelde partij als aanklager", "t": "uitdrukking", "k": "moeilijk"}, {"w": "reincidencia", "nl": "recidive / herhaling", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "clausurar", "nl": "sluiten / opheffen", "t": "werkwoord", "k": "moeilijk"}, {"w": "saqueo", "nl": "plunderingen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "intermitente", "nl": "met tussenpozen / periodiek", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "inaplazable", "nl": "onuitstelbaar", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "extenuante", "nl": "uitputtend", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "interpersonal", "nl": "interpersoonlijk", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "operativo", "nl": "operationeel", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "delegar", "nl": "delegeren", "t": "werkwoord", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
