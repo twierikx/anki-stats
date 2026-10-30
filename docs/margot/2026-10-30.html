@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 30-10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">viernes, 30 de octubre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>28</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">España</span><h2>El informe preliminar de Urda apunta a una colisión a gran velocidad</h2><p>La investigación técnica sobre el trágico accidente ferroviario de Urda ha revelado sus primeros datos oficiales tras las <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">pesquisas</span> iniciales. Según el documento difundido por la AITAT, el choque entre el convoy de alta velocidad AVE y el tren Iryo ocurrió a un ritmo estimado de entre 160 y 200 kilómetros por hora. Esta violenta <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">colisión</span> provocó la muerte de 69 personas y dejó a cientos de viajeros heridos en la línea que conecta Madrid con Sevilla.</p><p>El impacto ocurrió a las 8:53 horas en la vía 2, donde el Iryo permanecía detenido a la entrada de la estación toledana con 147 pasajeros a bordo. La fuerza del golpe hizo que el último vagón del AVE quedara <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">incrustado</span> en el primer coche del Iryo, terminando ambos volcados en el <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">terraplén</span> exterior. Además, un pedazo de carril deformado atravesó otro de los vehículos del tren de Renfe, mientras casi toda la hilera del convoy de Iryo <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">descarrilaba</span> por la fuerza del empuje.</p><p>Los <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">peritos</span> de la comisión investigadora se desplazaron con rapidez tanto al punto del desastre como al Centro de Regulación y Control situado en la estación madrileña de Atocha. En estas dependencias oficiales revisaron las grabaciones sonoras de los momentos previos, examinaron los libros de comunicaciones internas y verificaron el instrumental de control. No obstante, las autoridades todavía no han podido interrogar a los maquinistas ni a los encargados de tráfico debido a su delicado estado emocional tras la catástrofe.</p><p>Uno de los elementos centrales del análisis es el fallo del sistema automático LZB, que comenzó a dar problemas a las 8:31 de la mañana. Ante esta <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">avería</span> técnica, los trenes empezaron a operar bajo señalización lateral convencional, lo que obligó a coordinar la marcha mediante instrucciones verbales y <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">telefonemas</span>. Los especialistas sospechan que una desafortunada combinación de fallos humanos y técnicos impidió que funcionaran las defensas de seguridad habituales.</p><p>Por el momento, la Guardia Civil custodia los dispositivos de registro de a bordo, conocidos como cajas negras, que serán analizados por el juzgado correspondiente. Los responsables del caso han advertido de que la investigación técnica tardará bastante tiempo en completarse, con un plazo legal de hasta un año para emitir el dictamen definitivo.</p><div class="src">Bron: <a href="https://www.eldiario.es/castilla-la-mancha/primer-informe-accidente-urda-estima-colision-ave-iryo-produjo-160-200-km-h_1_13625882.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric positivo">Salud</span><h2>Intervenciones sanguíneas en pleno vuelo salvan vidas en Toledo</h2><p>La rápida reacción de los servicios de urgencia resultó fundamental para socorrer a los heridos en el <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">siniestro</span> ferroviario de Urda. La voz de alarma la dieron dos agricultores que trabajaban en un campo cercano y auxiliaron a los primeros afectados que salían <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">conmocionados</span> de los vagones. De forma inmediata, el municipio habilitó sus instalaciones municipales y los pueblos vecinos enviaron médicos, enfermeros y medicinas al lugar.</p><p>El aspecto más innovador del rescate fue la movilización de helicópteros sanitarios capaces de realizar transfusiones sanguíneas mientras se encontraban en el aire. Cuatro aparatos de Castilla-La Mancha, junto con refuerzos de Madrid y Castilla y León, completaron hasta ocho transfusiones directas en trayectos de apenas veinte minutos hacia los centros hospitalarios. Nunca antes habían coincidido siete <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">aeronaves</span> de soporte vital trabajando al unísono en una misma catástrofe en España.</p><p>Estas maniobras aéreas permitieron aplicar tratamientos intensivos durante la conocida como hora dorada, la fase inicial decisiva para evitar fallecimientos traumáticos. Los sanitarios emplearon sangre del grupo cero negativo y sustancias <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">coagulantes</span> para estabilizar a los enfermos más críticos antes de su ingreso en <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">quirófano</span>.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/vida/20261029/11671151/transfusiones-sangre-helicoptero-hora-dorada.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Economía</span><h2>El BCE congela el precio del dinero y Lagarde anuncia su dimisión</h2><p>El Banco Central Europeo confirmó este jueves que mantiene los tipos de interés en el 2,5% tras una votación <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">unánime</span> de su cúpula directiva. Sin embargo, la atención financiera se desvió hacia la noticia de que su presidenta, Christine Lagarde, dejará su puesto en febrero de 2027, nueve meses antes de agotar su mandato oficial. Lagarde alegó que desea recuperar la libertad de expresión para intervenir en debates públicos ajenos a la política bancaria.</p><p>La decisión de conservar las tasas vigentes responde al complejo panorama que vive la eurozona. El encarecimiento de la energía derivado de las tensiones bélicas en Irán provocó que la inflación aumentase al 3,8% en septiembre, alejándose del objetivo marcado. A pesar de este <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">repunte</span> en los precios del combustible, los costes laborales y los salarios todavía no han experimentado subidas desmedidas que justifiquen un endurecimiento monetario inmediato.</p><p>Los analistas económicos advierten de que la marcha anticipada de la mandataria añade dudas en un periodo de débil crecimiento continental. El organismo financiero reconoció que el crédito más caro perjudica la inversión empresarial y el consumo de las familias, aunque no descarta <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">acometer</span> nuevos ajustes en su próxima cita de diciembre si las tensiones persisten.</p><div class="src">Bron: <a href="https://www.eldiario.es/economia/bce-mantiene-tipos-interes-2-5-reunion-marcada-salida-anticipada-lagarde_1_13624194.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric positivo">Sociedad</span><h2>Respuesta masiva de donaciones para asistir a los heridos del tren</h2><p>Los hospitales madrileños vivieron una auténtica <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">avalancha</span> de solidaridad popular tras el llamamiento urgente realizado por el Centro de Transfusión. Más de cuatro mil personas se acercaron a los puntos de extracción repartidos por la ciudad para prestar su apoyo a las víctimas del choque de Urda. La respuesta ciudadana <span class="w w-moeilijk" role="button" tabindex="0" data-i="19">desbordó</span> las previsiones hasta tal punto que el personal sanitario recomendó ordenar las visitas a lo largo de las próximas jornadas.</p><p>En las unidades móviles instaladas en el centro de Madrid se formaron largas filas de voluntarios <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">conmovidos</span> por las noticias del ferrocarril. Varios donantes expresaron que sentían una necesidad moral de colaborar, sobre todo aquellos que viajan a menudo en esa misma conexión con Andalucía. Los sanitarios elogiaron este compromiso social y recordaron que las reservas de plasma y glóbulos deben renovarse con regularidad para garantizar la atención quirúrgica continua.</p><p>Para evitar que el entusiasmo inicial decaiga, las autoridades sanitarias han pedido a la población que continúe acudiendo de manera <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">escalonada</span> en los próximos días. Las dependencias hospitalarias y los puestos móviles mantienen sus puertas abiertas para quienes deseen sumar su aportación personal a esta causa comunitaria.</p><div class="src">Bron: <a href="https://www.eldiario.es/madrid/oleada-solidaridad-centros-donacion-sangre-accidente-quiero-ayudar-pueda_1_13623650.html" rel="noopener" target="_blank">elDiario.es</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric">España</span><h2>Discrepancias sobre las vías para solucionar la crisis habitacional</h2><p>El coste del alojamiento en España obliga a muchos hogares a destinar casi la mitad de sus ingresos mensuales al pago del alquiler o de la hipoteca. Frente a este reto colectivo, algunos expertos reclaman una intervención legal de las tarifas de <span class="w w-moeilijk" role="button" tabindex="0" data-i="20">arrendamiento</span> para proteger a las familias más débiles, mientras otros especialistas defienden que la verdadera solución radica en edificar más inmuebles para abaratar los precios mediante una mayor oferta. Al mismo tiempo, la <span class="w w-moeilijk" role="button" tabindex="0" data-i="21">proliferación</span> de pisos turísticos genera inquietud en los barrios tradicionales al encarecer todavía más el acceso a un hogar estable.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/por-que-es-tan-dificil-encontrar-una-vivienda-accesible-dos-visiones-sobre-problema-habitacional_7054682_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Mundo</span><h2>Machado defiende en Caracas una transición pacífica hacia las urnas</h2><p>En su primera comparecencia pública tras volver a Venezuela, la líder opositora María Corina Machado afirmó en la capital que el cambio democrático resulta ya inevitable. Machado sostuvo que está dispuesta a negociar garantías para facilitar la celebración de <span class="w w-moeilijk" role="button" tabindex="0" data-i="24">comicios</span> presidenciales pacíficos en 2027, aunque exigió la <span class="w w-moeilijk" role="button" tabindex="0" data-i="22">excarcelación</span> de los presos políticos y justicia para las víctimas de abusos estatales. Por su parte, la dirigente <span class="w w-moeilijk" role="button" tabindex="0" data-i="23">oficialista</span> Delcy Rodríguez anunció que se convocarán votaciones con un árbitro electoral renovado, si bien evitó concretar un calendario definitivo.</p><div class="src">Bron: <a href="https://www.20minutos.es/internacional/maria-corina-machado-directo-lider-opositora-venezolana-ofrece-su-primera-rueda-prensa-tras-volver-pais_7055080_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric positivo">Buenas noticias</span><h2>La Primitiva deja dos premios millonarios en Toledo y Barcelona</h2><p>El sorteo de la lotería Primitiva celebrado este jueves ha dejado dos premios extraordinarios de más de 22,5 millones de euros para cada <span class="w w-moeilijk" role="button" tabindex="0" data-i="25">agraciado</span>. Las apuestas afortunadas con la combinación completa y el reintegro fueron <span class="w w-moeilijk" role="button" tabindex="0" data-i="26">selladas</span> en un despacho del municipio toledano de Méntrida y en una administración de Cornellá de Llobregat. Este cuantioso <span class="w w-moeilijk" role="button" tabindex="0" data-i="27">bote</span> económico transforma de golpe el futuro de los ganadores gracias a un golpe de fortuna irrepetible.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/dos-acertantes-primitiva-se-llevan-mas-22-5-millones-euros-cada-uno_7055264_0.html" rel="noopener" target="_blank">20minutos</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl">🔥 11</span> <span class="who">Margot</span></span><span><span class="fl off">🔥 0</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="" style="height:24px" title="70 herhalingen"></i><span>za</span></div><div><i class="" style="height:24px" title="70 herhalingen"></i><span>zo</span></div><div><i class="" style="height:24px" title="70 herhalingen"></i><span>ma</span></div><div><i class="" style="height:30px" title="89 herhalingen"></i><span>di</span></div><div><i class="" style="height:36px" title="106 herhalingen"></i><span>wo</span></div><div><i class="" style="height:35px" title="102 herhalingen"></i><span>do</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>vr</span></div></div><div class="row"><span>Gisteren <b class="who">102</b> herhalingen</span><span>7 dagen <b class="who">507</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "descarrilar", "nl": "ontspoorde", "t": "werkwoord", "k": "moeilijk"}, {"w": "telefonema", "nl": "diensttelefoontjes", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "incrustar", "nl": "klemgeraakt", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "pesquisa", "nl": "onderzoekingen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "terraplén", "nl": "spoordijk / talud", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "colisión", "nl": "botsing", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "perito", "nl": "deskundigen / experts", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "avería", "nl": "storing / defect", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "conmocionado", "nl": "in shock / ontdaan", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "coagulante", "nl": "stollingsbevorderend", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "siniestro", "nl": "ongeval / ramp", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "aeronave", "nl": "luchtvaartuigen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "quirófano", "nl": "operatiekamer", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "acometer", "nl": "ondernemen / uitvoeren", "t": "werkwoord", "k": "moeilijk"}, {"w": "unánime", "nl": "unaniem", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "repunte", "nl": "opleving / stijging", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "conmovido", "nl": "aangegrepen / geëmotioneerd", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "escalonado", "nl": "gespreid", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "avalancha", "nl": "lawine / toevloed", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "desbordar", "nl": "overtrof / overspoelde", "t": "werkwoord", "k": "moeilijk"}, {"w": "arrendamiento", "nl": "huur / verhuur", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "proliferación", "nl": "wildgroei / snelle toename", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "excarcelación", "nl": "vrijlating uit de gevangenis", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "oficialista", "nl": "regeringsgezind", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "comicio", "nl": "verkiezingen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "agraciado", "nl": "prijswinnaar", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "sellar", "nl": "afgestempeld / gevalideerd", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "bote", "nl": "jackpot", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
