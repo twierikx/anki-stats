@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 31-10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">sábado, 31 de octubre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>21</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">España</span><h2>Sánchez exige soluciones urgentes tras admitir la pérdida de confianza en la alta velocidad</h2><p>El presidente del Gobierno, Pedro Sánchez, ha comparecido este viernes junto al <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">mandatario</span> castellano-manchego, Emiliano García-Page, tras una reunión de coordinación en el puesto de mando operativo. Durante su intervención, que coincidió con la rebaja del nivel de emergencia, el jefe del Ejecutivo reconoció de forma contundente que existe una «confianza quebrada» en la red española de alta velocidad.</p><p>Sánchez calificó de «inasumibles» los dos <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">siniestros</span> ferroviarios ocurridos en Adamuz y Urda, que han provocado casi 120 víctimas mortales en apenas unos meses. El presidente remarcó que un país con una infraestructura tan potente no puede tolerar tragedias consecutivas de semejante gravedad. Por este motivo, señaló que el deber estatal va más allá de <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">esclarecer</span> las causas y exige aportar soluciones definitivas para impedir que se repitan.</p><p>En el terreno político, la gestión del ministro de Transportes, Óscar Puente, se encuentra en el centro de las críticas. Tanto la oposición como varios socios parlamentarios han reclamado su dimisión inmediata por la cadena de fallos. Sin embargo, desde el Ejecutivo y el propio entorno del ministro se descarta esta salida y se enfría cualquier relevo en el cargo.</p><p>La postura de Sánchez ante los medios ha llamado la atención por su <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">cautela</span>. A lo largo de sus tres comparecencias de esta semana, el líder socialista ha evitado pronunciar un respaldo explícito a Puente, aunque ha defendido que todo el gabinete colabora plenamente en esclarecer los hechos. Mientras tanto, las <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">pesquisas</span> técnicas continúan avanzando al mismo tiempo que la correspondiente vía judicial.</p><p>El calendario institucional continuará marcando el ritmo de la crisis en los próximos días. El propio ministro de Transportes hablará ante los medios de comunicación este mismo viernes para dar explicaciones sobre los avances del caso. Posteriormente, el martes de la semana que viene, Puente deberá acudir ante la diputación permanente del Congreso de los Diputados.</p><div class="src">Bron: <a href="https://www.eldiario.es/politica/sanchez-admite-confianza-quebrada-alta-velocidad-espanola-reitera-accidentes-son-inasumibles_1_13626547.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Europa</span><h2>Bruselas y Ottawa pactan una alianza hacia 2027 sin definir el estatus canadiense</h2><p>La Unión Europea y Canadá han <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">sellado</span> una declaración conjunta bautizada como «alianza del futuro» con el propósito de estrechar sus vínculos políticos y comerciales. Ambos bloques han fijado el año 2027 como fecha límite para concretar los detalles de esta relación. La presidenta de la Comisión Europea, Ursula von der Leyen, y el primer ministro canadiense, Mark Carney, defienden la posibilidad de que el país norteamericano se convierta en el primer «miembro asociado» de la Unión, aunque descartan una <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">adhesión</span> plena por motivos geográficos.</p><p>La propuesta de crear esta figura inédita generó ciertas <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">discrepancias</span> entre los socios europeos antes del encuentro. Países como Alemania, con el canciller Friedrich Merz a la cabeza, frenaron la inclusión formal de ese estatus en el documento final, rebajando el entusiasmo inicial de Von der Leyen. Pese a estas <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">reservas</span>, el presidente del Consejo Europeo, António Costa, invitó formalmente a Carney a participar en la cumbre comunitaria que se celebrará en junio, precedida por un encuentro ministerial en marzo.</p><p>En el plano económico, Bruselas y Ottawa acordaron medidas para limitar su dependencia industrial frente a gigantes como China y Estados Unidos. Entre los pactos destaca la creación de reservas estratégicas de materias primas críticas con apoyo del Banco Europeo de Inversiones y la elaboración de un informe sobre envíos de gas hacia Europa. Asimismo, el pacto abarca el comercio digital, la computación de alto rendimiento y una aportación canadiense de 500 millones de euros para el préstamo destinado a Ucrania.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/internacional/20261030/11672354/ue-canada-sellan-asociacion-vez-estrecha-dan-2027-definirla.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric positivo">Economía</span><h2>El grupo hotelero Riu desembarca en Barcelona con la compra del antiguo Sofía</h2><p>La compañía hotelera Riu ha cerrado la <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">adquisición</span> del emblemático hotel Sofía de Barcelona por una cifra aproximada de 300 millones de euros. El complejo, vendido por Blasson Property Investments y BNP Paribas Asset Management Alts, opera actualmente bajo el nombre de Grand Hyatt. La firma mallorquina, que asumirá la gestión directa a partir del 1 de abril de 2027, integrará este inmueble dentro de su línea urbana Riu Plaza.</p><p>Para la empresa familiar, esta compra materializa un deseo que perseguía sin éxito desde hacía más de una década en el mercado catalán. El establecimiento cuenta con 465 habitaciones repartidas en 19 plantas cerca del Camp Nou y dispone de un gran espacio para convenciones. El consejero delegado, Luis Riu, ha equiparado la importancia estratégica de este enclave con la que supuso en su momento la apertura del Riu Plaza madrileño.</p><p>La operación prolonga una larga lista de cambios de <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">titularidad</span> para este alojamiento, que perteneció a Joan Gaspart y más tarde a la cadena Selenta antes de pasar por varios fondos de inversión. La última reforma, realizada tras una compra previa de 180 millones más otros 20 de inversión, lo posicionó en el segmento de lujo. Riu consolida así su <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">diversificación</span> de negocio tras cerrar 2025 con ingresos superiores a los 4.100 millones de euros en sus más de cien establecimientos internacionales.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/dinero/20261030/11672334/riu-compra-antiguo-hotel-sofia-300-millones.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Tecnología</span><h2>El elevado gasto en inteligencia artificial desata fuertes pérdidas para Google e Intel</h2><p>Una fuerte oleada de ventas ha golpeado a las principales empresas tecnológicas en Wall Street debido al temor de los inversores por los <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">desorbitados</span> costes de la inteligencia artificial. Google protagonizó la segunda mayor caída diaria de la historia bursátil al perder más de medio billón de dólares tras presentar sus resultados trimestrales. Aunque la facturación global creció, las cuentas revelaron una <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">contracción</span> del 12% en las ganancias de su buscador habitual y un flujo de caja negativo superior a los 8.200 millones de euros.</p><p>Por su parte, el fabricante de procesadores Intel sufrió un desplome cercano al 30% en su <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">cotización</span> bursátil, perdiendo unos 130.000 millones de dólares. La empresa confirmó que aumentará sus partidas de gasto el año que viene para intentar competir en chips avanzados, lo que impedirá obtener beneficios netos de caja hasta después de 2027. Este anuncio arruinó la recuperación que la compañía había logrado en los meses anteriores gracias a contratos clave y subsidios públicos.</p><p>El pesimismo se ha extendido con rapidez por toda la industria de semiconductores en Estados Unidos y Asia, afectando a firmas como Nvidia, Micron, TSMC o Samsung. Además, plataformas en línea como Reddit experimentaron un retroceso del 34% tras perder tres millones de usuarios diarios. La integración de respuestas directas generadas por IA en el buscador de Google está reduciendo drásticamente las visitas que tradicionalmente recibían estas páginas externas.</p><div class="src">Bron: <a href="https://www.eldiario.es/tecnologia/historico-desplome-google-e-intel-asesta-nuevo-golpe-burbuja-ia_1_13627374.html" rel="noopener" target="_blank">elDiario.es</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric">Madrid</span><h2>Carabanchel incorpora más de 3.000 plazas de estacionamiento regulado</h2><p>El Servicio de Estacionamiento Regulado entrará en vigor el próximo martes 3 de noviembre en los barrios de Opañel y San Isidro, situados en el distrito de Carabanchel. La medida salió adelante con el voto favorable de casi las tres cuartas partes del vecindario que participó en la consulta y habilitará más de 3.100 plazas de aparcamiento, de las cuales el 94% serán verdes para residentes <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">empadronados</span>. Con esta intervención municipal, el <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">consistorio</span> madrileño sobrepasa las 183.000 plazas gestionadas en trece distritos dentro del marco ambiental del plan Madrid 360.</p><div class="src">Bron: <a href="https://www.20minutos.es/madrid/los-dos-barrios-madrid-empieza-funcionar-zona-ser-proximo-martes-afectara-mas-75-000-personas_7055122_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Madrid</span><h2>Dispositivo especial de autobuses y nuevos horarios en los cementerios por Todos los Santos</h2><p>El Ayuntamiento de Madrid ha puesto en marcha un dispositivo especial para facilitar las visitas a los catorce cementerios municipales durante la festividad de Todos los Santos. Los principales <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">camposantos</span>, como La Almudena y el Cementerio Sur, abrirán sus puertas entre las 8:00 y las 18:30 horas, acompañados por un refuerzo en los trabajos de limpieza y seguridad en los recintos. Además, la Empresa Municipal de Transportes ha aumentado las <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">frecuencias</span> en seis de sus líneas habituales y ha activado dos servicios específicos de autobús desde Plaza Elíptica y Plaza de Castilla.</p><div class="src">Bron: <a href="https://www.20minutos.es/madrid/horarios-cementerios-madrid-refuerzo-servicios-autobuses-emt-puente-todos-santos_7055154_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Clima</span><h2>Alertas meteorológicas por lluvias mediterráneas y nieblas persistentes en el interior</h2><p>La presencia de un potente <span class="w w-moeilijk" role="button" tabindex="0" data-i="19">anticiclón</span> sobre el interior de Europa provocará la entrada de aire húmedo mediterráneo durante el último fin de semana de octubre. La Agencia Estatal de Meteorología ha emitido avisos por lluvias localmente intensas en puntos del litoral de Granada, las islas Baleares y el sur de la provincia de Valencia. Paralelamente, se esperan <span class="w w-moeilijk" role="button" tabindex="0" data-i="20">densos</span> bancos de niebla en la provincia de Lugo y en amplias zonas de Castilla-La Mancha, acompañados de una bajada de las temperaturas mínimas en casi toda la península.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/llegan-lluvias-niebla-para-despedir-octubre-estas-son-las-zonas-alerta_7055694_0.html" rel="noopener" target="_blank">20minutos</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl off">🔥 0</span> <span class="who">Margot</span></span><span><span class="fl">🔥 21</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="" style="height:24px" title="70 herhalingen"></i><span>zo</span></div><div><i class="" style="height:24px" title="70 herhalingen"></i><span>ma</span></div><div><i class="" style="height:30px" title="89 herhalingen"></i><span>di</span></div><div><i class="" style="height:36px" title="106 herhalingen"></i><span>wo</span></div><div><i class="" style="height:35px" title="102 herhalingen"></i><span>do</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>vr</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>za</span></div></div><div class="row"><span>Gisteren <b class="who">0</b> herhalingen</span><span>7 dagen <b class="who">437</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "mandatario", "nl": "regeringsleider / gezagsdrager", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "siniestro", "nl": "ongeval / ramp", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "esclarecer", "nl": "ophelderen", "t": "werkwoord", "k": "moeilijk"}, {"w": "pesquisa", "nl": "onderzoek / naspeuringen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "cautela", "nl": "voorzichtigheid / omzichtigheid", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "discrepancia", "nl": "meningsverschil / tegenstelling", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "adhesión", "nl": "toetreding", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "reserva", "nl": "voorbehoud / twijfel", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "sellar", "nl": "bezegelen", "t": "werkwoord", "k": "moeilijk"}, {"w": "diversificación", "nl": "diversificatie / spreiding", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "adquisición", "nl": "aankoop / overname", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "titularidad", "nl": "eigendom / bezit", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "desorbitado", "nl": "buitensporig / torenhoog", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "contracción", "nl": "krimp / afname", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "cotización", "nl": "beurskoers / notering", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "empadronar", "nl": "inschrijven in de bevolkingsregisters", "t": "werkwoord", "k": "moeilijk"}, {"w": "consistorio", "nl": "gemeentebestuur / stadhuis", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "camposanto", "nl": "begraafplaats / kerkhof", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "frecuencia", "nl": "dienstregeling / frequentie", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "anticiclón", "nl": "hogedrukgebied", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "denso", "nl": "dicht / dik", "t": "bijv. nw.", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
