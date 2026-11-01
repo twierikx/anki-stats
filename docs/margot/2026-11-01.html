@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 01-11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">domingo, 1 de noviembre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>19</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">España</span><h2>Identifican a 56 de las víctimas de Urda mientras prosigue el rescate</h2><p>El proceso para identificar a los fallecidos en el <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">siniestro</span> ferroviario de Urda continúa dando resultados. De las sesenta y nueve víctimas mortales causadas por el choque de trenes en la provincia de Toledo, el Centro de Integración de Datos ya ha confirmado la identidad de cincuenta y seis personas. Entre quienes han podido ser reconocidos se encuentran cincuenta y cuatro ciudadanos españoles, junto con una persona de nacionalidad francesa y otra portuguesa.</p><p>Al mismo tiempo, las labores técnicas sobre el terreno avanzan sin descanso para despejar las vías férreas. Con la ayuda de maquinaria pesada, los equipos de emergencias han retirado ya un total de cinco vagones afectados, tres pertenecientes a la compañía Iryo y dos a un convoy de AVE. Las tareas de rescate y limpieza no se detendrán y se prolongarán a lo largo de la noche por mandato expreso del juzgado a cargo del caso.</p><p>En el escenario de la colisión, la Guardia Civil ha desplegado unidades caninas especializadas para inspeccionar a fondo la zona. Los animales adiestrados no han detectado nuevos restos biológicos dentro de las estructuras siniestradas. Asimismo, los efectivos han comenzado a recoger las maletas y <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">enseres</span> de los viajeros con el objetivo de devolverlos a sus propietarios o a sus familias lo antes posible.</p><p>Por otra parte, la atención médica sigue centrada en la evolución de las decenas de heridos que sobrevivieron al impacto. Actualmente permanecen ingresadas treinta y cuatro personas en cuatro centros hospitalarios de Castilla-La Mancha. Quince de estos pacientes reciben cuidados intensivos debido a la gravedad de su estado, mientras que otros diecinueve están alojados en habitaciones convencionales.</p><p>Como muestra de duelo, la iglesia parroquial del municipio toledano celebró este sábado una emotiva misa funeral que congregó a una gran multitud de vecinos. La ceremonia religiosa estuvo oficiada por el arzobispo de Toledo, Francisco Cerro, quien dedicó unas palabras de consuelo a la comunidad afectada. Durante su <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">homilía</span>, el <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">prelado</span> expresó su deseo de que no vuelvan a producirse tragedias similares en la red ferroviaria.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/accidente-tren-toledo-directo-los-institutos-forenses-han-recibido-ya-los-69-cuerpos-han-practicado-48-autopsias_7055282_6.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">España</span><h2>Prisión sin fianza para dos impulsores de disturbios callejeros</h2><p>La justicia ha ordenado el encarcelamiento provisional y sin <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">fianza</span> para dos supuestos responsables vinculados a la red Blocus España. Una jueza de la localidad valenciana de Torrent adoptó esta decisión contra el presunto fundador e impulsor del colectivo, arrestado en Picanya. Horas después, un juzgado de Catarroja decretó la misma medida para otro sospechoso capturado en Alfafar, acusado de pertenecer a un grupo criminal que incitaba a causar desórdenes, saqueos en comercios y daños contra la propiedad.</p><p>Estas actuaciones judiciales se <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">enmarcan</span> en un dispositivo policial más amplio que suma cinco detenciones en varios puntos de España, entre ellos Bilbao, Lleida y la provincia de Valencia. Los investigadores señalan que el grupo utilizaba canales digitales como Telegram para movilizar protestas violentas. De hecho, se relaciona al líder detenido en Picanya con los <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">altercados</span> ocurridos el pasado 24 de octubre en Barcelona y con una nueva convocatoria prevista en València.</p><p>Entre los otros implicados destaca un menor de diecisiete años que cumplía condena en régimen abierto y administraba los canales de comunicación para coordinar robos en tiendas valencianas, por lo que fue enviado a un centro <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">tutelado</span>. A su vez, el joven de dieciocho años arrestado en Alfafar publicaba instrucciones en redes sociales sobre cómo fabricar artefactos incendiarios y cómo actuar durante los disturbios callejeros.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/local/valencia/20261031/11672793/impulsor-blocus-espana-detenido-pasan-sabado-disposicion-judicial.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Economía</span><h2>La Unión Europea impone una tasa de dos euros a las compras en línea exteriores</h2><p>La Unión Europea aplicará a partir de este domingo una tasa fija de dos euros por cada artículo comprado por internet fuera del territorio comunitario. Este recargo se sumará al <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">arancel</span> de tres euros instaurado en julio para pedidos inferiores a ciento cincuenta euros. La medida tiene como finalidad reforzar las inspecciones aduaneras ante el incremento exponencial de envíos procedentes de plataformas de comercio electrónico como Shein y Temu.</p><p>La iniciativa responde a una situación crítica provocada por la llegada masiva de paquetes de escaso coste comercial. Según datos de Bruselas, durante 2025 entraron cerca de cinco mil novecientos millones de artículos de bajo valor, cuatro veces más que en 2022, procediendo aproximadamente el noventa por ciento de China. Esta avalancha ha <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">desbordado</span> los puestos fronterizos y dificulta la detección de productos que incumplen las normas europeas de seguridad, además de perjudicar a los comercios locales.</p><p>Las autoridades han establecido que este coste debe ser asumido por las compañías responsables de la importación y no por los compradores finales. Las asociaciones de consumidores valoran positivamente el <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">gravamen</span>, pero temen que algunas tiendas virtuales intenten trasladar el importe a la factura del cliente. Para garantizar un control estricto, la normativa incluye sanciones de hasta el seis por ciento del valor comercial de las mercancías y proyecta una Autoridad Aduanera con sede en la ciudad de Lille.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/economia/20261031/11672936/ue-comenzara-domingo-cobrar-tasa-extra-dos-euros-plataformas-shein-temu.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Sociedad</span><h2>Leonor celebra 21 años centrada en su etapa universitaria</h2><p>La princesa Leonor cumple veintiún años plenamente instalada de nuevo en Madrid para afrontar una etapa universitaria mucho más cotidiana. Tras cinco años de formación lejos de su hogar, que incluyeron sus estudios de bachillerato en Gales y tres cursos de preparación militar en Zaragoza, Marín y San Javier, la heredera cursa actualmente Ciencias Políticas en la Universidad Carlos III de Getafe. Su vida cotidiana transcurre ahora más cerca de su familia, mientras comparte aulas y rutinas académicas con otros jóvenes.</p><p>En sus apariciones institucionales más recientes se aprecia un notable cambio de actitud y mayor <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">aplomo</span>. Durante la última entrega de los Premios Princesa de Asturias en Oviedo, sorprendió al tomar la iniciativa en los aplausos y recibir por primera vez en solitario a los homenajeados. Esta evolución refleja la madurez y la seguridad adquiridas en los <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">cuarteles</span>, dejando atrás una timidez juvenil que antes condicionaba sus intervenciones oficiales.</p><p>En su día a día por la capital, Leonor intenta mantener planes comunes para cualquier estudiante, desde acudir a conciertos hasta salir con sus amistades del colegio por locales nocturnos, siempre acompañada por un discreto equipo de seguridad. Aunque es consciente de la gran responsabilidad constitucional que le aguarda en el futuro como futura jefa de Estado, la <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">primogénita</span> de los Reyes asume su destino con tranquilidad y prefiere no <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">apresurar</span> las distintas etapas de su juventud.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/local/barcelona/20261031/11672228/leonor-toda-vida-reina.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric positivo">Cultura</span><h2>Jorge Drexler debuta ante más de siete mil personas en el Palau Sant Jordi</h2><p>El cantautor uruguayo Jorge Drexler debutó este sábado ante siete mil doscientas personas en el Palau Sant Jordi de Barcelona para presentar su disco Taracá. Antes de iniciar su <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">repertorio</span> musical de más de veinticinco canciones, el artista tuvo un sentido gesto hacia las familias de las víctimas del trágico accidente de tren en Urda. Acompañado por una banda de siete músicos, el <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">recital</span> combinó sus nuevos ritmos con temas históricos de su carrera e incluyó una versión a la guitarra de un clásico en lengua catalana.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/cultura/musica/20261031/11672418/ritmo-raices-jorge-drexler-seducen-primer-sant-jordi.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric positivo">España</span><h2>Un aventurero cruza España a pie y en línea recta tras 45 días de marcha</h2><p>El joven valenciano Raül Valdecantos se ha convertido en la primera persona española en atravesar la península a pie y en solitario siguiendo una trayectoria en línea recta. Su aventura comenzó a mediados de septiembre en Asturias y concluyó casi cuarenta y cinco días más tarde en la costa de Almuñécar tras recorrer más de mil cien kilómetros. El deportista <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">sorteó</span> vallas, caminos cortados y dolores físicos durmiendo muchas noches al aire libre antes de completar esta singular <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">hazaña</span> geográfica.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/rauel-valdecantos-se-convierte-primer-espanol-cruzar-espana-pie-linea-recta-es-mayor-reto-que-he-hecho-mi-vida_7053563_0.html" rel="noopener" target="_blank">20minutos</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl off">🔥 0</span> <span class="who">Margot</span></span><span><span class="fl off">🔥 0</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="" style="height:24px" title="70 herhalingen"></i><span>ma</span></div><div><i class="" style="height:30px" title="89 herhalingen"></i><span>di</span></div><div><i class="" style="height:36px" title="106 herhalingen"></i><span>wo</span></div><div><i class="" style="height:35px" title="102 herhalingen"></i><span>do</span></div><div><i class="" style="height:31px" title="90 herhalingen"></i><span>vr</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>za</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>zo</span></div></div><div class="row"><span>Gisteren <b class="who">0</b> herhalingen</span><span>7 dagen <b class="who">457</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "siniestro", "nl": "ongeval / ramp", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "enseres", "nl": "persoonlijke spullen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "homilía", "nl": "preek", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "prelado", "nl": "prelaat / kerkvorst", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "altercado", "nl": "rellen / ongeregeldheden", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "enmarcar", "nl": "plaatsvinden binnen / kaderen in", "t": "werkwoord", "k": "moeilijk"}, {"w": "tutelado", "nl": "onder voogdij / jeugd-", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "fianza", "nl": "borgtocht", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "desbordar", "nl": "overspoeld / overweldigd", "t": "werkwoord", "k": "moeilijk"}, {"w": "gravamen", "nl": "heffing / belasting", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "arancel", "nl": "douanetarief / invoerrecht", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "primogénito", "nl": "eerstgeborene", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "cuartel", "nl": "kazernes", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "apresurar", "nl": "overhaasten / versnellen", "t": "werkwoord", "k": "moeilijk"}, {"w": "aplomo", "nl": "zelfvertrouwen / kalmte", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "repertorio", "nl": "repertoire", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "recital", "nl": "concert / optreden", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "sortear", "nl": "omzeilde / ontweek", "t": "werkwoord", "k": "moeilijk"}, {"w": "hazaña", "nl": "heldendaad / prestatie", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
