@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 07-11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">sábado, 7 de noviembre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>24</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">España</span><h2>Pesquisas europeas sobre el dinero destinado al AVE Madrid-Sevilla</h2><p>La Fiscalía Europea ha puesto en marcha una segunda investigación relativa a posibles irregularidades en las labores de conservación de la red ferroviaria de alta velocidad entre Madrid y Sevilla. Esta decisión llega después de los graves <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">siniestros</span> que causaron decenas de fallecidos en los municipios de Urda y Adamuz. Se trata de un procedimiento propio de la fiscalía comunitaria, independiente del proceso penal ordinario que encabeza la jueza instructora del caso.</p><p>Para <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">recabar</span> pruebas materiales, miembros de la Guardia Civil <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">adscritos</span> a la Unidad Central Operativa visitaron varios organismos clave del sector en España. Los agentes acudieron a las oficinas de ADIF, a la Agencia Estatal de Seguridad Ferroviaria y a la sede del Tribunal de Cuentas para exigir información administrativa y técnica sobre los contratos del corredor ferroviario.</p><p>El centro de estas <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">pesquisas</span> se focaliza en determinar si existió <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">malversación</span> de fondos procedentes de la Unión Europea. El dinero bajo sospecha debía emplearse en la renovación técnica de la infraestructura, en particular en la seguridad, la señalización y las telecomunicaciones del trazado donde tuvo lugar el siniestro de Urda a finales de octubre de 2026.</p><p>No es el primer paso de la fiscalía en este trazado, ya que el pasado marzo abrió <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">diligencias</span> por el tramo de Adamuz, escenario del accidente de enero anterior. Las autoridades indagan si hubo un desvío injustificado de las subvenciones otorgadas por las instituciones comunitarias durante las tareas de mantenimiento de la vía.</p><p>Este histórico eje de transporte fue estrenado en 1992 y recibió en junio de 2024 una ayuda europea de 111 millones de euros para su modernización integral. La Comisión Europea ya había señalado previamente que los avances tecnológicos dejaban anticuada esta infraestructura respecto a las líneas más recientes del país.</p><div class="src">Bron: <a href="https://www.eldiario.es/politica/fiscalia-europea-abre-investigacion-fraude-alta-velocidad-accidente-urda_1_13643016.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Economía</span><h2>Almacenamiento obligatorio para contener la oferta de aceite de oliva</h2><p>El Gobierno español ha ordenado la retirada temporal de 188.000 toneladas de aceite de oliva mediante su publicación en el Boletín Oficial del Estado. Esta disposición obliga a las <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">almazaras</span> a almacenar el 12% de su producción mensual a partir de noviembre para proteger las cotizaciones y estabilizar el mercado. La <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">inmovilización</span> del producto se prolongará hasta finales de septiembre del año 2027.</p><p>La medida responde a una previsión de cosecha excepcional de más de 1,6 millones de toneladas, un 23% superior a la campaña previa, gracias al clima primaveral favorable con lluvias y temperaturas suaves. Este volumen previsto, sumado a las existencias iniciales de más de 357.000 toneladas, activa los mecanismos legales de intervención previstos para regular el mercado <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">oleícola</span>.</p><p>Las almazaras podrán elegir la categoría de aceite que apartan del mercado y deberán remitir la documentación requerida a las administraciones. Un equipo técnico coordinado por el Ministerio de Agricultura y ejecutado por las comunidades autónomas vigilará el cumplimiento del plan, atendiendo a la petición de las organizaciones agrícolas para <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">salvaguardar</span> la rentabilidad del olivar tradicional.</p><div class="src">Bron: <a href="https://www.eldiario.es/economia/gobierno-decreta-retirada-aceite-oliva-mercado-primera-vez-evitar-desplome-precios_1_13642909.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Tecnología</span><h2>La automatización industrial impulsa nuevas tareas cualificadas</h2><p>El avance imparable de la inteligencia artificial y de los robots en las fábricas está modificando el papel diario de los trabajadores sin <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">desembocar</span> necesariamente en una pérdida neta de puestos de trabajo. En espacios de innovación como DFactory Barcelona, diversas compañías del sector demuestran que las máquinas inteligentes liberan a los empleados de tareas mecánicas y aburridas para enfocarlos en funciones analíticas y estratégicas.</p><p>Los expertos destacan que los operarios industriales deben adquirir <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">competencias</span> para supervisar los algoritmos, valorar incidencias y tomar decisiones cuando los sistemas automatizados fallen. El conocimiento adquirido por los profesionales veteranos a lo largo de décadas sigue resultando <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">insustituible</span> para aportar contexto operativo, por lo que las empresas consideran fundamental combinar esa experiencia con la incorporación de perfiles jóvenes.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/dinero/20261106/11674836/ia-destruye-empleos-transforma-talento-retos-brl.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Europa</span><h2>España y Países Bajos compiten por el liderazgo del BCE</h2><p>La carrera por relevar a Christine Lagarde al frente del Banco Central Europeo se ha reducido a dos aspirantes: el español Pablo Hernández de Cos y el neerlandés Klaas Knot. La designación confronta dos filosofías económicas en el seno de la zona euro. Por un lado se sitúa la línea estricta del norte, <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">proclive</span> a tipos de interés elevados para contener la inflación, y por otro la visión del sur, <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">reticente</span> a <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">endurecer</span> en exceso el crédito a familias y empresas.</p><p>El Gobierno de España formalizó la candidatura de Hernández de Cos subrayando su experiencia al frente del Banco de España y su cargo actual como director general del Banco de Pagos Internacionales. Frente a él, Knot, antiguo responsable del banco central holandés, <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">encarna</span> una postura monetaria tradicionalmente más dura, si bien analistas y sondeos recientes sitúan al candidato español con apoyos destacados entre los expertos.</p><p>Los ministros de Finanzas de la eurozona evaluarán las propuestas en la reunión del Eurogrupo para intentar forjar un acuerdo antes de la cumbre de finales de noviembre. La persona elegida necesitará una mayoría cualificada reforzada para asumir un mandato único de ocho años en un periodo marcado por el débil crecimiento del continente.</p><div class="src">Bron: <a href="https://www.eldiario.es/economia/gobierno-presenta-oficialmente-candidatura-pablo-hernandez-cos-presidencia-bce_1_13644008.html" rel="noopener" target="_blank">elDiario.es</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric positivo">Sociedad</span><h2>Cientos de pisos públicos asequibles entran en oferta</h2><p>La empresa estatal CASA 47 ha abierto la convocatoria para solicitar 442 viviendas públicas de alquiler <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">asequible</span> repartidas en seis comunidades autónomas, con solicitudes disponibles por internet hasta el 26 de noviembre. Los <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">inmuebles</span> cuentan con contratos de larga duración y precios adaptados a los ingresos familiares para facilitar un hogar digno a personas sin vivienda en propiedad.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/casa-47-incorpora-442-nuevas-viviendas-alquiler-asequible-estas-son-las-comunidades-donde-se-encuentran_7058292_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Ciencia</span><h2>El monarca britano aliado de Roma resultó ser mujer</h2><p>Un análisis de la Universidad de Bournemouth ha demostrado que Verica, el influyente líder de la Edad del Hierro que motivó la invasión romana del emperador Claudio en el año 43, era en realidad una mujer. Los investigadores determinaron que la lectura masculina tradicional se debió a <span class="w w-moeilijk" role="button" tabindex="0" data-i="21">sesgos</span> históricos <span class="w w-moeilijk" role="button" tabindex="0" data-i="19">decimonónicos</span>, <span class="w w-moeilijk" role="button" tabindex="0" data-i="20">desmentidos</span> ahora por la iconografía femenina de las monedas de la época.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/cultura/20261106/11677995/rey-edad-hierro-clave-invasion-romana-gran-bretana-ano-43-cristo-mujer-verica-claudio.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric positivo">Salud</span><h2>Llamar de inmediato a emergencias salva neuronas ante un ictus</h2><p>La neuróloga Mònica Millán recuerda la importancia crucial de contactar con el teléfono 112 en cuanto aparezcan síntomas de <span class="w w-moeilijk" role="button" tabindex="0" data-i="23">ictus</span>, evitando trasladarse al hospital por iniciativa particular. Debido a que cada minuto de retraso en la asistencia puede provocar la pérdida de un millón de células cerebrales, una rápida llamada activa los protocolos médicos para minimizar <span class="w w-moeilijk" role="button" tabindex="0" data-i="22">secuelas</span> graves.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/podcast/principio-activo/20261106/11670185/monica-millan-neurologa-tienes-ictus-vayas-cuenta-hospital-llama-112-smr.html" rel="noopener" target="_blank">La Vanguardia</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl">🔥 5</span> <span class="who">Margot</span></span><span><span class="fl">🔥 28</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>zo</span></div><div><i class="" style="height:36px" title="167 herhalingen"></i><span>ma</span></div><div><i class="" style="height:25px" title="117 herhalingen"></i><span>di</span></div><div><i class="" style="height:27px" title="123 herhalingen"></i><span>wo</span></div><div><i class="" style="height:26px" title="121 herhalingen"></i><span>do</span></div><div><i class="" style="height:3px" title="1 herhalingen"></i><span>vr</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>za</span></div></div><div class="row"><span>Gisteren <b class="who">1</b> herhalingen</span><span>7 dagen <b class="who">529</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "malversación", "nl": "verduistering", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "diligencia", "nl": "gerechtelijke stappen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "siniestro", "nl": "ongevallen / rampen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "pesquisa", "nl": "onderzoekingen / naspeuringen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "adscrito", "nl": "toegevoegd / gedetacheerd", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "recabar", "nl": "inwinnen / verzamelen", "t": "werkwoord", "k": "moeilijk"}, {"w": "inmovilización", "nl": "vastlegging / blokkering", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "salvaguardar", "nl": "waarborgen / beschermen", "t": "werkwoord", "k": "moeilijk"}, {"w": "almazara", "nl": "olijfoliemolens", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "oleícola", "nl": "olijfolie- (betreffende)", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "insustituible", "nl": "onvervangbaar", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "competencia", "nl": "vaardigheden / competenties", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "desembocar", "nl": "uitmonden", "t": "werkwoord", "k": "moeilijk"}, {"w": "reticente", "nl": "terughoudend", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "endurecer", "nl": "verharden / verscherpen", "t": "werkwoord", "k": "moeilijk"}, {"w": "proclive", "nl": "geneigd / voorstander van", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "encarnar", "nl": "belichamen", "t": "werkwoord", "k": "moeilijk"}, {"w": "asequible", "nl": "betaalbaar", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "inmueble", "nl": "panden / woningen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "decimonónico", "nl": "negentiende-eeuws", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "desmentir", "nl": "weerleggen / ontkrachten", "t": "werkwoord", "k": "moeilijk"}, {"w": "sesgo", "nl": "vooroordelen / vertekeningen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "secuela", "nl": "gevolgen / restverschijnselen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "ictus", "nl": "beroerte / CVA", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
