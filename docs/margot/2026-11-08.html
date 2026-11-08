@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 08-11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">domingo, 8 de noviembre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>23</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">Política</span><h2>Pedro Sánchez reivindica la dimisión de Óscar Puente durante un mitin en València</h2><p>El presidente del Gobierno, Pedro Sánchez, ha retomado su actividad electoral en València defendiendo la salida de Óscar Puente tras los graves accidentes de tren en Urda y Adamuz. Sánchez calificó la renuncia del exministro de Transportes como un acto de ejemplaridad y dignidad política. Al mismo tiempo, reprochó a los partidos de la oposición, como el Partido Popular y Vox, haber criticado tanto la permanencia de Puente antes de dimitir como su decisión final de abandonar el Ejecutivo.</p><p>El acto socialista en la capital valenciana mostró un tono de respeto tras el <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">siniestro</span> ferroviario de Urda, que dejó 69 víctimas mortales la semana pasada. La dirección del partido decidió suprimir los momentos festivos habituales para guardar un minuto de silencio y escuchar una emotiva canción de Rosana. Durante su discurso, el líder del PSOE afirmó que su <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">gabinete</span> ha actuado con transparencia y ha estado al lado de los heridos y sus familias desde el primer momento.</p><p>En este nuevo escenario, el lema de precampaña del PSOE ha experimentado un cambio significativo. Tras haber utilizado frases centradas en la gente y posteriormente en el amor, los estrategas socialistas han presentado ahora el mensaje &quot;La fuerza de un país&quot;, adaptado al valenciano como &quot;La força d’un país&quot;. Con esta <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">consigna</span>, el presidente pretende transmitir una imagen de cohesión social, empatía y cercanía hacia la ciudadanía afectada por tragedias recientes.</p><p>La visita a València coincide además con el segundo aniversario de las inundaciones de la dana, una catástrofe que provocó 233 fallecidos en la región. Sánchez utilizó este marco geográfico para contraponer la rapidez con la que Puente asumió responsabilidades políticas con la conducta de Carlos Mazón, a quien los socialistas acusan de demorar un año su dimisión tras una gestión negligente. Los militantes congregados en el pabellón corearon consignas contra el mandatario valenciano y <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">ovacionaron</span> el nombre del exministro.</p><p>Para compensar los días en que la actividad electoral quedó suspendida por el accidente de Urda, Sánchez ha diseñado un calendario acelerado de actos públicos. El dirigente encadenará visitas inmediatas a Tarragona y Bilbao durante el fin de semana para preparar el inicio oficial de la campaña. Debido a esta prioridad doméstica, el jefe del Gobierno ha cancelado su asistencia a la cumbre del clima en Turquía y a varias reuniones comunitarias convocadas en Dublín.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/politica/20261106/11678341/sanchez-contrapone-ejemplo-dignidad-puente-dimision-actitud-pp-vox.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Internacional</span><h2>El presidente Herzog designa a Eisenkot para intentar formar gobierno en Israel</h2><p>El presidente de Israel, Isaac Herzog, ha <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">encomendado</span> oficialmente la tarea de formar el próximo gobierno a Gadi Eisenkot, dirigente del partido centrista Yashar. La designación se formalizó tras concluir las consultas parlamentarias posteriores a las elecciones del pasado 27 de octubre. Aunque la candidatura encabezada por el primer ministro saliente Benjamin Netanyahu fue la más votada, una mayoría de los diputados recomendó el nombramiento de Eisenkot.</p><p>En las consultas en la residencia presidencial, 67 de los 120 miembros de la Knesset expresaron su apoyo al exmilitar y líder centrista, frente a los 46 respaldos que obtuvo el mandatario en funciones y siete legisladores que evitaron <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">decantarse</span>. A través de sus canales digitales, Eisenkot comunicó su propósito de articular un gobierno de emergencia nacional. En su declaración pública aseguró que pondrá todo su empeño en conformar un equipo digno para el país.</p><p>A partir de la entrega formal de este encargo, el candidato dispondrá de un plazo de 28 días según lo <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">estipulado</span> en la Ley Básica de Israel. Si las negociaciones con las demás fuerzas políticas no concluyen dentro de ese periodo, la presidencia cuenta con la <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">potestad</span> constitucional de conceder una prórroga de dos semanas adicionales.</p><div class="src">Bron: <a href="https://www.europapress.es/internacional/noticia-presidente-israel-encarga-gadi-eisenkot-formacion-gobierno-20261107204134.html" rel="noopener" target="_blank">Europa Press</a></div></article><article><span class="rubric">Economía</span><h2>La sostenibilidad como motor de competitividad en las empresas catalanas</h2><p>Una jornada organizada por BBVA y la <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">patronal</span> Cecot en la ciudad de Terrassa ha situado la sostenibilidad como un factor determinante para el éxito de los negocios modernos. Durante el encuentro, diversos especialistas expusieron que las medidas ecológicas no deben interpretarse como un simple trámite administrativo, sino como una oportunidad para innovar e incrementar la resiliencia en un mercado global lleno de incertidumbre sobre materias primas y costes energéticos.</p><p>Varios directivos compartieron sus iniciativas prácticas ante el tejido empresarial. En el ámbito de la demolición industrial, Grup Hercal explicó cómo recupera materiales de edificios en desuso para fabricar <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">árido</span> reciclado de alta calidad, mientras que la cadena hostelera Establiments Viena detalló su decisión de sustituir vajillas <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">desechables</span> por alternativas reutilizables desde 2019, reduciendo notablemente el volumen de plásticos antes de cualquier exigencia regulatoria.</p><p>Los ponentes coincidieron en que el gran desafío consiste en trasladar estas estrategias ambientales a las pequeñas y medianas empresas. Para apoyar esta transición integral, las entidades bancarias están desarrollando herramientas específicas de análisis ambiental y vías de financiación adaptadas que facilitan la investigación y la reconversión productiva en los distintos sectores económicos.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/vida/20261107/11677942/sostenibilidad-estrategia-impulsa-competitividad-brl.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric positivo">Ciencia</span><h2>Nuevos análisis revelan los detalles de una singular momia egipcia</h2><p>Un equipo de especialistas de Estados Unidos y Canadá ha publicado los resultados de una investigación médica sobre la &quot;Dama de las Trenzas&quot;, un cuerpo momificado con más de 3.000 años de antigüedad. Mediante tomografías computerizadas avanzadas, los científicos examinaron con precisión la anatomía de esta mujer sin necesidad de manipular o dañar su <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">envoltura</span> funeraria.</p><p>El análisis dental detectó un desgaste severo en su dentadura, atribuible a la dieta arenosa de aquella época histórica, junto a una pieza molar fracturada y un diente desviado hacia la garganta. Según los investigadores, estas <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">anomalías</span> bucales sugieren que el cuerpo fue sometido al ritual de la &quot;Apertura de la Boca&quot;, una ceremonia sagrada destinada a devolver los sentidos al difunto en el más allá.</p><p>Los escaneos médicos revelaron asimismo que los antiguos embalsamadores preservaron fragmentos del hígado y tejido cerebral seco en el interior del cráneo, una técnica propia de clases acomodadas no pertenecientes a la realeza. Pese a determinar que medía apenas metro y medio y que murió entre los 35 y los 50 años, los expertos no hallaron indicios de <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">traumatismos</span> o enfermedades mortales concluyentes.</p><div class="src">Bron: <a href="https://www.20minutos.es/ciencia/ciencia-logra-desvelar-misterio-dama-trenzas-egipto-anos-despues_7058590_0.html" rel="noopener" target="_blank">20minutos</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric positivo">Sociedad</span><h2>La campeona de doma adaptada que cabalga con visión reducida</h2><p>Afectada por la enfermedad de Stargardt, que limita su capacidad visual en un 77 %, la <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">amazona</span> Marta Rosàs Gil-Vernet ha encontrado en su caballo Barbacon su mayor apoyo para triunfar en la <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">doma</span> adaptada. Tras proclamarse recientemente campeona de España, la joven catalana destaca que la conexión con el animal le otorga plena seguridad y autonomía sobre la pista. Respaldada por su familia y <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">compaginando</span> su trabajo en psicología, la deportista mantiene fija la mirada en el sueño de competir en los Juegos Paralímpicos.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/deportes/otros-deportes/20261107/11678234/caballo-mis-ojos-dice-heroina-doma-afectada-vision-reducida.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">España</span><h2>Conflicto vecinal en La Riera de Gaià por el embargo de veinte viviendas</h2><p>Una veintena de familias residentes en La Riera de Gaià denuncian haber sido víctimas de un engaño inmobiliario tras descubrir que sus casas habían sido transferidas a la Sareb por las deudas de la constructora. Pese a que los <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">inquilinos</span> abonaron puntualmente sus rentas durante años a la antigua gestora, el dinero no llegó a la entidad pública y <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">desencadenó</span> órdenes de desahucio judicial. La movilización de los habitantes y la intervención del alcalde local lograron aplazar el primer intento de expulsión mientras continúan los trámites para evitar el <span class="w w-moeilijk" role="button" tabindex="0" data-i="19">desalojo</span> definitivo.</p><div class="src">Bron: <a href="https://www.eldiario.es/catalunya/riera-gaia-pueblo-sacudido-desahucios-conflicto-sareb-han-estafado_1_13621032.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Ciencia</span><h2>Adam Riess rememora en Barcelona su descubrimiento sobre el cosmos</h2><p>Durante una visita académica a la Universidad de Barcelona para colaborar en un proyecto sobre la velocidad de expansión del Universo, el astrofísico Adam Riess repasó cómo abordó sus investigaciones sobre la energía oscura. El galardonado científico admitió que al principio temió haber cometido una equivocación al encontrar datos <span class="w w-moeilijk" role="button" tabindex="0" data-i="20">desconcertantes</span>, lo que terminó llevándolo a reconsiderar antiguas hipótesis que Albert Einstein había <span class="w w-moeilijk" role="button" tabindex="0" data-i="21">desechado</span>. Con una postura de asombro y rigor analítico, Riess recalcó la importancia de mantener una mentalidad abierta y <span class="w w-moeilijk" role="button" tabindex="0" data-i="22">escéptica</span> ante los misterios pendientes de la física moderna.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/ciencia/20261107/11678273/adam-riess-descubridor-energia-oscura-einstein-alucinaria-expansion-acelerada-universo.html" rel="noopener" target="_blank">La Vanguardia</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl">🔥 6</span> <span class="who">Margot</span></span><span><span class="fl off">🔥 0</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="" style="height:36px" title="167 herhalingen"></i><span>ma</span></div><div><i class="" style="height:25px" title="117 herhalingen"></i><span>di</span></div><div><i class="" style="height:27px" title="123 herhalingen"></i><span>wo</span></div><div><i class="" style="height:26px" title="121 herhalingen"></i><span>do</span></div><div><i class="" style="height:3px" title="1 herhalingen"></i><span>vr</span></div><div><i class="" style="height:6px" title="27 herhalingen"></i><span>za</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>zo</span></div></div><div class="row"><span>Gisteren <b class="who">27</b> herhalingen</span><span>7 dagen <b class="who">556</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "ovacionar", "nl": "toejuichen", "t": "werkwoord", "k": "moeilijk"}, {"w": "siniestro", "nl": "ongeval / ramp", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "gabinete", "nl": "kabinet / regering", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "consigna", "nl": "leus / parool", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "encomendar", "nl": "toevertrouwen / opdragen", "t": "werkwoord", "k": "moeilijk"}, {"w": "decantarse", "nl": "partij kiezen", "t": "werkwoord", "k": "moeilijk"}, {"w": "estipular", "nl": "bepalen / vastleggen", "t": "werkwoord", "k": "moeilijk"}, {"w": "potestad", "nl": "bevoegdheid", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "desechable", "nl": "wegwerp-", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "patronal", "nl": "werkgeversorganisatie", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "árido", "nl": "aggregaat / granulaat", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "traumatismo", "nl": "trauma's / letsels", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "envoltura", "nl": "omhulsel / windsels", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "anomalía", "nl": "afwijkingen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "compaginar", "nl": "combineren", "t": "werkwoord", "k": "moeilijk"}, {"w": "amazona", "nl": "amazone / ruiter", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "doma", "nl": "dressuur", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "desencadenar", "nl": "ontketenen / veroorzaken", "t": "werkwoord", "k": "moeilijk"}, {"w": "inquilino", "nl": "huurders", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "desalojo", "nl": "huisuitzetting", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "desconcertante", "nl": "verwarrend / raadselachtig", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "desechar", "nl": "verwerpen / afwijzen", "t": "werkwoord", "k": "moeilijk"}, {"w": "escéptico", "nl": "sceptisch", "t": "bijv. nw.", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
