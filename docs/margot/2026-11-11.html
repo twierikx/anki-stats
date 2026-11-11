@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 11-11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">miércoles, 11 de noviembre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>27</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">Economía</span><h2>Los sindicatos miden su fuerza en una huelga centrada en el alquiler</h2><p>Cerca de 23 millones de personas asalariadas estaban llamadas este martes a <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">secundar</span> una huelga general en toda España. La convocatoria, respaldada por las organizaciones mayoritarias CCOO y UGT en colaboración con el Sindicato de Inquilinas, ha sacado a las calles de diversas ciudades a miles de manifestantes. El principal <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">reclamo</span> de esta jornada de protesta no ha sido la legislación laboral, sino las dificultades generalizadas para acceder a un alojamiento asequible.</p><p>El desarrollo de las movilizaciones ha estado condicionado por una meteorología adversa con precipitaciones en buena parte de la península. Para reducir las incidencias y esquivar complicaciones en los traslados cotidianos, una gran cantidad de empresas facilitó a sus empleados la posibilidad de realizar sus tareas mediante el trabajo remoto. De forma paralela, el seguimiento del paro coincidió con una huelga específica de maquinistas ferroviarios, lo que obligó a organizar unos servicios esenciales para garantizar los desplazamientos <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">inaplazables</span>.</p><p>Esta cita laboral posee un carácter inédito dentro de la trayectoria democrática del país, ya que han transcurrido catorce años desde la última huelga general de dimensiones comparables. Asimismo, la protesta destaca por su singularidad política al celebrarse a escasas jornadas de la tragedia ferroviaria en Urda y justo antes del arranque formal de la campaña electoral hacia los comicios generales. Además, supone la primera movilización masiva que no busca frenar una reforma laboral impulsada desde el propio Ejecutivo central.</p><p>Las posturas políticas e institucionales en torno a la convocatoria han reflejado una notable división. Desde las patronales empresariales y los partidos de la oposición se calificó la iniciativa de incomprensible dadas las circunstancias del luto reciente, e incluso la patronal CEOE <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">barajó</span> impugnar administrativamente la protesta. Por su parte, mientras varios portavoces del Ejecutivo señalaban que el descontento ciudadano apuntaba a los gobiernos autonómicos conservadores, los líderes sindicales evitaron asumir de manera explícita ese marco partidista.</p><p>Con esta jornada <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">reivindicativa</span>, las organizaciones sindicales tradicionales han buscado constatar su capacidad real de movilización social catorce años después, estrechando lazos con nuevos colectivos ciudadanos centrados en la vivienda. Una vez concluidos los actos callejeros, la agenda pública pasará de inmediato a la contienda política electoral, donde las fórmulas para regular o subsidiar el alquiler ocuparán un lugar protagónico.</p><div class="src">Bron: <a href="https://www.20minutos.es/lainformacion/economia-y-finanzas/arranca-primera-gran-huelga-general-14-anos-con-vivienda-como-eje-las-protestas_7059446_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Política</span><h2>El Partido Popular fija sus compromisos de gobierno en familia, memoria y empleo</h2><p>El Partido Popular ha presentado su programa electoral para las elecciones del 29 de noviembre, donde incorpora medidas orientadas a favorecer el <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">arraigo</span> en el reparto de subsidios. La formación conservadora pretende otorgar prioridad en determinadas prestaciones públicas a quienes demuestren una vinculación continuada y verificable con el país, evaluando el <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">empadronamiento</span> y el historial de cotización a la Seguridad Social, siempre dentro del marco constitucional y europeo para no depender únicamente de la nacionalidad.</p><p>En las propuestas sobre el ámbito familiar, el partido plantea aprobar una ley estatal del concebido no nacido para que el feto cuente en el cálculo de las ayudas públicas. La formación promete facilitar la congelación de óvulos para mujeres jóvenes y conceder bonificaciones a las compañías que contraten a trabajadores con menores a su cargo. Asimismo, la propuesta incluye sustituir la actual Ley de Memoria Democrática por una norma denominada de concordia, mantener las <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">exhumaciones</span> por motivos humanitarios y eliminar la autodeterminación de género contemplada en la legislación sobre personas trans.</p><p>Respecto al mercado de trabajo y los subsidios sociales, el programa aboga por recortar el <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">absentismo</span> laboral permitiendo a las mutuas patronales conceder altas médicas en procesos de incapacidad temporal común. En cuanto al sistema de protección social, el plan contempla remodelar el ingreso mínimo vital para transformarlo en una ayuda vinculada a la formación obligatoria y a la búsqueda activa de empleo, estipulando la retirada del subsidio si el <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">perceptor</span> rechaza ofertas laborales de manera reiterada.</p><div class="src">Bron: <a href="https://www.eldiario.es/politica/pp-asume-programa-electoral-prioridad-nacional-vox-modificar-imv-atajar-absentismo-injustificado_1_13652361.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">España</span><h2>Toledo acoge el funeral solemne por las víctimas del siniestro de Urda</h2><p>La Catedral de Toledo acogió este martes una misa funeral en memoria de las 69 personas que perdieron la vida en el accidente ferroviario del pasado 28 de octubre. Al acto acudieron los reyes Felipe VI y Letizia, vestidos de riguroso luto, junto a varios miembros del Gobierno encabezados por el ministro de Economía, además de familiares, supervivientes y efectivos de emergencias. Los vecinos del municipio de Urda trasladaron la imagen de su Cristo patronal y depositaron 69 velas encendidas en recuerdo de cada uno de los fallecidos.</p><p>Durante la ceremonia religiosa, Ana Benítez, hermana de un ingeniero <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">onubense</span> de 38 años fallecido cuando regresaba de un compromiso laboral en Madrid, fue la encargada de realizar la primera lectura bíblica ante los asistentes congregados en el <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">crucero</span> del templo. En su homilía, el arzobispo Francisco Cerro Chaves reconoció el dolor irreparable de los allegados y reclamó una investigación exhaustiva que aclare los motivos del <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">siniestro</span>, <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">dirima</span> responsabilidades legales y refuerce la seguridad en las vías para impedir que una tragedia semejante vuelva a repetirse.</p><p>El arzobispo también transmitió su gratitud al personal médico, las fuerzas de seguridad, los militares y los voluntarios que <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">socorrieron</span> a las víctimas sobre el terreno, deseando la recuperación de los heridos aún hospitalizados. Al término del oficio litúrgico, los monarcas conversaron personalmente con los parientes de las víctimas mortales para transmitirles sus condolencias y compartir su dolor de forma cercana.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/sigue-directo-misa-funeral-por-las-69-victimas-accidente-urda_7059473_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Sociedad</span><h2>El Ejecutivo solicita a Protección de Datos el cese de actividad de TikTok</h2><p>El Ministerio de Juventud e Infancia ha <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">cursado</span> una petición formal a la Agencia Española de Protección de Datos para que decrete la <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">paralización</span> temporal de TikTok en España. La solicitud gubernamental se <span class="w w-moeilijk" role="button" tabindex="0" data-i="19">ampara</span> en los mecanismos de urgencia que permite el reglamento comunitario durante situaciones excepcionales, argumentando la presencia masiva de contenidos de violencia y explotación sexual que perjudican a menores dentro del espacio virtual de la plataforma.</p><p>La decisión del ministerio llega tras publicarse un trabajo periodístico de investigación elaborado por Maldita.es, titulado &#x27;Tiktok: el hogar del pederasta&#x27;. Dicha investigación <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">monitorizó</span> durante 35 días más de doscientos perfiles públicos y recopiló 1.183 materiales audiovisuales explícitos que acumularon 48 millones de reproducciones. A pesar de que los analistas trasladaron cincuenta avisos formales a la red, la compañía apenas eliminó una décima parte de los vídeos denunciados y más de la mitad de las cuentas continuaron operativas al cierre del estudio.</p><p>Tras mantener un encuentro con directivos de la empresa, la ministra Sira Rego lamentó que la aplicación no aporte soluciones inmediatas ni coopere de forma adecuada con las autoridades judiciales. Desde el ministerio denuncian que los sistemas automatizados de moderación y los algoritmos priorizan la rentabilidad económica por encima de la <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">salvaguarda</span> de la infancia, por lo que instaron a suspender el servicio en territorio nacional hasta asegurar que ningún menor quede desprotegido.</p><div class="src">Bron: <a href="https://www.eldiario.es/sociedad/gobierno-pide-agencia-proteccion-datos-suspenda-tiktok-alojar-contenidos-pederastia_1_13652827.html" rel="noopener" target="_blank">elDiario.es</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric">Clima</span><h2>Las emisiones contaminantes de combustibles fósiles caen un 0,4% en el mundo</h2><p>Las emisiones globales de dióxido de carbono derivadas de combustibles fósiles disminuirán un 0,4% este año según los cálculos presentados por el <span class="w w-moeilijk" role="button" tabindex="0" data-i="20">consorcio</span> científico Global Carbon Project en la cumbre climática celebrada en Turquía. Este descenso se explica por el avance de las instalaciones solares y eólicas, sumado al menor consumo de petróleo provocado por las tensiones bélicas en Irán y la estabilidad de las emisiones chinas durante los últimos cuatro años. No obstante, los investigadores advierten de que la quema de vegetación y <span class="w w-moeilijk" role="button" tabindex="0" data-i="21">turberas</span> en el sudeste asiático elevará el volumen total de gases contaminantes un 1%, alcanzando los 43.000 millones de toneladas en la atmósfera.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/vida/20261110/11680273/gases-energia-fosil-bajan-2026-renovables-conflicto-iran.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric">Economía</span><h2>Veinte minutos a la semana bastan para consolidar la formación laboral en línea</h2><p>Especialistas en nuevas tendencias profesionales señalan que destinar apenas veinte minutos semanales a una única <span class="w w-moeilijk" role="button" tabindex="0" data-i="22">destreza</span> permite <span class="w w-moeilijk" role="button" tabindex="0" data-i="23">asimilar</span> conocimientos técnicos de forma constante sin sobrecargar la jornada laboral. Aunque los registros oficiales sitúan a España por delante de la media comunitaria en aprendizaje continuo con un 15,8% de población activa participante, el país todavía permanece lejos del objetivo europeo fijado para 2030, que pretende alcanzar a seis de cada diez adultos. Iniciativas abiertas como Santander Open Academy facilitan este proceso al ofrecer programas gratuitos y flexibles en ámbitos como la programación, los idiomas extranjeros y la gestión del estrés.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/economia/20261110/11675977/tienes-20-minutos-asi-puedes-incorporar-formacion-online-rutina-profesional-brl.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric positivo">Sociedad</span><h2>El Gobierno equipara los hogares monoparentales con dos menores a las familias numerosas</h2><p>El Consejo de Ministros ha aprobado un real decreto ley que otorga a las familias monoparentales con dos <span class="w w-moeilijk" role="button" tabindex="0" data-i="24">descendientes</span> los mismos derechos y beneficios fiscales que corresponden a las familias numerosas. La medida, dotada con 824 millones de euros anuales para respaldar a unas 760.000 unidades familiares, crea una <span class="w w-moeilijk" role="button" tabindex="0" data-i="25">acreditación</span> oficial específica que busca compensar la vulnerabilidad de estos hogares, encabezados en más de un 80% por mujeres solas. Gracias a este marco legal, las madres con dos hijos a cargo podrán <span class="w w-moeilijk" role="button" tabindex="0" data-i="26">deducirse</span> hasta 1.200 euros anuales en el impuesto sobre la renta y disfrutar de tarifas reducidas en el transporte público.</p><div class="src">Bron: <a href="https://www.europapress.es/epsocial/igualdad/noticia-gobierno-aprueba-decreto-ley-equipara-familias-monoparentales-dos-hijos-numerosas-20261110094517.html" rel="noopener" target="_blank">Europa Press</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl off">🔥 0</span> <span class="who">Margot</span></span><span><span class="fl off">🔥 0</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="" style="height:28px" title="121 herhalingen"></i><span>do</span></div><div><i class="" style="height:3px" title="1 herhalingen"></i><span>vr</span></div><div><i class="" style="height:36px" title="156 herhalingen"></i><span>za</span></div><div><i class="" style="height:34px" title="148 herhalingen"></i><span>zo</span></div><div><i class="" style="height:29px" title="124 herhalingen"></i><span>ma</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>di</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>wo</span></div></div><div class="row"><span>Gisteren <b class="who">0</b> herhalingen</span><span>7 dagen <b class="who">550</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "reivindicativo", "nl": "strijdbaar / eisend", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "inaplazable", "nl": "onuitstelbaar", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "secundar", "nl": "steunen / meedoen aan", "t": "werkwoord", "k": "moeilijk"}, {"w": "reclamo", "nl": "eis / roep", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "barajar", "nl": "overwoog", "t": "werkwoord", "k": "moeilijk"}, {"w": "empadronamiento", "nl": "inschrijving in het bevolkingsregister", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "exhumación", "nl": "opgravingen", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "absentismo", "nl": "ziekteverzuim", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "perceptor", "nl": "uitkeringsgerechtigde / ontvanger", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "arraigo", "nl": "binding / geworteldheid", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "socorrer", "nl": "hielpen / te hulp snelden", "t": "werkwoord", "k": "moeilijk"}, {"w": "siniestro", "nl": "ongeval / ramp", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "onubense", "nl": "afkomstig uit Huelva", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "crucero", "nl": "kruisbeuk / transept", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "dirimir", "nl": "vaststellen / beslechten", "t": "werkwoord", "k": "moeilijk"}, {"w": "paralización", "nl": "stillegging / opschorting", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "salvaguarda", "nl": "bescherming / waarborg", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "monitorizar", "nl": "monitorde / volgde", "t": "werkwoord", "k": "moeilijk"}, {"w": "cursar", "nl": "ingediend", "t": "werkwoord", "k": "moeilijk"}, {"w": "amparar", "nl": "zich beroept op / steunt op", "t": "werkwoord", "k": "moeilijk"}, {"w": "consorcio", "nl": "consortium / samenwerkingsverband", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "turbera", "nl": "veengebieden", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "destreza", "nl": "vaardigheid", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "asimilar", "nl": "zich eigen maken / opnemen", "t": "werkwoord", "k": "moeilijk"}, {"w": "descendiente", "nl": "nakomelingen / kinderen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "acreditación", "nl": "erkenning / bewijs", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "deducirse", "nl": "aftrekken (belasting)", "t": "werkwoord", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
