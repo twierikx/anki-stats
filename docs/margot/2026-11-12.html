@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 12-11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">jueves, 12 de noviembre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>17</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">España</span><h2>Clamor en las calles de toda España por el acceso a la vivienda</h2><p>Las principales ciudades del país han vivido este miércoles una huelga general <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">multitudinaria</span>, la primera celebrada en catorce años, para exigir soluciones urgentes al encarecimiento habitacional. La convocatoria surgió a raíz del <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">desalojo</span> forzoso y el posterior fallecimiento en Madrid de Maricarmen Abascal, una anciana de 87 años. Millones de personas salieron a la calle para reclamar un techo digno, mejoras laborales y salarios justos frente a la crisis que atraviesa el alquiler.</p><p>En la capital, una densa multitud marchó desde Atocha hasta la plaza de España desafiando las precipitaciones. La Delegación del Gobierno calculó 120.000 asistentes, mientras que el Sindicato de Inquilinas elevó la cifra a 400.000 manifestantes. Durante el recorrido se vivieron momentos de tensión por varias intervenciones policiales, lo que llevó al secretario general de CCOO a anunciar acciones penales por el uso de <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">gas pimienta</span> contra personas pacíficas.</p><p>La portavoz de los convocantes, Valeria Racu, acusó tanto a la patronal como a las administraciones públicas de perpetuar el negocio especulativo inmobiliario. Desde la cabecera de la protesta se insistió en que el acceso al hogar debe ser un derecho innegociable frente a la rentabilidad de las grandes empresas. Los participantes corearon consignas que señalaban la falta de medidas contundentes por parte de los sucesivos gobiernos.</p><p>Por su parte, Barcelona congregó entre 50.000 y 400.000 ciudadanos en el Passeig de Gràcia, en una marcha plural respaldada por formaciones políticas y numerosas centrales obreras. En València, una manifestación tranquila recorrió el centro histórico con una marcada presencia de jóvenes. Al mismo tiempo, las capitales del País Vasco registraron movilizaciones masivas organizadas por la mayoría sindical, con decenas de miles de personas llenando las vías de Bilbao, Donostia y Vitoria.</p><p>La protesta conjunta marca un punto de inflexión en la presión ciudadana contra el encarecimiento desmedido de los <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">arrendamientos</span>. Las organizaciones sociales advirtieron de que mantendrán la movilización para obligar a los poderes públicos a frenar la especulación e intervenir el mercado.</p><div class="src">Bron: <a href="https://www.eldiario.es/economia/marea-recorre-espana-movilizaciones-huelga-derecho-vivienda-digna_1_13655963.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Economía</span><h2>El coste de la vida desborda los sueldos en las urbes españolas</h2><p>Un estudio elaborado por las consultoras KSNET y Daleph revela que un <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">asalariado</span> a jornada completa necesita percibir entre 1.645 y 2.061 euros brutos al mes para cubrir sus necesidades básicas en las principales áreas urbanas. El cálculo analiza el importe indispensable para acceder a una alimentación saludable, suministros, transporte y vivienda en urbes como Madrid, Barcelona, Valencia, Sevilla y Bilbao.</p><p>El arrendamiento constituye la partida económica más pesada para los hogares, llegando a absorber el 57% de los ingresos de una persona sola en Madrid. La situación resulta todavía más precaria para las familias <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">monoparentales</span> con un menor a cargo, que precisan ganar entre 2.196 y 2.949 euros brutos para evitar la exclusión, al depender su economía de una única <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">nómina</span>.</p><p>Estas cuantías contrastan con el salario mínimo interprofesional, fijado en 1.221 euros brutos mensuales, que apenas permite cubrir los costes esenciales. Incluso con la subida anunciada por el Gobierno hasta los 1.286 euros, la distancia respecto al coste efectivo de la vida evidencia que disponer de un empleo ya no basta para esquivar la precariedad.</p><div class="src">Bron: <a href="https://www.eldiario.es/economia/vivir-dignamente-grandes-areas-metropolitanas-exige-salario-1-645-2-061-euros-brutos-mes_1_13653246.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Clima</span><h2>Nuevas extracciones de crudo ensombrecen la cumbre climática</h2><p>La trigésimo primera conferencia sobre el cambio climático comenzó en Turquía marcada por anuncios contradictorios con los objetivos medioambientales. El presidente turco, Recep Tayyip Erdogan, inauguró el foro comunicando el descubrimiento de <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">yacimientos</span> en su territorio nacional con la previsión de extraer 100.000 barriles de crudo al día a partir de 2027.</p><p>De forma paralela, Catar anunció exploraciones submarinas en aguas profundas de Namibia y la petrolera Exxonmobil firmó un memorando en Venezuela para operar en sus enormes reservas. Estos movimientos confirman que los estados productores y las grandes corporaciones energéticas siguen incrementando el <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">bombeo</span> de combustibles fósiles pese a las advertencias de la comunidad científica.</p><p>Los expertos recuerdan que es imprescindible mantener bajo tierra al menos el 60% del petróleo para evitar un calentamiento desastroso. Mientras las petroleras acumulan ganancias récord en los mercados mundiales, los líderes de Naciones Unidas insistieron en que los países deben acelerar la electrificación para no quedar expuestos al impacto económico del petróleo.</p><div class="src">Bron: <a href="https://www.eldiario.es/sociedad/dia-cumbre-clima-anfitrion-anuncia-extraera-petroleo-todavia_1_13653116.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Tecnología</span><h2>La Fiscalía abre diligencias sobre contenidos ilícitos en TikTok</h2><p>La Fiscalía General del Estado ha puesto en marcha una investigación penal para <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">esclarecer</span> posibles delitos vinculados al abuso sexual infantil en TikTok. La decisión responde a un expediente presentado por la plataforma de verificación Maldita.es, que alertó sobre la existencia y recomendación de grabaciones ilegales protagonizadas por menores de edad.</p><p>El análisis técnico aportado por la entidad denunciante localizó más de un millar de grabaciones explícitas en la red social. De las cincuenta muestras remitidas formalmente a la compañía, esta únicamente eliminó cinco archivos y bloqueó trece para el territorio español, manteniendo activas numerosas cuentas <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">infractoras</span> tras vencer los plazos reglamentarios de aviso.</p><p>Ante estos hechos, el Gobierno español solicitó suspender de forma temporal la actividad del servicio en el país a través de la Agencia de Protección de Datos. Por su parte, la empresa tecnológica aseguró mantener tolerancia cero hacia estos comportamientos ilícitos y ofreció colaborar plenamente con las autoridades judiciales encargadas del caso.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/fiscalia-investigara-los-presuntos-casos-abuso-sexual-infantil-tiktok_7059854_0.html" rel="noopener" target="_blank">20minutos</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric">Sociedad</span><h2>Octavi Vilà tomará las riendas del arzobispado de Barcelona</h2><p>El Vaticano ha nombrado oficialmente al obispo de Girona, el monje <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">cisterciense</span> Octavi Vilà, como nuevo titular de la archidiócesis barcelonesa en reemplazo del cardenal Juan José Omella. El religioso, que lideró en el pasado el histórico monasterio de Poblet, asumirá su cargo el próximo 19 de diciembre durante una ceremonia en el templo de la Sagrada Família. El relevo se produce tras expirar el mandato canónico de su <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">predecesor</span> al alcanzar los ochenta años de edad.</p><div class="src">Bron: <a href="https://www.lavanguardia.com/politica/20261111/11681408/octavi-vila-obispo-girona-reemplazara-omella-arzobispo-barcelona.html" rel="noopener" target="_blank">La Vanguardia</a></div></article><article><span class="rubric positivo">Mundo</span><h2>Histórico avance demócrata en el Senado por Misisipi</h2><p>El fiscal Scott Colom ha alcanzado el <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">escaño</span> de senador por Misisipi tras derrotar por un <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">estrecho margen</span> de votos a la representante republicana Cindy Hyde-Smith. Esta victoria convierte a Colom en el primer legislador negro en representar a este estado sureño en la Cámara Alta en 145 años. Su estrategia electoral se sustentó en un mensaje directo centrado en contener el coste de la vida y proteger la sanidad pública para las clases trabajadoras.</p><div class="src">Bron: <a href="https://www.20minutos.es/internacional/democrata-scott-colom-hace-historia-misisipi-convertirse-primer-senador-negro-estado-145-anos_7060006_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Cultura</span><h2>Una pieza teatral revive la huelga obrera de Vigo de 1972</h2><p>La sala Artika de Vigo presenta este jueves el <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">montaje</span> teatral &#x27;1972&#x27;, un proyecto artístico liderado por Esther F. Carrodeguas y Xavier Castiñeira que aborda la histórica movilización obrera contra la dictadura franquista. Encabezada por un grupo de jóvenes que investigaron aquel paro masivo de casi cuarenta mil trabajadores, la propuesta combina danza contemporánea y recursos sonoros para llenar el vacío audiovisual sobre el suceso. La obra rememora la resistencia <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">fabril</span> de la época mediante una expresión escénica comunitaria.</p><div class="src">Bron: <a href="https://www.eldiario.es/galicia/vigo-1972-mayor-huelga-obrera-europa-hizo-temblar-franquismo_1_13652990.html" rel="noopener" target="_blank">elDiario.es</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl off">🔥 0</span> <span class="who">Margot</span></span><span><span class="fl off">🔥 0</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="" style="height:3px" title="1 herhalingen"></i><span>vr</span></div><div><i class="" style="height:36px" title="156 herhalingen"></i><span>za</span></div><div><i class="" style="height:34px" title="148 herhalingen"></i><span>zo</span></div><div><i class="" style="height:29px" title="124 herhalingen"></i><span>ma</span></div><div><i class="" style="height:25px" title="110 herhalingen"></i><span>di</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>wo</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>do</span></div></div><div class="row"><span>Gisteren <b class="who">0</b> herhalingen</span><span>7 dagen <b class="who">539</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "multitudinario", "nl": "massaal", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "arrendamiento", "nl": "huren / huurcontracten", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "gas pimienta", "nl": "peperspray", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "desalojo", "nl": "huisuitzetting", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "monoparental", "nl": "eenouder-", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "asalariado", "nl": "werknemer in loondienst", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "nómina", "nl": "salaris / loonstrook", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "yacimiento", "nl": "olievelden / vindplaatsen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "bombeo", "nl": "het oppompen", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "infractor", "nl": "overtredend", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "esclarecer", "nl": "ophelderen", "t": "werkwoord", "k": "moeilijk"}, {"w": "cisterciense", "nl": "cisterciënzer", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "predecesor", "nl": "voorganger", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "estrecho margen", "nl": "kleine marge", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "escaño", "nl": "parlementszetel", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "montaje", "nl": "toneelproductie", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "fabril", "nl": "fabrieks-", "t": "bijv. nw.", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
