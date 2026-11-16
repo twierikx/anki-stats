@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>El diario de Margot · 16-11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f5ef; --paper:#fffdf9; --ink:#1f1d1a; --muted:#6f6a61; --rule:#e4ded2;
+  --new:#2e8b57; --wrong:#c63a2f; --hard:#8b8476; --accent:#1f1d1a;
+  --l-new:rgba(46,139,87,.55); --l-rev:rgba(46,139,87,.4); --l-wrong:rgba(198,58,47,.42); --l-hard:rgba(139,132,118,.55);
+  --sheet:#ffffff; --shadow:0 -8px 30px rgba(30,25,15,.16); --chip:#efe9dd; --flame:#d9822b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121211; --paper:#1a1918; --ink:#ece8e0; --muted:#a39d92; --rule:#2e2c29;
+    --new:#5cc985; --wrong:#ff6f61; --hard:#9b9488; --accent:#ece8e0;
+    --l-new:rgba(92,201,133,.5); --l-rev:rgba(92,201,133,.38); --l-wrong:rgba(255,111,97,.45); --l-hard:rgba(155,148,136,.55);
+    --sheet:#232220; --shadow:0 -8px 30px rgba(0,0,0,.5); --chip:#2b2926; --flame:#f0a04b;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Literata",Georgia,"Times New Roman",serif;font-size:19px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:22px 18px 140px}
+.sans,h1,h2,.kicker,.rubric,.legend,.review h3,.sheet,.foot,button,.sec{
+  font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif}
+header{border-bottom:3px solid var(--accent);padding-bottom:14px;margin-bottom:18px}
+.kicker{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font-size:44px;line-height:1;margin:6px 0 8px;font-weight:800;letter-spacing:-.02em;
+  font-variation-settings:"opsz" 96}
+.date{font-size:16px;color:var(--muted);font-style:italic}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:14.5px;color:var(--muted);
+  padding:12px 0 16px;border-bottom:1px solid var(--rule)}
+.legend b{color:var(--ink);font-weight:700}
+.legend .hint{flex-basis:100%;font-size:13.5px}
+article{padding:22px 0 20px;border-bottom:1px solid var(--rule)}
+.rubric{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rubric.positivo{color:var(--new)}
+h2{font-size:27px;line-height:1.15;margin:0 0 10px;font-weight:700;letter-spacing:-.01em;
+  font-variation-settings:"opsz" 48}
+article.lead{border-bottom:3px solid var(--accent);padding-bottom:24px}
+article.lead h2{font-size:34px;line-height:1.08;font-weight:800;margin-bottom:14px}
+article.lead p:first-child::first-line{font-weight:600}
+article p{margin:0 0 10px}
+.breves{padding-top:22px}
+.sec{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin:0;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.breves article{padding:14px 0 12px}
+.breves h2{font-size:20.5px;margin-bottom:6px}
+.breves article p{font-size:17.5px;line-height:1.55}
+.breves .rubric{font-size:11.5px;margin-bottom:3px}
+.src{font-size:14px;color:var(--muted)}
+.src a{color:inherit;text-underline-offset:3px}
+.w{cursor:pointer;text-underline-offset:5px;text-decoration-skip-ink:auto;
+  border-radius:3px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.w-nieuw{text-decoration:underline 1.5px var(--l-new)}
+.w-herhaald{text-decoration:underline 1.5px var(--l-rev)}
+.w-fout{text-decoration:underline wavy 1px var(--l-wrong)}
+.w-moeilijk{text-decoration:underline dotted 1.5px var(--l-hard)}
+.w.on,.w:focus-visible{background:var(--chip);outline:none}
+.sample{cursor:default;font-style:normal;font-family:"Literata",Georgia,serif;color:var(--ink)}
+.review{margin-top:26px;padding:18px;border:1px solid var(--rule);border-radius:16px;background:var(--paper)}
+.review h3{margin:0 0 4px;font-size:20px}
+.review p{margin:0 0 12px;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-family:"Literata",Georgia,serif;font-size:17px;color:var(--ink);
+  background:var(--chip);border:1.5px solid transparent;border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip.on{border-color:var(--wrong)}
+.pulse{margin-top:22px;padding:16px 18px;border:1px solid var(--rule);border-radius:16px;
+  font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:14.5px;color:var(--muted)}
+.pulse .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+.pulse .who{color:var(--ink);font-weight:600}
+.pulse .fl{color:var(--flame);font-weight:700}
+.pulse .fl.off{color:var(--muted);font-weight:600}
+.mini{display:flex;gap:6px;align-items:flex-end;height:44px;margin:14px 0 4px}
+.mini div{flex:1;text-align:center}
+.mini i{display:block;border-radius:3px 3px 1px 1px;background:var(--l-new);min-height:3px}
+.mini i.zero{background:var(--rule)}
+.mini span{display:block;font-size:11.5px;margin-top:4px}
+.pulse a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.foot{margin-top:28px;font-size:13.5px;color:var(--muted);line-height:1.5}
+.foot a{color:inherit}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;
+  transform:translateY(110%);visibility:hidden;pointer-events:none;
+  transition:transform .22s ease-out,visibility 0s .22s}
+.sheet.open{transform:none;visibility:visible;pointer-events:auto;transition:transform .22s ease-out}
+.sheet .card{width:100%;max-width:640px;background:var(--sheet);box-shadow:var(--shadow);
+  border-radius:20px 20px 0 0;padding:14px 20px calc(18px + env(safe-area-inset-bottom))}
+.grip{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 12px}
+.kind{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.kind.nieuw,.kind.herhaald{color:var(--new)} .kind.fout{color:var(--wrong)} .kind.moeilijk{color:var(--muted)}
+.sw{font-size:32px;font-weight:800;line-height:1.1;margin:4px 0 2px}
+.st{font-size:15px;color:var(--muted)}
+.snl{font-family:"Literata",Georgia,serif;font-size:21px;margin:10px 0 14px}
+.close{width:100%;font-size:16px;font-weight:600;padding:12px;border-radius:12px;border:0;
+  background:var(--chip);color:var(--ink);cursor:pointer}
+@media (max-width:380px){h1{font-size:38px}h2{font-size:24px}article.lead h2{font-size:29px}body{font-size:18px}}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+</style></head>
+<body><div class="wrap">
+<header><div class="kicker">El diario de Margot</div>
+<h1>Noticias de hoy</h1><div class="date">lunes, 16 de noviembre de 2026</div></header>
+<div class="legend"><span><span class="w w-nieuw sample">groen</span> <b>0</b> uit je Anki</span><span><span class="w w-fout sample">rood</span> <b>0</b> fout beantwoord</span><span><span class="w w-moeilijk sample">gestippeld</span> <b>25</b> moeilijk</span><span class="hint">Tik op een woord voor de vertaling.</span></div>
+<article class="lead"><span class="rubric">Política</span><h2>El plan socialista para blindar la vivienda y controlar los precios</h2><p>El PSOE ha colocado la política habitacional como eje central de su programa ante los comicios generales fijados para el 29 de noviembre. Entre sus propuestas más ambiciosas figura la reforma de la Constitución para reconocer la vivienda como derecho fundamental exigible por la ciudadanía ante las administraciones públicas. Además, el partido plantea asignar anualmente el 1% del Producto Interior Bruto a garantizar alternativas residenciales <span class="w w-moeilijk" role="button" tabindex="0" data-i="2">asequibles</span>, con revisiones periódicas de cumplimiento.</p><p>Para aumentar la oferta protegida, el plan contempla la creación de un parque público estatal compuesto por 100.000 inmuebles destinados tanto a la venta como al alquiler. Asimismo, los socialistas proponen canalizar el 1% de la <span class="w w-moeilijk" role="button" tabindex="0" data-i="3">licitación</span> anual de obra pública hacia un fondo específico de adquisición patrimonial. El texto prevé también la movilización de suelo público <span class="w w-moeilijk" role="button" tabindex="0" data-i="4">dotacional</span> mediante fórmulas directas, concesiones o alianzas público-privadas puestas a disposición de cooperativas y entidades sociales.</p><p>El apartado financiero movilizará recursos extraordinarios a través del Instituto de Crédito Oficial, con más de 25.000 millones de euros en préstamos y avales orientados a promociones asequibles. A este montante se sumarán más de 4.700 millones de euros procedentes del Plan Social del Clima para costear obras de rehabilitación y edificación sostenible. La formación también apuesta por acelerar los procesos mediante un PERTE específico de construcción industrializada.</p><p>En cuanto a los <span class="w w-moeilijk" role="button" tabindex="0" data-i="0">arrendamientos</span>, el programa aboga por ampliar por ley la duración mínima de los contratos para brindar estabilidad a quienes viven de alquiler. Igualmente, se plantea congelar las rentas que sobrepasen los índices de referencia oficiales en las zonas tensionadas, comprometiéndose el Ministerio a confeccionar el mapa correspondiente de estas áreas ante la falta de aplicación autonómica. El objetivo declarado es articular un mercado donde la juventud pueda alquilar a los 20 años y comprar a los 30.</p><p>Para apoyar a los sectores con mayor movilidad, el PSOE proyecta edificar una red de alojamientos dotacionales enfocada en estudiantes universitarios y trabajadores desplazados. La iniciativa incluye avales públicos frente a impagos para los inquilinos jóvenes, deducciones fiscales ampliadas y una oficina de justicia gratuita para víctimas de abusos inmobiliarios en áreas tensionadas. Los inquilinos de viviendas adquiridas por fondos de inversión recibirán amparo preferente.</p><p>En el plano fiscal, los socialistas prometen gravar con mayor contundencia a los fondos buitre, así como a los grandes tenedores que mantengan pisos vacíos o turísticos. Paralelamente, se diseñará un sistema público de intermediación inspirado en la experiencia del País Vasco, enfocado en aportar cobertura contra impagos y apoyo a pequeños <span class="w w-moeilijk" role="button" tabindex="0" data-i="1">arrendadores</span> para que movilicen sus casas sin asumir riesgos excesivos.</p><div class="src">Bron: <a href="https://www.eldiario.es/politica/programa-psoe-propone-aumentar-ley-duracion-alquileres-gravar-grandes-buitres-1-pib-casas-asequibles_1_13665879.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Ciencia</span><h2>Avelino Corma exige un mayor compromiso empresarial con la investigación</h2><p>El químico valenciano Avelino Corma, situado en el puesto 35 del ranking mundial de investigadores de la Universidad de Stanford, ha instado al futuro presidente del Gobierno a priorizar la ciencia. Corma, fundador del Instituto de Tecnología Química, insiste en que retener el talento científico requiere presupuestos dignos y una implicación financiera mucho más decidida por parte de la industria privada.</p><p>El experto señala que el tejido empresarial español suele limitarse a adquirir o adaptar tecnologías <span class="w w-moeilijk" role="button" tabindex="0" data-i="6">foráneas</span> en vez de desarrollar patentes punteras. Además, recuerda que las pequeñas y medianas empresas carecen de <span class="w w-moeilijk" role="button" tabindex="0" data-i="7">pulmón</span> económico para investigar por su cuenta, por lo que defiende extender a nivel nacional fórmulas de colaboración público-privada como las impulsadas en la Comunidad Valenciana entre centros científicos y pymes.</p><p>Respecto al reto ecológico, Corma respalda el abandono gradual de los combustibles fósiles, aunque pide abordar la transición con realismo técnico para proteger la competitividad industrial. A su entender, una <span class="w w-moeilijk" role="button" tabindex="0" data-i="5">descarbonización</span> efectiva exige consensos internacionales uniformes y una estrategia basada primero en reducir las emisiones actuales, para después capturar y reutilizar las restantes.</p><div class="src">Bron: <a href="https://www.eldiario.es/comunitat-valenciana/sociedad/avelino-corma-cientifico-espanol-influyente-mundo-le-diria-proximo-presidente-hay-invertir-ciencia_128_13659699.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric">Salud</span><h2>Terapia génica pionera para frenar crisis epilépticas graves</h2><p>Un ensayo clínico inicial encabezado por el neurocirujano Yang Dai en Pekín ha logrado rebajar un 90% las convulsiones en tres pacientes con epilepsia <span class="w w-moeilijk" role="button" tabindex="0" data-i="8">refractaria</span>. La intervención recurre a la neuromodulación quimiogenética para tratar a personas que no responden a los fármacos convencionales, ofreciendo una salida terapéutica frente a las tradicionales cirugías invasivas de <span class="w w-moeilijk" role="button" tabindex="0" data-i="9">extirpación</span> cerebral.</p><p>El procedimiento consiste en <span class="w w-moeilijk" role="button" tabindex="0" data-i="10">inocular</span> en el hipocampo un virus adenoasociado inofensivo mediante trayectorias guiadas por resonancia magnética. Dicho vector transporta un gen que vuelve a las neuronas receptoras sensibles a dosis mínimas de clozapina administradas oralmente dos semanas más tarde. Este medicamento actúa como un interruptor farmacológico que silencia la hiperactividad eléctrica sin alterar la arquitectura neuronal ni deteriorar las funciones cognitivas.</p><p>Expertos neurológicos de centros como la Fundación Jiménez Díaz y el Hospital Vall d&#x27;Hebron valoran los datos con cautela al carecer de grupo de control. Aunque celebran el avance para pacientes inoperables, recalcan la importancia de diseñar compuestos más específicos que reemplacen a la clozapina a largo plazo y de confirmar la seguridad biológica del vector en <span class="w w-moeilijk" role="button" tabindex="0" data-i="11">cohortes</span> más amplias.</p><div class="src">Bron: <a href="https://www.eldiario.es/sociedad/inyectar-virus-cerebro-frenar-ataques-epilepsia_1_13658192.html" rel="noopener" target="_blank">elDiario.es</a></div></article><article><span class="rubric positivo">Buenas noticias</span><h2>La senda jacobea oculta en las cumbres de Gran Canaria</h2><p>Juana Hernández y Juanma Santana, un matrimonio de jubilados canarios, llevan años volcados en la preservación del Camino de Santiago de Gran Canaria. Esta travesía de 66 kilómetros enlaza las dunas meridionales de Maspalomas con el templo norteño de Gáldar, atravesando barrancos escarpados con <span class="w w-moeilijk" role="button" tabindex="0" data-i="12">desniveles</span> acumulados de más de 2.600 metros.</p><p>El origen de este itinerario data del siglo XV, cuando dos marineros gallegos sobrevivieron a un <span class="w w-moeilijk" role="button" tabindex="0" data-i="13">naufragio</span> costero y edificaron un santuario dedicado a su patrón en las alturas de Tunte. Siglos más tarde, en 1965, el papa Pablo VI ratificó la autenticidad jacobea de la ruta mediante una <span class="w w-moeilijk" role="button" tabindex="0" data-i="15">bula</span> que concede indulgencias idénticas a las de Compostela, privilegio consolidado con posterioridad por Juan Pablo II.</p><p>Tras reencontrarse en su madurez y trabajar en un hostal rural en Cruz de Tejeda, la pareja constató el abandono institucional del sendero frente a la curiosidad de caminantes extranjeros. De modo altruista, ambos confeccionaron credenciales oficiales, diseñaron sellos parroquiales y <span class="w w-moeilijk" role="button" tabindex="0" data-i="14">balizaron</span> los tramos montañosos para consolidar una experiencia senderista serena y alejada de la masificación peninsular.</p><div class="src">Bron: <a href="https://www.20minutos.es/nacional/juana-juanma-los-jubilados-que-quieren-presentar-mundo-camino-santiago-gran-canaria-es-mucho-mas-solitario-espiritual_7058369_0.html" rel="noopener" target="_blank">20minutos</a></div></article><section class="breves"><h3 class="sec">En breve</h3><article><span class="rubric positivo">Cultura</span><h2>Quinientos drones iluminarán Cibeles en el estreno navideño</h2><p>El tradicional encendido navideño de Madrid incluirá este sábado un vuelo <span class="w w-moeilijk" role="button" tabindex="0" data-i="16">coreografiado</span> de 500 drones sobre la plaza de Cibeles, que recrearán figuras temáticas al compás de la música a partir de las 19:00 horas. La iniciativa supondrá la primera ocasión en que estos dispositivos sobrevuelen el centro de la capital, tras haberse limitado en el pasado a parques <span class="w w-moeilijk" role="button" tabindex="0" data-i="17">periurbanos</span> como Madrid Río o la Casa de Campo. El evento, presentado por el humorista Carlos Latre, inaugurará un alumbrado que abarcará millones de bombillas y decenas de kilómetros de <span class="w w-moeilijk" role="button" tabindex="0" data-i="18">guirnaldas</span> por toda la ciudad.</p><div class="src">Bron: <a href="https://www.20minutos.es/madrid/un-espectaculo-500-drones-sobrevolara-cibeles-sabado-para-llevar-encendido-las-luces-navidad-hasta-cielo-madrid_7060705_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Ciencia</span><h2>Una plataforma cartográfica revive el callejero madrileño decimonónico</h2><p>El historiador y archivero Álvaro Ruiz Cuevas ha desarrollado la plataforma interactiva &#x27;Madrid XIX&#x27;, que permite explorar la <span class="w w-moeilijk" role="button" tabindex="0" data-i="19">fisonomía</span> de la capital entre 1869 y 1879 mediante la digitalización de planos históricos. La herramienta posibilita consultar qué negocios ocupaban cada calle, quién proyectó cada <span class="w w-moeilijk" role="button" tabindex="0" data-i="20">inmueble</span> o cómo afectó la epidemia de cólera de 1865 a los distintos distritos. Asimismo, el proyecto revela curiosidades de la época, como la ausencia de paradas fijas en los primeros tranvías o la dispersión de las residencias de los políticos madrileños.</p><div class="src">Bron: <a href="https://www.20minutos.es/madrid/que-habia-tu-calle-hace-150-anos-un-google-maps-siglo-xix-descubre-madrid-epoca_7061345_0.html" rel="noopener" target="_blank">20minutos</a></div></article><article><span class="rubric">Salud</span><h2>El trasfondo fisiológico tras las sombras perioculares</h2><p>La formación de ojeras obedece a factores anatómicos más allá del cansancio puntual, empezando por la <span class="w w-moeilijk" role="button" tabindex="0" data-i="21">delgadez</span> de la piel en los <span class="w w-moeilijk" role="button" tabindex="0" data-i="22">párpados</span> y su escasez de grasa subcutánea. Mientras que las tonalidades azuladas surgen por la refracción de la luz a través de los vasos sanguíneos, los tonos marrones proceden de concentraciones de melanina. Además, el envejecimiento y la <span class="w w-moeilijk" role="button" tabindex="0" data-i="23">merma</span> progresiva de colágeno profundizan el <span class="w w-moeilijk" role="button" tabindex="0" data-i="24">surco</span> lagrimal, proyectando sombras que intensifican su relieve en el rostro.</p><div class="src">Bron: <a href="https://www.eldiario.es/sociedad/ojeras_1_13657414.html" rel="noopener" target="_blank">elDiario.es</a></div></article></section>
+
+<section class="pulse"><div class="row"><span><span class="fl off">🔥 0</span> <span class="who">Margot</span></span><span><span class="fl off">🔥 0</span> <span class="who">Thomas</span></span></div><div class="mini" aria-label="Herhalingen per dag, laatste 7 dagen"><div><i class="" style="height:36px" title="110 herhalingen"></i><span>di</span></div><div><i class="" style="height:12px" title="37 herhalingen"></i><span>wo</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>do</span></div><div><i class="" style="height:20px" title="62 herhalingen"></i><span>vr</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>za</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>zo</span></div><div><i class="zero" style="height:3px" title="0 herhalingen"></i><span>ma</span></div></div><div class="row"><span>Gisteren <b class="who">0</b> herhalingen</span><span>7 dagen <b class="who">209</b></span><a href="../stats/">Alle statistieken →</a></div></section>
+<div class="foot">Noticias reales de las fuentes enlazadas, contadas de nuevo en español
+(nivel B2) por Gemini. Comprueba los detalles en el artículo original.<br>
+<a href="archief.html">Archief</a> · bijgewerkt 05:00</div>
+</div>
+<div class="sheet" id="sheet" aria-hidden="true" role="dialog" aria-live="polite"><div class="card">
+<div class="grip"></div><div class="kind"></div><div class="sw"></div><div class="st"></div>
+<div class="snl"></div><button class="close" type="button">Sluiten</button></div></div>
+<script type="application/json" id="words">[{"w": "arrendamiento", "nl": "huurcontract", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "arrendador", "nl": "verhuurder", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "asequible", "nl": "betaalbaar", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "licitación", "nl": "aanbesteding", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "dotacional", "nl": "bestemd voor voorzieningen", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "descarbonización", "nl": "decarbonisatie", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "foráneo", "nl": "buitenlands", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "pulmón", "nl": "financiële draagkracht", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "refractario", "nl": "behandelingsresistent", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "extirpación", "nl": "wegsnijding", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "inocular", "nl": "injecteren", "t": "werkwoord", "k": "moeilijk"}, {"w": "cohorte", "nl": "patiëntengroep", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "desnivel", "nl": "hoogteverschil", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "naufragio", "nl": "schipbreuk", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "balizar", "nl": "markeren", "t": "werkwoord", "k": "moeilijk"}, {"w": "bula", "nl": "pauselijke bul", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "coreografiar", "nl": "gechoreografeerd", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "periurbano", "nl": "aan de stadsrand", "t": "bijv. nw.", "k": "moeilijk"}, {"w": "guirnalda", "nl": "lichtsnoer", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "fisonomía", "nl": "aanblik", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "inmueble", "nl": "pand", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "delgadez", "nl": "dunheid", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "párpado", "nl": "ooglid", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}, {"w": "merma", "nl": "afname", "t": "zelfst. nw. (vr.)", "k": "moeilijk"}, {"w": "surco", "nl": "groef", "t": "zelfst. nw. (mnl.)", "k": "moeilijk"}]</script>
+<script>
+const W = JSON.parse(document.getElementById('words').textContent);
+const sheet = document.getElementById('sheet');
+const KIND = {nieuw:'Recent geleerd in Anki', herhaald:'Herhaald in Anki', fout:'Fout beantwoord in Anki', moeilijk:'Moeilijk woord'};
+let current = null;
+function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true');
+  if(current) current.classList.remove('on'); current = null; }
+function open(el){
+  if(current === el){ close(); return; }
+  if(current) current.classList.remove('on');
+  const w = W[+el.dataset.i];
+  const k = sheet.querySelector('.kind'); k.className = 'kind ' + w.k; k.textContent = KIND[w.k];
+  sheet.querySelector('.sw').textContent = w.w;
+  sheet.querySelector('.st').textContent = w.t || '';
+  sheet.querySelector('.snl').textContent = w.nl || '–';
+  el.classList.add('on'); current = el;
+  sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false');
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if(el){ open(el); return; }
+  if(e.target.closest('.close')) close();
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') close();
+  const el = e.target.closest && e.target.closest('.w[data-i]');
+  if(el && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); open(el); }
+});
+</script>
+</body></html>
