@@ -22,8 +22,8 @@ MAX_REVIEWED = 200
 MIN_WORDS = 20  # top up with the most recently reviewed cards below this
 
 # (Spanish field, gloss field) candidates, in order of preference
-SPANISH_FIELDS = ["Spanish", "Expression", "ES", "Español", "Espanol"]
-GLOSS_FIELDS = ["Dutch", "Nederlands", "NL", "NL/EN", "English", "Meaning"]
+SPANISH_FIELDS = ["Spanish", "Spaans", "Expression", "ES", "Español", "Espanol", "Woord"]
+GLOSS_FIELDS = ["Dutch", "Nederlands", "NL", "NL/EN", "English", "Meaning", "Betekenis"]
 DECK_HINTS = ("spanish", "español", "espanol", "spaans")
 
 POS = {
@@ -96,9 +96,9 @@ def load_words(path: str, now_ms: int | None = None) -> tuple[list[Word], list[W
         spanish_decks = {d for d, n in decks.items() if any(h in n for h in DECK_HINTS)}
 
         def mapping(ntid: int) -> tuple[int, int] | None:
-            names = fields.get(ntid, [])
-            es = next((names.index(f) for f in SPANISH_FIELDS if f in names), None)
-            gl = next((names.index(f) for f in GLOSS_FIELDS if f in names), None)
+            names = [n.strip().lower() for n in fields.get(ntid, [])]  # case-insensitive
+            es = next((names.index(f.lower()) for f in SPANISH_FIELDS if f.lower() in names), None)
+            gl = next((names.index(f.lower()) for f in GLOSS_FIELDS if f.lower() in names), None)
             return (es, gl) if es is not None and gl is not None else None
 
         rows = con.execute(

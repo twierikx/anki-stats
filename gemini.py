@@ -253,8 +253,12 @@ En "palabras" de cada noticia incluye:
 - CADA palabra de las listas que hayas usado en esa noticia (también si ya la usaste en otra \
 noticia), con el "lema" EXACTAMENTE como aparece en la lista;
 En "dificiles" de cada noticia: DESPUÉS de escribir el texto, señala todas las palabras que \
-ya aparecen en él, NO están en las listas y que un estudiante de nivel B1 quizá no conoce \
-(su vocabulario es más bajo que el nivel del texto; ante la duda, márcala). Es \
+ya aparecen en él, NO están en las listas y que un estudiante de nivel A2+ quizá no conoce \
+(su vocabulario es bastante más bajo que el nivel del texto). Marca con generosidad: toda \
+palabra que no sea de uso muy básico y cotidiano (fuera de las ~1500 más frecuentes), \
+también términos de política, economía o derecho, verbos menos comunes, expresiones \
+y locuciones ("a raíz de", "dar marcha atrás") y palabras usadas con un sentido menos \
+habitual. Ante la duda, márcala siempre. Es \
 solo una anotación: no escribas el texto de otra manera ni añadas palabras difíciles para \
 llenar esta lista. Si no hay ninguna, deja la lista vacía. No repitas aquí palabras que ya \
 están en "palabras".
