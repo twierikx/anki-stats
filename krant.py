@@ -2,7 +2,7 @@
 
 Usage:
   python krant.py --test   # build into out/ only (artifact), no publishing
-  python krant.py          # build into docs/ (GitHub Pages) – used by the schedule
+  python krant.py          # build into docs/ (GitHub Pages) – respects the time and duplicate check
   python krant.py --demo   # canned data, no network/keys needed (for design work)
 
 Environment: ANKI_ACCOUNTS, GEMINI_API_KEY, optional GEMINI_MODEL.
